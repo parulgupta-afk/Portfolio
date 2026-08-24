@@ -51,98 +51,6 @@ export const IntroSequence: React.FC<IntroSequenceProps> = ({ onComplete, onSkip
     };
   }, [onComplete]);
 
-  // Book 3D simulation canvas
-  useEffect(() => {
-    if (phase !== 'bookOpen') return;
-    const container = canvasContainerRef.current;
-    if (!container) return;
-
-    // Simple smooth canvas animation simulating the book-opening geometry with glowing grid
-    const canvas = document.createElement('canvas');
-    canvas.className = 'absolute inset-0 w-full h-full';
-    container.appendChild(canvas);
-
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    let animFrame: number;
-    let progress = 0;
-
-    const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
-    resize();
-    window.addEventListener('resize', resize);
-
-    const renderBook = () => {
-      progress = Math.min(progress + 0.02, 1);
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      const cx = canvas.width / 2;
-      const cy = canvas.height / 2;
-      const w = Math.min(canvas.width * 0.35, 260);
-      const h = Math.min(canvas.height * 0.5, 360);
-
-      // Book left page flip
-      ctx.save();
-      ctx.translate(cx, cy);
-
-      // Left page swinging open
-      const angle = -Math.PI * progress * 0.95;
-      const scaleX = Math.cos(angle);
-
-      // Shadow
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
-      ctx.fillRect(-w - 10, -h / 2, w * 2 + 20, h);
-
-      // Right fixed page
-      ctx.fillStyle = '#0d141b';
-      ctx.strokeStyle = '#4cd9e0';
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-      ctx.rect(0, -h / 2, w, h);
-      ctx.fill();
-      ctx.stroke();
-
-      // Right page content simulation
-      ctx.fillStyle = 'rgba(76, 217, 224, 0.4)';
-      ctx.fillRect(20, -h / 2 + 30, w - 40, 4);
-      ctx.fillRect(20, -h / 2 + 45, w - 60, 2);
-      ctx.fillRect(20, -h / 2 + 55, w - 80, 2);
-
-      // Left rotating page
-      ctx.save();
-      ctx.transform(scaleX, 0, 0, 1, 0, 0);
-      ctx.fillStyle = '#11161d';
-      ctx.strokeStyle = '#80d4d8';
-      ctx.beginPath();
-      ctx.rect(-w, -h / 2, w, h);
-      ctx.fill();
-      ctx.stroke();
-
-      // Glowing spine
-      ctx.fillStyle = '#4cd9e0';
-      ctx.fillRect(-2, -h / 2, 4, h);
-
-      ctx.restore();
-      ctx.restore();
-
-      if (progress < 1) {
-        animFrame = requestAnimationFrame(renderBook);
-      }
-    };
-
-    renderBook();
-
-    return () => {
-      window.removeEventListener('resize', resize);
-      cancelAnimationFrame(animFrame);
-      if (container.contains(canvas)) {
-        container.removeChild(canvas);
-      }
-    };
-  }, [phase]);
 
   return (
     <div
@@ -151,13 +59,7 @@ export const IntroSequence: React.FC<IntroSequenceProps> = ({ onComplete, onSkip
         phase === 'done' ? 'opacity-0 pointer-events-none' : 'opacity-100'
       }`}
     >
-      {/* 3D Scene / Book container */}
-      <div
-        ref={canvasContainerRef}
-        className={`absolute inset-0 w-full h-full transition-opacity duration-1000 pointer-events-none ${
-          phase === 'bookOpen' ? 'opacity-100' : 'opacity-0'
-        }`}
-      />
+
 
       {/* Text Layers */}
       <div className="relative z-10 flex flex-col items-center justify-center text-center px-4">
@@ -195,23 +97,18 @@ export const IntroSequence: React.FC<IntroSequenceProps> = ({ onComplete, onSkip
                 phase === 'archSplit' || phase === 'bookOpen' || phase === 'done' ? 'split-up' : ''
               }`}
             >
-              SYSTEM_ARCHITECT
+              PARUL GUPTA
             </div>
             <div
               className={`clip-bottom absolute top-0 left-0 transition-all duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)] ${
                 phase === 'archSplit' || phase === 'bookOpen' || phase === 'done' ? 'split-down' : ''
               }`}
             >
-              SYSTEM_ARCHITECT
+              PARUL GUPTA
             </div>
           </div>
         </div>
 
-        {/* Boot status label */}
-        <div className="mt-16 font-code-md text-xs tracking-widest text-[#4cd9e0]/70 flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-[#4cd9e0] animate-pulse" />
-          <span>SYS_BOOT_SEQ // KERNEL_INIT</span>
-        </div>
       </div>
 
       {/* Skip Button */}
