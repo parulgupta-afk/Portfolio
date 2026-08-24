@@ -2,7 +2,13 @@
 
 An interactive, cinematic developer portfolio built with React, TypeScript, and Tailwind CSS — featuring a WebGL shader background, an interactive terminal, and a project inspector modal for each build.
 
-**Projects featured:** [SkyCall](https://github.com/parulgupta-afk/SkyCall-app) (flight meta-search + AI concierge), [NutriVibe](https://github.com/parulgupta-afk/NutriVibe) (AI-powered food safety), Beacon (crowdsourced hazard/SOS map), and Disaster Mesh (offline-first BLE mesh network).
+**Projects featured:**
+- [PulseOps](https://github.com/parulgupta-afk/pulseops) — production-grade on-call & incident platform
+- [Pocket-Triage](https://github.com/parulgupta-afk/Pocket-Triage) — AI-assisted emergency first-aid triage
+- [SkyCall](https://github.com/parulgupta-afk/SkyCall-app) — flight meta-search + AI concierge
+- [NutriVibe](https://github.com/parulgupta-afk/NutriVibe-app) — AI-powered food safety
+- Beacon (crowdsourced hazard/SOS map)
+- Disaster Mesh (offline-first BLE mesh network)
 
 ## Run locally
 

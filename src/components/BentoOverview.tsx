@@ -30,7 +30,7 @@ export const BentoOverview: React.FC<BentoOverviewProps> = ({ onSelectProject, o
 
       {/* Bento Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 auto-rows-[240px]">
-        {/* Cell 1: Large Hero Project (Featured) - 2x2 on lg */}
+        {/* Cell 1: Large Hero Project (Neural Mesh / Spatial) - 2x2 on lg */}
         <div
           onClick={() => {
             playCyberClick(850);
@@ -76,7 +76,7 @@ export const BentoOverview: React.FC<BentoOverviewProps> = ({ onSelectProject, o
           </div>
         </div>
 
-        {/* Cell 2: Core Ethos Card */}
+        {/* Cell 2: System Architect Ethos Card */}
         <div
           onClick={() => {
             playCyberClick(700);

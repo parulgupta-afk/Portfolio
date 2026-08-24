@@ -99,7 +99,7 @@ export function App() {
               onExploreProjects={() => handleNavigate('projects')}
             />
 
-            {/* 2. About / Engineering Philosophy */}
+            {/* 2. System Architect / Engineering Philosophy */}
             <AboutSection />
 
             {/* 3. System Modules / Projects Carousel */}

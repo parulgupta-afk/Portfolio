@@ -14,8 +14,6 @@ export const CapabilitiesSection: React.FC = () => {
         return <Code2 className="w-6 h-6 text-[#80d4d8]" />;
       case 'architecture':
         return <Server className="w-6 h-6 text-[#9ecafd]" />;
-      case 'sparkles':
-        return <Sparkles className="w-6 h-6 text-[#4cd9e0]" />;
       case 'design_services':
       default:
         return <Layout className="w-6 h-6 text-[#4cd9e0]" />;

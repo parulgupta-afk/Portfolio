@@ -55,7 +55,7 @@ export const CommsTerminal: React.FC = () => {
   ./init_contact.sh  - Initiates direct communication handshake
   status             - Displays real-time kernel telemetry
   projects           - Lists all compiled system modules
-  whoami             - Query developer identity & contact info
+  whoami             - Query verified system architect credentials
   cat origin.log     - Prints origin architecture log
   clear              - Clears terminal output`;
         break;
