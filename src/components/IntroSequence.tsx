@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { playTerminalChirp, playTransmitSuccess } from '../utils/audioSynth';
+import { PROFILE } from '../data/portfolioData';
 
 interface IntroSequenceProps {
   onComplete: () => void;
@@ -19,12 +20,12 @@ export const IntroSequence: React.FC<IntroSequenceProps> = ({ onComplete, onSkip
       playTerminalChirp();
     }, 1200);
 
-    // 2. Show SYSTEM_ARCHITECT in gap
+    // 2. Show name in gap
     const t2 = setTimeout(() => {
       setPhase('archShow');
     }, 1700);
 
-    // 3. Split SYSTEM_ARCHITECT
+    // 3. Split name
     const t3 = setTimeout(() => {
       setPhase('archSplit');
       playTerminalChirp();
@@ -179,7 +180,7 @@ export const IntroSequence: React.FC<IntroSequenceProps> = ({ onComplete, onSkip
           </div>
         </div>
 
-        {/* SYSTEM_ARCHITECT Split Layer */}
+        {/* Name Split Layer */}
         <div
           className={`absolute inset-0 flex items-center justify-center font-bodoni text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight text-[#4cd9e0] transition-all duration-700 ${
             phase === 'archShow'
@@ -195,14 +196,14 @@ export const IntroSequence: React.FC<IntroSequenceProps> = ({ onComplete, onSkip
                 phase === 'archSplit' || phase === 'bookOpen' || phase === 'done' ? 'split-up' : ''
               }`}
             >
-              SYSTEM_ARCHITECT
+              {PROFILE.name.toUpperCase().replace(/ /g, "_")}
             </div>
             <div
               className={`clip-bottom absolute top-0 left-0 transition-all duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)] ${
                 phase === 'archSplit' || phase === 'bookOpen' || phase === 'done' ? 'split-down' : ''
               }`}
             >
-              SYSTEM_ARCHITECT
+              {PROFILE.name.toUpperCase().replace(/ /g, "_")}
             </div>
           </div>
         </div>

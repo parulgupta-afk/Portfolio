@@ -25,7 +25,7 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
 
   const links = [
     { id: 'hero', label: '[ System Home ]' },
-    { id: 'about', label: '[ System Architect ]' },
+    { id: 'about', label: '[ About ]' },
     { id: 'projects', label: '[ System Modules ]' },
     { id: 'capabilities', label: '[ Performance Matrix ]' },
     { id: 'experience', label: '[ Experience Log ]' },

@@ -44,7 +44,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
     tags: ['React', 'TypeScript', 'Express.js', 'MongoDB', 'Duffel API', 'Gemini API'],
     imageUrl: 'https://picsum.photos/seed/skycall-flight/1600/900',
     statusVariant: 'primary',
-    liveDemoUrl: '',
+    liveDemoUrl: 'https://sky-call-app.vercel.app/',
     githubUrl: 'https://github.com/parulgupta-afk/SkyCall-app',
     specs: {
       latency: '< 12ms Cached Response',
@@ -74,9 +74,9 @@ export const PROJECTS_DATA: ProjectItem[] = [
       requestsPerSec: 'Live barcode scan',
     },
     tags: ['React', 'Node.js', 'Express.js', 'MongoDB', 'Gemini API', 'Open Food Facts'],
-    imageUrl: 'https://picsum.photos/seed/nutrivibe-food/1600/900',
+    imageUrl: 'https://images.unsplash.com/photo-1610348725531-843dff563e2c?q=80&w=1600&auto=format&fit=crop',
     statusVariant: 'organic',
-    liveDemoUrl: '',
+    liveDemoUrl: 'https://nutri-vibe-app-iota.vercel.app/',
     githubUrl: 'https://github.com/parulgupta-afk/NutriVibe',
     specs: {
       latency: '< 8ms Rule Evaluation',
