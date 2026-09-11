@@ -56,8 +56,9 @@ ${context}
 USER:
 ${message}`;
 
+    const modelName = process.env.GEMINI_MODEL || 'gemini-3.6-flash';
     const response = await ai.models.generateContent({
-      model: 'gemini-2.0-flash',
+      model: modelName,
       contents: prompt,
     });
     const text =
