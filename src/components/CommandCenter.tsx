@@ -50,6 +50,10 @@ function buildCommands(): CommandItem[] {
     { id: 'ext-github', label: 'Open GitHub', keywords: ['github'], action: 'external', payload: PROFILE.github, group: 'external' },
     { id: 'ext-linkedin', label: 'Open LinkedIn', keywords: ['linkedin'], action: 'external', payload: PROFILE.linkedin, group: 'external' },
     { id: 'ext-email', label: 'Email Parul', keywords: ['email', 'mail'], action: 'external', payload: `mailto:${PROFILE.email}`, group: 'external' },
+    { id: 'egg-whoami', label: '> whoami', keywords: ['whoami', 'identity'], action: 'navigate', payload: 'about', group: 'modes' },
+    { id: 'egg-sudo', label: '> sudo inspect parul', keywords: ['sudo', 'inspect', 'hire'], action: 'recruiter', group: 'modes' },
+    { id: 'egg-trace', label: '> trace codeforge', keywords: ['trace', 'codeforge'], action: 'project', payload: 'codeforge', group: 'modes' },
+    { id: 'egg-price', label: '> inspect priceloop', keywords: ['priceloop', 'inspect'], action: 'project', payload: 'priceloop', group: 'modes' },
   ];
 
   return [...nav, ...projects, ...modes, ...external];

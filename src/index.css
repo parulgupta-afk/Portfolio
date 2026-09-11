@@ -2,12 +2,17 @@
 
 @layer base {
   :root {
-    --color-bg: #070b10;
-    --color-surface: #0e141c;
-    --color-primary: #4cd9e0;
-    --color-text: #e8eef6;
-    --color-muted: #9aa3b2;
-    --font-sans: "Inter", "Chivo", system-ui, -apple-system, sans-serif;
+    --color-bg: #05070a;
+    --color-surface: #0c1016;
+    --color-surface-raised: #121820;
+    --color-border: rgba(255, 255, 255, 0.08);
+    --color-primary: #5eb8c8;
+    --color-primary-bright: #7dd3e0;
+    --color-accent-lime: #9fef7a;
+    --color-text: #e8edf4;
+    --color-muted: #8b95a5;
+    --color-muted-2: #6b7380;
+    --font-sans: "Inter", system-ui, -apple-system, sans-serif;
     --font-mono: "JetBrains Mono", ui-monospace, monospace;
   }
 
@@ -24,9 +29,9 @@
 
   h1, h2, h3, h4 {
     font-family: var(--font-sans);
-    letter-spacing: -0.02em;
-    line-height: 1.15;
-    color: #fff;
+    letter-spacing: -0.025em;
+    line-height: 1.12;
+    color: #f4f7fb;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -58,38 +63,42 @@
 }
 
 .glass-panel {
-  background: rgba(14, 20, 28, 0.85);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(12, 16, 22, 0.92);
+  border: 1px solid var(--color-border);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .glass-panel-subtle {
-  background: rgba(14, 20, 28, 0.65);
+  background: rgba(12, 16, 22, 0.75);
   border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-.text-glow {
-  text-shadow: none;
-}
+.text-glow { text-shadow: none; }
 
 .glow-hover {
   transition: border-color 0.2s ease, background 0.2s ease;
 }
 .glow-hover:hover {
-  border-color: rgba(76, 217, 224, 0.35);
+  border-color: rgba(94, 184, 200, 0.4);
 }
 
 .tech-grid {
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-  background-size: 48px 48px;
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+.panel-os {
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  border-radius: 12px;
 }
 
 html[data-perf-mode='1'] .glass-panel,
 html[data-perf-mode='1'] .glass-panel-subtle {
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
-  background: rgba(14, 20, 28, 0.95) !important;
+  background: #0c1016 !important;
 }

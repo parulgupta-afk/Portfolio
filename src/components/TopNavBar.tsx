@@ -46,7 +46,6 @@ export const TopNavBar: React.FC<TopNavBarProps> = ({
   const navLinks = [
     { id: 'about', label: 'About' },
     { id: 'projects', label: 'Projects' },
-    { id: 'capabilities', label: 'Skills' },
     { id: 'experience', label: 'Experience' },
     { id: 'connect', label: 'Contact' },
   ];
