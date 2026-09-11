@@ -43,7 +43,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
       setSimulatedPing(ping);
       setSimulatedLog((prev) => [
         ...prev,
-        `[${new Date().toLocaleTimeString()}] Live Telemetry Benchmark: ${ping}ms execution response. Zero packets dropped.`,
+        `[${new Date().toLocaleTimeString()}] Demo latency sample: ${ping}ms execution response. Demo diagnostic complete.`,
       ]);
       setIsRunningTest(false);
     }, 600);
@@ -140,7 +140,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                   : 'text-[#c5c6ca]/60 hover:text-[#dce3ed]'
               }`}
             >
-              [ System Telemetry ]
+              [ Metrics ]
             </button>
             <button
               onClick={() => {
@@ -244,7 +244,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
               <div className="glass-panel p-4 rounded-xl border-white/5">
                 <div className="flex justify-between items-center mb-3">
                   <span className="font-code-md text-xs uppercase tracking-widest text-[#4cd9e0]">
-                    Live Edge Telemetry Log
+                    Diagnostics log (demo)
                   </span>
                   <button
                     onClick={runDiagnostics}
