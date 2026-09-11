@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { ShaderBackground } from './components/ShaderBackground';
 import { IntroSequence } from './components/IntroSequence';
+import { BootSequence } from './components/BootSequence';
 import { TopNavBar } from './components/TopNavBar';
 import { HeroSection } from './components/HeroSection';
 import { AboutSection } from './components/AboutSection';
@@ -34,6 +35,7 @@ import { usePerformanceMode } from './hooks/usePerformanceMode';
 
 export function App() {
   const [showIntro, setShowIntro] = useState(true);
+  const [showBoot, setShowBoot] = useState(true);
   const [activeSection, setActiveSection] = useState('hero');
   const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
   const [viewMode, setViewMode] = useState<'desktop' | 'bento'>('desktop');
@@ -116,7 +118,10 @@ export function App() {
       {!performanceMode && <ShaderBackground />}
       {performanceMode && <div className="fixed inset-0 bg-[#05090c] pointer-events-none" style={{ zIndex: 0 }} aria-hidden />}
 
-      {showIntro && (
+      {showBoot && (
+        <BootSequence onComplete={() => setShowBoot(false)} onSkip={() => setShowBoot(false)} />
+      )}
+      {!showBoot && showIntro && (
         <IntroSequence onComplete={() => setShowIntro(false)} onSkip={() => setShowIntro(false)} />
       )}
 
@@ -205,7 +210,7 @@ export function App() {
         onSelectProject={setSelectedProject}
         onNavigate={handleNavigate}
       />
-      {!showIntro && <TelemetryHUD compact />}
+      {!showBoot && !showIntro && <TelemetryHUD compact />}
       <Footer />
     </div>
   );

@@ -397,3 +397,16 @@ npm run dev
 ```
 
 Open http://localhost:3000 — try Ctrl+K, Recruiter, project Architecture tab, telemetry widget.
+
+
+---
+
+## Continuation log (Sep 2026)
+
+- Voice interface (Web Speech)
+- Interactive resume variants
+- Spatial constellation (CSS)
+- GitHub activity UI (preview + real profile link)
+- BootSequence module checklist
+- portfolio-api (`server/index.ts`) + `askPortfolioAgent` Gemini optional path
+- GitHub Actions CI (lint + build)

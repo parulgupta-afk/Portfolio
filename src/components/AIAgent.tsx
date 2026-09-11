@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { answerPortfolioQuery } from '../lib/portfolioKnowledge';
+import { askPortfolioAgent } from '../services/geminiAgent';
 import { PROJECTS_DATA } from '../data/portfolioData';
 import type { ProjectItem } from '../types';
 import { playCyberClick, playTerminalChirp } from '../utils/audioSynth';
@@ -25,10 +26,23 @@ export const AIAgent: React.FC<AIAgentProps> = ({ open, onClose, onSelectProject
 
   if (!open) return null;
 
-  const run = (q: string) => {
+  const [source, setSource] = useState<'api' | 'local' | null>(null);
+  const [busy, setBusy] = useState(false);
+
+  const run = async (q: string) => {
     playTerminalChirp();
     setQuery(q);
-    setAnswer(answerPortfolioQuery(q));
+    setBusy(true);
+    try {
+      const a = await askPortfolioAgent(q);
+      setAnswer(a);
+      setSource(a.source);
+    } catch {
+      setAnswer(answerPortfolioQuery(q));
+      setSource('local');
+    } finally {
+      setBusy(false);
+    }
   };
 
   return (
@@ -129,7 +143,7 @@ export const AIAgent: React.FC<AIAgentProps> = ({ open, onClose, onSelectProject
             </div>
           </div>
           <p className="text-[10px] text-[#45474a] font-mono-custom">
-            Client-side retriever over portfolioData · no fabricated claims · Gemini RAG backend = Phase 27 TODO
+            {source === 'api' ? 'Grounded via portfolio-api + Gemini' : 'Local portfolioKnowledge retriever'} · no fabricated projects · {busy ? 'thinking…' : 'ready'}
           </p>
         </div>
       </div>
