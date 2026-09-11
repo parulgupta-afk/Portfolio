@@ -15,23 +15,37 @@ import { Footer } from './components/Footer';
 import { CommandCenter } from './components/CommandCenter';
 import { TelemetryHUD } from './components/TelemetryHUD';
 import { RecruiterMode } from './components/RecruiterMode';
+import { AIAgent } from './components/AIAgent';
+import { OSDashboard } from './components/OSDashboard';
+import { ArchitectureExplorer } from './components/ArchitectureExplorer';
+import { SkillGraph } from './components/SkillGraph';
+import { PerformanceLab } from './components/PerformanceLab';
+import { EngineeringLab } from './components/EngineeringLab';
+import { SecurityCenter } from './components/SecurityCenter';
+import { PortfolioDNA } from './components/PortfolioDNA';
+import { MissionTimeline } from './components/MissionTimeline';
 import { ProjectItem } from './types';
-import { playCyberClick } from './utils/audioSynth';
+import { playCyberClick, playTransmitSuccess } from './utils/audioSynth';
+import { usePerformanceMode } from './hooks/usePerformanceMode';
 
 export function App() {
-  const [showIntro, setShowIntro] = useState<boolean>(true);
-  const [activeSection, setActiveSection] = useState<string>('hero');
+  const [showIntro, setShowIntro] = useState(true);
+  const [activeSection, setActiveSection] = useState('hero');
   const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
   const [viewMode, setViewMode] = useState<'desktop' | 'bento'>('desktop');
-  const [isMobileDrawerOpen, setIsMobileDrawerOpen] = useState<boolean>(false);
+  const [isMobileDrawerOpen, setIsMobileDrawerOpen] = useState(false);
   const [commandOpen, setCommandOpen] = useState(false);
   const [recruiterOpen, setRecruiterOpen] = useState(false);
+  const [aiOpen, setAiOpen] = useState(false);
+  const { performanceMode, toggle: togglePerf } = usePerformanceMode();
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['hero', 'about', 'projects', 'capabilities', 'experience', 'connect'];
+      const sections = [
+        'hero', 'dashboard', 'about', 'projects', 'architecture', 'capabilities',
+        'skill-graph', 'experience', 'mission-log', 'perf-lab', 'lab', 'security', 'dna', 'connect',
+      ];
       const scrollPos = window.scrollY + 200;
-
       for (const section of sections) {
         const el = document.getElementById(section);
         if (el) {
@@ -44,16 +58,13 @@ export function App() {
         }
       }
     };
-
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // ⌘K / Ctrl+K command center
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      const isK = e.key.toLowerCase() === 'k';
-      if ((e.metaKey || e.ctrlKey) && isK) {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
         e.preventDefault();
         setCommandOpen((o) => !o);
         playCyberClick();
@@ -61,43 +72,52 @@ export function App() {
       if (e.key === 'Escape') {
         setCommandOpen(false);
         setRecruiterOpen(false);
+        setAiOpen(false);
       }
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, []);
 
-  const handleNavigate = useCallback((sectionId: string) => {
-    if (viewMode === 'bento' && sectionId !== 'bento') {
-      setViewMode('desktop');
-    }
-    setTimeout(() => {
-      const el = document.getElementById(sectionId);
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth' });
+  useEffect(() => {
+    let buffer = '';
+    const onType = (e: KeyboardEvent) => {
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
+      buffer = (buffer + e.key).slice(-20).toLowerCase();
+      if (buffer.includes('sudo parul')) {
+        playTransmitSuccess();
+        buffer = '';
+        document.getElementById('lab')?.scrollIntoView({ behavior: 'smooth' });
       }
-    }, 50);
-  }, [viewMode]);
+    };
+    window.addEventListener('keypress', onType);
+    return () => window.removeEventListener('keypress', onType);
+  }, []);
 
-  const handleInitSequence = () => {
-    setShowIntro(true);
-  };
+  const handleNavigate = useCallback(
+    (sectionId: string) => {
+      if (viewMode === 'bento' && sectionId !== 'bento') setViewMode('desktop');
+      setTimeout(() => {
+        const el = document.getElementById(sectionId);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 50);
+    },
+    [viewMode]
+  );
 
   return (
     <div className="relative min-h-screen bg-[#05090c] text-[#dce3ed] overflow-x-hidden font-body-lg selection:bg-[#4cd9e0] selection:text-[#002021]">
-      <ShaderBackground />
+      {!performanceMode && <ShaderBackground />}
+      {performanceMode && <div className="fixed inset-0 bg-[#05090c] pointer-events-none" style={{ zIndex: 0 }} aria-hidden />}
 
       {showIntro && (
-        <IntroSequence
-          onComplete={() => setShowIntro(false)}
-          onSkip={() => setShowIntro(false)}
-        />
+        <IntroSequence onComplete={() => setShowIntro(false)} onSkip={() => setShowIntro(false)} />
       )}
 
       <TopNavBar
         activeSection={activeSection}
         onNavigate={handleNavigate}
-        onReplayIntro={handleInitSequence}
+        onReplayIntro={() => setShowIntro(true)}
         currentView={viewMode}
         onToggleView={(mode) => setViewMode(mode)}
         onOpenMobileDrawer={() => setIsMobileDrawerOpen(true)}
@@ -114,47 +134,61 @@ export function App() {
         ) : (
           <>
             <HeroSection
-              onInitSequence={handleInitSequence}
+              onInitSequence={() => setShowIntro(true)}
               onExploreProjects={() => handleNavigate('projects')}
             />
+            <OSDashboard
+              onSelectProject={setSelectedProject}
+              onNavigate={handleNavigate}
+              onOpenAI={() => setAiOpen(true)}
+              onOpenRecruiter={() => setRecruiterOpen(true)}
+            />
             <AboutSection />
-            <ProjectsSection onSelectProject={(project) => setSelectedProject(project)} />
+            <ProjectsSection onSelectProject={setSelectedProject} />
+            <ArchitectureExplorer />
             <CapabilitiesSection />
+            <SkillGraph />
             <ExperienceSection />
+            <MissionTimeline />
+            <PerformanceLab performanceMode={performanceMode} onTogglePerf={togglePerf} />
+            <EngineeringLab />
+            <SecurityCenter />
+            <PortfolioDNA />
             <CommsTerminal />
           </>
         )}
       </main>
 
       <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
-
       <MobileDrawer
         isOpen={isMobileDrawerOpen}
         onClose={() => setIsMobileDrawerOpen(false)}
         activeSection={activeSection}
         onNavigate={handleNavigate}
-        onReplayIntro={handleInitSequence}
+        onReplayIntro={() => setShowIntro(true)}
         currentView={viewMode}
         onToggleView={(mode) => setViewMode(mode)}
       />
-
       <CommandCenter
         open={commandOpen}
         onClose={() => setCommandOpen(false)}
         onNavigate={handleNavigate}
-        onSelectProject={(p) => setSelectedProject(p)}
+        onSelectProject={setSelectedProject}
         onOpenRecruiter={() => setRecruiterOpen(true)}
         onToggleBento={() => setViewMode((m) => (m === 'bento' ? 'desktop' : 'bento'))}
       />
-
       <RecruiterMode
         open={recruiterOpen}
         onClose={() => setRecruiterOpen(false)}
-        onSelectProject={(p) => setSelectedProject(p)}
+        onSelectProject={setSelectedProject}
       />
-
+      <AIAgent
+        open={aiOpen}
+        onClose={() => setAiOpen(false)}
+        onSelectProject={setSelectedProject}
+        onNavigate={handleNavigate}
+      />
       {!showIntro && <TelemetryHUD compact />}
-
       <Footer />
     </div>
   );

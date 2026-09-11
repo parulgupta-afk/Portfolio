@@ -1,48 +1,33 @@
-# Parul Gupta — Portfolio (PARUL_ENGINE OS)
+# Parul Gupta — PARUL_ENGINE OS (Portfolio 2.0)
 
-Interactive engineering portfolio: React, TypeScript, Tailwind, WebGL, cinematic intro, project inspector, **Command Center (Cmd+K)**, **Recruiter Mode**, and **live browser telemetry**.
+Interactive engineering portfolio.
 
-## Featured projects
+## Features
 
-- [PulseOps](https://github.com/parulgupta-afk/pulseops) — on-call / incident platform
-- [Pocket-Triage](https://github.com/parulgupta-afk/Pocket-Triage) — AI emergency triage
-- [SkyCall](https://github.com/parulgupta-afk/SkyCall-app) — flight meta-search + AI
-- [NutriVibe](https://github.com/parulgupta-afk/NutriVibe-app) — AI food safety
-- Beacon · Disaster Mesh
+- **⌘K Command Center** — navigate modules, projects, modes
+- **Recruiter Mode** — role-ranked projects
+- **AI Portfolio Agent** — client-side knowledge retriever (no fake claims)
+- **OS Dashboard** — profile widgets
+- **Architecture Explorer** — clickable stack nodes + trade-offs
+- **Skill Graph** — tag → projects
+- **Telemetry + Performance Lab** — real browser metrics + perf mode
+- **Engineering Lab** — queue + rate-limit simulators
+- **Security Center** — threat → mitigation → impl
+- **Portfolio DNA** — engineering fingerprint
+- **Mission Log** — expandable experience timeline
+- **Easter egg** — type `sudo parul` (when not in an input)
 
-## Portfolio 2.0 — shipped in this build
-
-| Feature | How to use |
-|--------|------------|
-| **Command Center** | Ctrl+K / Cmd+K or nav **Cmd+K** button |
-| **Recruiter Mode** | Nav **Recruiter** — rank projects by role |
-| **Telemetry HUD** | Bottom-right — real FPS, viewport, network, WebGL |
-| **Engineering decisions** | Open a project → Architecture → Why I built it this way |
-| **Error boundary** | Soft failure UI instead of blank screen |
-| **SEO** | Open Graph, Twitter, JSON-LD Person |
-| **a11y baseline** | prefers-reduced-motion, focus-visible |
-
-## Run locally
+## Run
 
 ```bash
 npm install
 npm run dev
 ```
 
-Open http://localhost:3000
+## Content
 
-## Edit content
+Edit `src/data/portfolioData.ts`. Phase log: `PHASES.md`.
 
-`src/data/portfolioData.ts` — projects, skills, experience, roleFit, decisions.
+## Stack
 
-## Next sprints
-
-AI Portfolio Agent · Architecture Explorer · Skill graph · GitHub activity · Performance Lab · RAG backend
-
-## Build
-
-```bash
-npm run build
-```
-
-Deploy `dist/` to Vercel / Netlify / GitHub Pages.
+React 19 · TypeScript · Vite · Tailwind v4 · Motion · Lucide

@@ -34,6 +34,13 @@ function buildCommands(): CommandItem[] {
   const modes: CommandItem[] = [
     { id: 'mode-recruiter', label: 'Recruiter Mode', keywords: ['recruiter', 'hire', 'role', 'backend', 'frontend'], action: 'recruiter', group: 'modes' },
     { id: 'mode-bento', label: 'Toggle Bento Overview', keywords: ['bento', 'grid', 'overview'], action: 'mode', payload: 'bento', group: 'modes' },
+    { id: 'nav-dash', label: 'Open OS Dashboard', keywords: ['dashboard', 'os'], section: 'dashboard', action: 'navigate', payload: 'dashboard', group: 'nav' },
+    { id: 'nav-arch', label: 'Architecture Explorer', keywords: ['architecture', 'stack', 'map'], section: 'architecture', action: 'navigate', payload: 'architecture', group: 'nav' },
+    { id: 'nav-skills-g', label: 'Skill Graph', keywords: ['skill graph', 'tags'], section: 'skill-graph', action: 'navigate', payload: 'skill-graph', group: 'nav' },
+    { id: 'nav-lab', label: 'Engineering Lab', keywords: ['lab', 'queue', 'rate limit'], section: 'lab', action: 'navigate', payload: 'lab', group: 'nav' },
+    { id: 'nav-sec', label: 'Security Center', keywords: ['security', 'threat'], section: 'security', action: 'navigate', payload: 'security', group: 'nav' },
+    { id: 'nav-dna', label: 'Portfolio DNA', keywords: ['dna', 'fingerprint'], section: 'dna', action: 'navigate', payload: 'dna', group: 'nav' },
+    { id: 'nav-perf', label: 'Performance Lab', keywords: ['performance', 'fps', 'perf'], section: 'perf-lab', action: 'navigate', payload: 'perf-lab', group: 'nav' },
   ];
 
   const external: CommandItem[] = [
