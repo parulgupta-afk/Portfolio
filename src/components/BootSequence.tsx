@@ -1,24 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { playTerminalChirp, playTransmitSuccess } from '../utils/audioSynth';
+import { PROFILE } from '../data/portfolioData';
 
 interface BootSequenceProps {
   onComplete: () => void;
   onSkip: () => void;
 }
 
-const MODULES = [
-  'REACT_RUNTIME',
-  'AI_MODULE',
-  'PROJECT_GRAPH',
-  'EXPERIENCE_DATA',
-  'PERFORMANCE_MONITOR',
-  'ARCHITECTURE_ENGINE',
-];
-
 export const BootSequence: React.FC<BootSequenceProps> = ({ onComplete, onSkip }) => {
   const [progress, setProgress] = useState(0);
-  const [loaded, setLoaded] = useState<string[]>([]);
-  const [done, setDone] = useState(false);
 
   useEffect(() => {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -26,46 +15,28 @@ export const BootSequence: React.FC<BootSequenceProps> = ({ onComplete, onSkip }
       onComplete();
       return;
     }
-    playTerminalChirp();
-    let i = 0;
+    let p = 0;
     const id = setInterval(() => {
-      if (i < MODULES.length) {
-        setLoaded((L) => [...L, MODULES[i]]);
-        setProgress(Math.round(((i + 1) / MODULES.length) * 100));
-        playTerminalChirp();
-        i++;
-      } else {
+      p += 8;
+      setProgress(Math.min(p, 100));
+      if (p >= 100) {
         clearInterval(id);
-        setDone(true);
-        playTransmitSuccess();
-        setTimeout(onComplete, 700);
+        setTimeout(onComplete, 250);
       }
-    }, 380);
+    }, 60);
     return () => clearInterval(id);
   }, [onComplete]);
 
   return (
-    <div className="fixed inset-0 z-[200] bg-[#05090c] flex items-center justify-center p-6 font-mono-custom">
-      <div className="w-full max-w-md">
-        <p className="text-[#4cd9e0] text-xs tracking-[0.25em] mb-4">INITIALIZING PARUL_ENGINE…</p>
-        <div className="h-2 rounded-full bg-white/10 overflow-hidden mb-2">
-          <div className="h-full bg-[#4cd9e0] transition-all duration-300" style={{ width: `${progress}%` }} />
+    <div className="fixed inset-0 z-[200] bg-[#070b10] flex items-center justify-center p-6">
+      <div className="w-full max-w-sm text-center">
+        <h1 className="text-3xl sm:text-4xl font-semibold text-white mb-2">{PROFILE.name}</h1>
+        <p className="text-[#9aa3b2] text-sm mb-8">{PROFILE.role}</p>
+        <div className="h-1.5 rounded-full bg-white/10 overflow-hidden">
+          <div className="h-full bg-[#4cd9e0] transition-all duration-100" style={{ width: `${progress}%` }} />
         </div>
-        <p className="text-right text-xs text-[#8f9195] mb-6">{progress}%</p>
-        <ul className="space-y-1.5 text-xs mb-8">
-          {MODULES.map((m) => (
-            <li key={m} className={loaded.includes(m) ? 'text-[#4cd9e0]' : 'text-[#45474a]'}>
-              {loaded.includes(m) ? '✓' : '·'} {m}
-            </li>
-          ))}
-        </ul>
-        {done && <p className="text-[#80d4d8] text-sm tracking-widest">SYSTEM STATUS: ONLINE</p>}
-        <button
-          type="button"
-          onClick={onSkip}
-          className="mt-8 text-[10px] text-[#8f9195] hover:text-[#dce3ed] uppercase tracking-widest"
-        >
-          Skip boot_
+        <button type="button" onClick={onSkip} className="mt-8 text-xs text-[#8b95a5] hover:text-white">
+          Skip
         </button>
       </div>
     </div>

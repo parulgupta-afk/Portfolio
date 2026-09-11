@@ -114,12 +114,12 @@ export function App() {
   );
 
   return (
-    <div className="relative min-h-screen bg-[#05090c] text-[#dce3ed] overflow-x-hidden font-body-lg selection:bg-[#4cd9e0] selection:text-[#002021]">
+    <div className="relative min-h-screen bg-[#070b10] text-[#e8eef6] overflow-x-hidden selection:bg-[#4cd9e0] selection:text-[#062a2c]">
       {!performanceMode && <ShaderBackground />}
       {performanceMode && <div className="fixed inset-0 bg-[#05090c] pointer-events-none" style={{ zIndex: 0 }} aria-hidden />}
 
       {showBoot && (
-        <BootSequence onComplete={() => setShowBoot(false)} onSkip={() => setShowBoot(false)} />
+        <BootSequence onComplete={() => { setShowBoot(false); setShowIntro(false); }} onSkip={() => { setShowBoot(false); setShowIntro(false); }} />
       )}
       {!showBoot && showIntro && (
         <IntroSequence onComplete={() => setShowIntro(false)} onSkip={() => setShowIntro(false)} />

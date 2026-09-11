@@ -21,8 +21,7 @@ export const ShaderBackground: React.FC = () => {
     syncSize();
     window.addEventListener('resize', syncSize);
 
-    const gl = (canvas.getContext('webgl') ||
-      canvas.getContext('experimental-webgl')) as WebGLRenderingContext | null;
+    const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
     if (!gl) {
       return;
     }

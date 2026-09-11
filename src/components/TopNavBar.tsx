@@ -44,11 +44,11 @@ export const TopNavBar: React.FC<TopNavBarProps> = ({
   };
 
   const navLinks = [
-    { id: 'about', label: '[ About ]' },
-    { id: 'projects', label: '[ Projects ]' },
-    { id: 'capabilities', label: '[ Capabilities ]' },
-    { id: 'experience', label: '[ Experience ]' },
-    { id: 'connect', label: '[ Comms ]' },
+    { id: 'about', label: 'About' },
+    { id: 'projects', label: 'Projects' },
+    { id: 'capabilities', label: 'Skills' },
+    { id: 'experience', label: 'Experience' },
+    { id: 'connect', label: 'Contact' },
   ];
 
   return (
@@ -70,8 +70,8 @@ export const TopNavBar: React.FC<TopNavBarProps> = ({
           className="font-code-md text-sm md:text-base font-bold tracking-tighter text-[#dce3ed] flex items-center gap-2.5 cursor-pointer group"
         >
           <span className="w-2.5 h-2.5 bg-[#4cd9e0] shadow-[0_0_10px_rgba(76,217,224,0.8)] animate-pulse rounded-sm" />
-          <span className="group-hover:text-[#4cd9e0] transition-colors">
-            PARUL_GUPTA<span className="text-[#4cd9e0]/60">_DEV</span>
+          <span className="group-hover:text-[#4cd9e0] transition-colors text-base font-semibold tracking-normal">
+            Parul Gupta
           </span>
         </div>
 
@@ -211,7 +211,7 @@ export const TopNavBar: React.FC<TopNavBarProps> = ({
             }}
             className="border border-[#4cd9e0]/40 text-[#4cd9e0] px-4 md:px-6 py-2 font-code-md text-[11px] md:text-[12px] uppercase tracking-widest hover:bg-[#4cd9e0]/10 hover:border-[#4cd9e0] btn-precision transition-all duration-300 rounded shadow-[0_0_12px_rgba(76,217,224,0.15)]"
           >
-            Connect_
+            Contact
           </button>
 
           {/* Mobile Drawer Button */}
