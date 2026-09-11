@@ -1,26 +1,48 @@
-# Parul Gupta — Software Engineer Portfolio
+# Parul Gupta — Engineering Portfolio
 
-Full-stack engineering portfolio: React, TypeScript, Vite.
+Premium engineering portfolio: recruiter-first UX with an optional Engineering OS layer (⌘K).
+
+## Design philosophy
+
+- **80%** professional product UI  
+- **15%** engineering OS (architecture, labs, command center)  
+- **5%** discoverable hacker commands  
+
+Palette: obsidian · graphite · ice cyan · subtle lime status.
 
 ## Featured systems
 
-- **Priceloop** — price tracking, FastAPI, PostgreSQL, Stripe
-- **CodeForge** — autonomous coding agent, sandbox, repair loops
-- **PulseOps** — incident / on-call platform
-- **Pocket-Triage** — AI emergency triage
-- SkyCall, NutriVibe, Beacon, Disaster Mesh
+| Project | Focus |
+|---------|--------|
+| **Priceloop** | Price tracking · FastAPI · PostgreSQL · Stripe |
+| **CodeForge** | AI coding agent · sandbox · repair loops |
+| **PulseOps** | Incident / on-call · queues · realtime |
+
+Also: Pocket-Triage, SkyCall, NutriVibe, Beacon, Disaster Mesh.
 
 ## Features
 
-Command Center (Ctrl/Cmd+K), Recruiter Mode, AI agent, architecture explorer, labs, resume variants.
+- Hero + system panel + 30-second read  
+- Flagship / applied / experiment project tiers  
+- Recruiter Mode (role lens + evidence)  
+- ⌘K Command Center (`whoami`, `trace codeforge`, …)  
+- Architecture explorer, labs, stack evidence  
+- Optional `npm run api` + Gemini-grounded agent  
 
-## Run
+## Scripts
 
 ```bash
 npm install
 npm run dev
+npm run typecheck
+npm run build
+npm run api          # optional portfolio API
 ```
 
 ## Content
 
-Edit `src/data/portfolioData.ts`.
+`src/data/portfolioData.ts` — single source of truth for projects and profile.
+
+## Honest metrics policy
+
+Demo/simulated diagnostics are labeled as such. No fake cluster uptime or invented production SLAs.

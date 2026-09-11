@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { PROJECTS_DATA, CAPABILITIES_DATA } from '../data/portfolioData';
+import { PROJECTS_DATA, PROFILE } from '../data/portfolioData';
 import type { ProjectItem, RecruiterRole } from '../types';
 import { playCyberClick } from '../utils/audioSynth';
 
@@ -9,104 +9,107 @@ interface RecruiterModeProps {
   onSelectProject: (project: ProjectItem) => void;
 }
 
-const ROLES: { id: RecruiterRole; label: string; focus: string[] }[] = [
+const ROLES: { id: RecruiterRole; label: string; focus: string[]; why: string }[] = [
   {
     id: 'backend',
     label: 'Backend Engineer',
-    focus: ['Node.js', 'Express', 'PostgreSQL', 'Redis', 'BullMQ', 'APIs', 'Auth', 'Observability'],
+    focus: ['Node.js', 'FastAPI', 'PostgreSQL', 'Redis', 'REST', 'Queues', 'Auth'],
+    why: 'Strongest evidence in APIs, data, jobs, and system boundaries.',
   },
   {
     id: 'fullstack',
     label: 'Full Stack Engineer',
-    focus: ['React', 'TypeScript', 'Node.js', 'MongoDB', 'PostgreSQL', 'APIs', 'Auth'],
+    focus: ['React', 'TypeScript', 'Node.js', 'PostgreSQL', 'APIs', 'Product UI'],
+    why: 'End-to-end ownership from interface through persistence and deployment.',
   },
   {
     id: 'ai',
-    label: 'AI / ML Engineer',
-    focus: ['Gemini', 'RAG', 'pgvector', 'Embeddings', 'Function calling'],
+    label: 'AI Engineer',
+    focus: ['Gemini', 'Groq', 'RAG', 'Agents', 'Sandboxing', 'Orchestration'],
+    why: 'Agent loops, model providers, retrieval patterns, and safe execution.',
   },
   {
     id: 'frontend',
     label: 'Frontend Engineer',
-    focus: ['React', 'TypeScript', 'Tailwind', 'Motion', 'WebGL', 'UX'],
+    focus: ['React', 'TypeScript', 'Tailwind', 'UX', 'Vite'],
+    why: 'Product UI, design systems, and interaction design across shipped apps.',
   },
   {
     id: 'software',
     label: 'Software Engineer',
-    focus: ['DSA', 'System design', 'TypeScript', 'Testing', 'CI'],
+    focus: ['Systems', 'TypeScript', 'Testing', 'Docker', 'CI'],
+    why: 'Broad systems thinking with concrete shipped repositories.',
   },
   {
     id: 'product',
     label: 'Product Engineer',
-    focus: ['End-to-end ownership', 'UX', 'APIs', 'Ship velocity'],
+    focus: ['Full product loops', 'Payments', 'Auth', 'UX'],
+    why: 'Billing, isolation, and user-facing workflows — not only demos.',
   },
 ];
 
 function rankProjects(role: RecruiterRole): ProjectItem[] {
   return [...PROJECTS_DATA].sort((a, b) => {
-    const aFit = a.roleFit?.includes(role) ? 2 : 0;
-    const bFit = b.roleFit?.includes(role) ? 2 : 0;
-    const aTags = (a.roleFit?.length ?? 0) + a.tags.length * 0.01;
-    const bTags = (b.roleFit?.length ?? 0) + b.tags.length * 0.01;
-    return bFit + bTags - (aFit + aTags);
+    const aFit = a.roleFit?.includes(role) ? 3 : 0;
+    const bFit = b.roleFit?.includes(role) ? 3 : 0;
+    return bFit + b.tags.length * 0.01 - (aFit + a.tags.length * 0.01);
   });
 }
 
 export const RecruiterMode: React.FC<RecruiterModeProps> = ({ open, onClose, onSelectProject }) => {
-  const [role, setRole] = useState<RecruiterRole>('backend');
+  const [role, setRole] = useState<RecruiterRole>('fullstack');
   const ranked = useMemo(() => rankProjects(role), [role]);
-  const roleMeta = ROLES.find((r) => r.id === role)!;
+  const meta = ROLES.find((r) => r.id === role)!;
 
   if (!open) return null;
 
   return (
     <div className="fixed inset-0 z-[90] flex items-center justify-center p-4" role="dialog" aria-modal="true">
-      <div className="absolute inset-0 bg-black/75 backdrop-blur-sm" onClick={onClose} />
-      <div className="relative w-full max-w-3xl max-h-[85vh] overflow-y-auto glass-panel rounded-2xl border border-[#4cd9e0]/25 shadow-[0_0_50px_rgba(76,217,224,0.1)]">
-        <div className="sticky top-0 z-10 flex items-center justify-between px-5 py-4 border-b border-white/10 bg-[#0d141b]/90 backdrop-blur">
+      <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={onClose} />
+      <div className="relative w-full max-w-2xl max-h-[88vh] overflow-y-auto rounded-2xl border border-white/10 bg-[#0c1016] shadow-2xl">
+        <div className="sticky top-0 flex items-center justify-between px-5 py-4 border-b border-white/10 bg-[#0c1016]/95">
           <div>
-            <p className="text-[10px] font-mono-custom tracking-[0.2em] text-[#4cd9e0]">RECRUITER_MODE</p>
-            <h2 className="text-lg font-semibold text-[#dce3ed]">Select role lens</h2>
+            <p className="text-[10px] font-mono-custom tracking-[0.2em] text-[#5eb8c8]">RECRUITER MODE</p>
+            <h2 className="text-lg font-semibold text-white">{PROFILE.name}</h2>
+            <p className="text-sm text-[#8b95a5]">{PROFILE.role}</p>
           </div>
-          <button
-            type="button"
-            onClick={onClose}
-            className="text-[#8f9195] hover:text-white text-sm px-2"
-            aria-label="Close recruiter mode"
-          >
-            ESC / ✕
+          <button type="button" onClick={onClose} className="text-[#8b95a5] hover:text-white text-sm" aria-label="Close">
+            Close
           </button>
         </div>
 
         <div className="p-5 space-y-6">
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-            {ROLES.map((r) => (
-              <button
-                key={r.id}
-                type="button"
-                onClick={() => {
-                  playCyberClick();
-                  setRole(r.id);
-                }}
-                className={`text-left px-3 py-3 rounded-xl border text-sm transition-all ${
-                  role === r.id
-                    ? 'border-[#4cd9e0] bg-[#4cd9e0]/10 text-[#4cd9e0]'
-                    : 'border-white/10 text-[#c5c6ca] hover:border-white/25'
-                }`}
-              >
-                {r.label}
-              </button>
-            ))}
-          </div>
+          <p className="text-sm text-[#a8b3c4] leading-relaxed">{PROFILE.tagline}</p>
 
           <div>
-            <p className="text-[10px] font-mono-custom tracking-widest text-[#8f9195] mb-2">HIGHLIGHT STACK</p>
-            <div className="flex flex-wrap gap-2">
-              {roleMeta.focus.map((f) => (
-                <span
-                  key={f}
-                  className="px-2.5 py-1 rounded-full text-xs border border-[#4cd9e0]/30 text-[#4cd9e0] bg-[#4cd9e0]/5"
+            <p className="text-[10px] font-mono-custom tracking-widest text-[#6b7380] mb-2">SELECT ROLE LENS</p>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+              {ROLES.map((r) => (
+                <button
+                  key={r.id}
+                  type="button"
+                  onClick={() => {
+                    playCyberClick();
+                    setRole(r.id);
+                  }}
+                  className={`text-left px-3 py-2.5 rounded-lg border text-sm ${
+                    role === r.id
+                      ? 'border-[#5eb8c8] bg-[#5eb8c8]/10 text-[#7dd3e0]'
+                      : 'border-white/10 text-[#a8b3c4] hover:border-white/20'
+                  }`}
                 >
+                  {r.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="rounded-xl border border-white/10 p-4 bg-[#05070a]">
+            <p className="text-[10px] font-mono-custom tracking-widest text-[#5eb8c8] mb-1">WHY THIS PROFILE FITS</p>
+            <p className="text-sm text-[#e8edf4] mb-3">{meta.why}</p>
+            <div className="flex flex-wrap gap-2">
+              {meta.focus.map((f) => (
+                <span key={f} className="text-xs px-2 py-1 rounded border border-[#5eb8c8]/25 text-[#7dd3e0]">
                   {f}
                 </span>
               ))}
@@ -114,11 +117,9 @@ export const RecruiterMode: React.FC<RecruiterModeProps> = ({ open, onClose, onS
           </div>
 
           <div>
-            <p className="text-[10px] font-mono-custom tracking-widest text-[#8f9195] mb-3">
-              PRIORITIZED MODULES
-            </p>
+            <p className="text-[10px] font-mono-custom tracking-widest text-[#6b7380] mb-3">TOP EVIDENCE</p>
             <ol className="space-y-2">
-              {ranked.slice(0, 4).map((p, i) => (
+              {ranked.slice(0, 3).map((p, i) => (
                 <li key={p.id}>
                   <button
                     type="button"
@@ -127,49 +128,39 @@ export const RecruiterMode: React.FC<RecruiterModeProps> = ({ open, onClose, onS
                       onSelectProject(p);
                       onClose();
                     }}
-                    className="w-full text-left glass-panel-subtle rounded-xl px-4 py-3 flex gap-4 items-start hover:border-[#4cd9e0]/40 border border-transparent transition-all"
+                    className="w-full text-left rounded-xl border border-white/10 px-4 py-3 hover:border-[#5eb8c8]/35"
                   >
-                    <span className="font-mono-custom text-[#4cd9e0] text-sm w-6">{i + 1}.</span>
-                    <div className="min-w-0 flex-1">
-                      <div className="flex flex-wrap items-center gap-2">
-                        <span className="font-semibold text-[#dce3ed]">{p.title}</span>
-                        <span className="text-[10px] font-mono-custom text-[#8f9195]">{p.modNumber}</span>
-                        {p.roleFit?.includes(role) && (
-                          <span className="text-[9px] px-1.5 py-0.5 rounded bg-[#4cd9e0]/15 text-[#4cd9e0]">
-                            STRONG FIT
-                          </span>
-                        )}
-                      </div>
-                      <p className="text-xs text-[#c5c6ca] mt-0.5 line-clamp-2">{p.tagline}</p>
-                      <div className="flex flex-wrap gap-1.5 mt-2">
-                        {p.tags.slice(0, 6).map((tag) => (
-                          <span key={tag} className="text-[10px] text-[#8f9195] border border-white/10 px-1.5 py-0.5 rounded">
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
+                    <span className="text-[#5eb8c8] font-mono-custom text-xs mr-2">{i + 1}.</span>
+                    <span className="text-white font-medium">{p.title}</span>
+                    <p className="text-xs text-[#8b95a5] mt-1 pl-5">{p.tagline}</p>
                   </button>
                 </li>
               ))}
             </ol>
           </div>
 
-          <div>
-            <p className="text-[10px] font-mono-custom tracking-widest text-[#8f9195] mb-2">CAPABILITY SNAPSHOT</p>
-            <div className="grid sm:grid-cols-2 gap-2">
-              {CAPABILITIES_DATA.slice(0, 4).map((c) => (
-                <div key={c.id} className="rounded-lg border border-white/10 px-3 py-2">
-                  <div className="flex justify-between text-xs">
-                    <span>{c.title}</span>
-                    <span className="text-[#4cd9e0] font-mono-custom">{c.capacity}%</span>
-                  </div>
-                  <div className="mt-1 h-1 rounded-full bg-white/10 overflow-hidden">
-                    <div className="h-full bg-[#4cd9e0]" style={{ width: `${c.capacity}%` }} />
-                  </div>
-                </div>
-              ))}
-            </div>
+          <div className="flex flex-wrap gap-2 pt-2">
+            <a
+              href="#resume"
+              onClick={onClose}
+              className="px-4 py-2.5 rounded-lg bg-[#5eb8c8] text-[#061218] text-sm font-semibold"
+            >
+              View resume
+            </a>
+            <a
+              href={PROFILE.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 py-2.5 rounded-lg border border-white/15 text-sm text-[#e8edf4]"
+            >
+              GitHub
+            </a>
+            <a
+              href={`mailto:${PROFILE.email}`}
+              className="px-4 py-2.5 rounded-lg border border-white/15 text-sm text-[#e8edf4]"
+            >
+              Contact
+            </a>
           </div>
         </div>
       </div>

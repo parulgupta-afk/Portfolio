@@ -29,6 +29,9 @@ import { SpatialMode } from './components/SpatialMode';
 import { InteractiveResume } from './components/InteractiveResume';
 import { VoiceInterface } from './components/VoiceInterface';
 import { MissionTimeline } from './components/MissionTimeline';
+import { ContactCTA } from './components/ContactCTA';
+import { StackSection } from './components/StackSection';
+import { ThirtySecondRead } from './components/ThirtySecondRead';
 import { ProjectItem } from './types';
 import { playCyberClick, playTransmitSuccess } from './utils/audioSynth';
 import { usePerformanceMode } from './hooks/usePerformanceMode';
@@ -150,24 +153,28 @@ export function App() {
               onInitSequence={() => setShowIntro(true)}
               onExploreProjects={() => handleNavigate('projects')}
             />
+            <ThirtySecondRead />
+            <ProjectsSection onSelectProject={setSelectedProject} />
+            <AboutSection />
+            <StackSection />
+            <ExperienceSection />
+            <MissionTimeline />
+            <ArchitectureExplorer />
+            <PerformanceLab performanceMode={performanceMode} onTogglePerf={togglePerf} />
+            <EngineeringLab />
+            <SecurityCenter />
+            <InteractiveResume />
+            <ContactCTA />
+            {/* Deeper / experimental — still on page but after primary path */}
             <OSDashboard
               onSelectProject={setSelectedProject}
               onNavigate={handleNavigate}
               onOpenAI={() => setAiOpen(true)}
               onOpenRecruiter={() => setRecruiterOpen(true)}
             />
-            <AboutSection />
-            <ProjectsSection onSelectProject={setSelectedProject} />
-            <ArchitectureExplorer />
             <CapabilitiesSection />
             <SkillGraph />
-            <ExperienceSection />
-            <MissionTimeline />
-            <PerformanceLab performanceMode={performanceMode} onTogglePerf={togglePerf} />
-            <EngineeringLab />
-            <SecurityCenter />
             <PortfolioDNA />
-            <InteractiveResume />
             <SpatialMode onSelectProject={setSelectedProject} />
             <GitHubActivity />
             <CommsTerminal />

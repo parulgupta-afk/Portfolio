@@ -54,6 +54,10 @@ function buildCommands(): CommandItem[] {
     { id: 'egg-sudo', label: '> sudo inspect parul', keywords: ['sudo', 'inspect', 'hire'], action: 'recruiter', group: 'modes' },
     { id: 'egg-trace', label: '> trace codeforge', keywords: ['trace', 'codeforge'], action: 'project', payload: 'codeforge', group: 'modes' },
     { id: 'egg-price', label: '> inspect priceloop', keywords: ['priceloop', 'inspect'], action: 'project', payload: 'priceloop', group: 'modes' },
+    { id: 'egg-help', label: '> help', keywords: ['help', 'commands'], action: 'navigate', payload: 'summary', group: 'modes' },
+    { id: 'egg-status', label: '> status', keywords: ['status', 'online'], action: 'navigate', payload: 'hero', group: 'modes' },
+    { id: 'nav-resume', label: '> open resume', keywords: ['resume', 'cv'], action: 'navigate', payload: 'resume', group: 'nav' },
+    { id: 'mode-eng', label: '> engineering mode', keywords: ['engineering', 'lab'], action: 'navigate', payload: 'lab', group: 'modes' },
   ];
 
   return [...nav, ...projects, ...modes, ...external];
