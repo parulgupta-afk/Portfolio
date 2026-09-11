@@ -24,6 +24,10 @@ export interface ProjectItem {
     availability: string;
     encryption: string;
   };
+  /** Roles this project best demonstrates (Recruiter Mode) */
+  roleFit?: RecruiterRole[];
+  /** Short decision records for Architecture Explorer */
+  decisions?: EngineeringDecision[];
 }
 
 export interface CapabilityItem {
@@ -53,4 +57,41 @@ export interface TerminalLog {
   sender: 'system' | 'user' | 'error' | 'success';
   text: string;
   timestamp: string;
+}
+
+export type RecruiterRole =
+  | 'software'
+  | 'fullstack'
+  | 'backend'
+  | 'frontend'
+  | 'ai'
+  | 'product';
+
+export interface EngineeringDecision {
+  question: string;
+  problem: string;
+  options: string[];
+  chosen: string;
+  reason: string;
+}
+
+export interface CommandItem {
+  id: string;
+  label: string;
+  keywords: string[];
+  section?: string;
+  action: 'navigate' | 'project' | 'recruiter' | 'external' | 'mode';
+  payload?: string;
+  group: 'nav' | 'projects' | 'modes' | 'external';
+}
+
+export interface BrowserTelemetry {
+  fps: number | null;
+  viewport: string;
+  deviceMemory: string;
+  connection: string;
+  online: boolean;
+  reducedMotion: boolean;
+  webgl: string;
+  language: string;
 }

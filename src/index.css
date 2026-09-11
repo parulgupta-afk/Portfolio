@@ -18,6 +18,9 @@
     --color-outline: #8f9195;
     --color-outline-variant: #45474a;
     --color-error: #ffb4ab;
+    --radius-panel: 1rem;
+    --glow-primary: 0 0 30px rgba(76, 217, 224, 0.18);
+    --font-mono: 'JetBrains Mono', 'Be Vietnam Pro', monospace;
   }
 
   body {
@@ -26,6 +29,22 @@
     font-family: 'Chivo', 'Inter', sans-serif;
     overflow-x: hidden;
     scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
   }
 }
 

@@ -1,34 +1,48 @@
-# Parul Gupta — Portfolio
+# Parul Gupta — Portfolio (PARUL_ENGINE OS)
 
-An interactive, cinematic developer portfolio built with React, TypeScript, and Tailwind CSS — featuring a WebGL shader background, an interactive terminal, and a project inspector modal for each build.
+Interactive engineering portfolio: React, TypeScript, Tailwind, WebGL, cinematic intro, project inspector, **Command Center (Cmd+K)**, **Recruiter Mode**, and **live browser telemetry**.
 
-**Projects featured:**
-- [PulseOps](https://github.com/parulgupta-afk/pulseops) — production-grade on-call & incident platform
-- [Pocket-Triage](https://github.com/parulgupta-afk/Pocket-Triage) — AI-assisted emergency first-aid triage
-- [SkyCall](https://github.com/parulgupta-afk/SkyCall-app) — flight meta-search + AI concierge
-- [NutriVibe](https://github.com/parulgupta-afk/NutriVibe-app) — AI-powered food safety
-- Beacon (crowdsourced hazard/SOS map)
-- Disaster Mesh (offline-first BLE mesh network)
+## Featured projects
+
+- [PulseOps](https://github.com/parulgupta-afk/pulseops) — on-call / incident platform
+- [Pocket-Triage](https://github.com/parulgupta-afk/Pocket-Triage) — AI emergency triage
+- [SkyCall](https://github.com/parulgupta-afk/SkyCall-app) — flight meta-search + AI
+- [NutriVibe](https://github.com/parulgupta-afk/NutriVibe-app) — AI food safety
+- Beacon · Disaster Mesh
+
+## Portfolio 2.0 — shipped in this build
+
+| Feature | How to use |
+|--------|------------|
+| **Command Center** | Ctrl+K / Cmd+K or nav **Cmd+K** button |
+| **Recruiter Mode** | Nav **Recruiter** — rank projects by role |
+| **Telemetry HUD** | Bottom-right — real FPS, viewport, network, WebGL |
+| **Engineering decisions** | Open a project → Architecture → Why I built it this way |
+| **Error boundary** | Soft failure UI instead of blank screen |
+| **SEO** | Open Graph, Twitter, JSON-LD Person |
+| **a11y baseline** | prefers-reduced-motion, focus-visible |
 
 ## Run locally
-
-**Prerequisites:** Node.js 18+
 
 ```bash
 npm install
 npm run dev
 ```
 
-Then open http://localhost:3000
+Open http://localhost:3000
 
-## Build for production
+## Edit content
+
+`src/data/portfolioData.ts` — projects, skills, experience, roleFit, decisions.
+
+## Next sprints
+
+AI Portfolio Agent · Architecture Explorer · Skill graph · GitHub activity · Performance Lab · RAG backend
+
+## Build
 
 ```bash
 npm run build
 ```
 
-Output is written to `dist/`. Deploy it to Vercel, Netlify, GitHub Pages, or any static host.
-
-## Editing content
-
-All project, skills, and experience data lives in one file: `src/data/portfolioData.ts`. Update `PROJECTS_DATA`, `CAPABILITIES_DATA`, and `EXPERIENCE_DATA` there to add or change content — the rest of the UI reads from it.
+Deploy `dist/` to Vercel / Netlify / GitHub Pages.

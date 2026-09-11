@@ -68,6 +68,23 @@ export const PROJECTS_DATA: ProjectItem[] = [
       availability: 'Graceful shutdown + DLQ',
       encryption: 'JWT + role-based access',
     },
+    roleFit: ['backend', 'software', 'fullstack', 'ai'],
+    decisions: [
+      {
+        question: 'Why Redis Pub/Sub + Socket.io?',
+        problem: 'Propagate incident state to every connected client without polling',
+        options: ['HTTP polling', 'WebSockets only', 'Redis Pub/Sub + WebSockets'],
+        chosen: 'Redis Pub/Sub + WebSockets',
+        reason: 'Horizontal fan-out across API instances; clients stay on Socket.io while Redis bridges processes',
+      },
+      {
+        question: 'Why BullMQ for paging?',
+        problem: 'Reliable escalation with retry and DLQ when notifications fail',
+        options: ['Inline await in request path', 'setTimeout chain', 'Dedicated queue workers'],
+        chosen: 'BullMQ workers',
+        reason: 'Retries, backoff, DLQ, and process isolation from the API event loop',
+      },
+    ],
   },
   {
     id: 'pocket-triage',
@@ -115,6 +132,16 @@ export const PROJECTS_DATA: ProjectItem[] = [
       availability: 'Sync fallback if Redis down',
       encryption: 'Supabase Auth + RBAC',
     },
+    roleFit: ['ai', 'backend', 'fullstack', 'product'],
+    decisions: [
+      {
+        question: 'Why async triage with sync fallback?',
+        problem: 'RAG + model calls are slow; Redis may be unavailable in demos',
+        options: ['Always sync', 'Always async', 'Async with sync fallback'],
+        chosen: 'Async with sync fallback',
+        reason: 'Production path uses queues; demos and Redis outages still return a grounded answer',
+      },
+    ],
   },
   {
     id: 'skycall',
@@ -149,6 +176,16 @@ export const PROJECTS_DATA: ProjectItem[] = [
       availability: 'Rate-limited & Cached',
       encryption: 'JWT / Google OAuth',
     },
+    roleFit: ['fullstack', 'backend', 'ai', 'product'],
+    decisions: [
+      {
+        question: 'Why meta-search redirect instead of booking?',
+        problem: 'PCI and airline settlement complexity for a portfolio build',
+        options: ['Full booking + payments', 'Redirect meta-search'],
+        chosen: 'Redirect meta-search',
+        reason: 'Demonstrates aggregation, caching, and AI concierge without payment surface area',
+      },
+    ],
   },
   {
     id: 'nutrivibe',
@@ -183,6 +220,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
       availability: 'Vercel + Render',
       encryption: 'JWT / Google OAuth',
     },
+    roleFit: ['fullstack', 'ai', 'product', 'frontend'],
   },
   {
     id: 'beacon',
@@ -217,6 +255,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
       availability: 'In development',
       encryption: 'Supabase Auth',
     },
+    roleFit: ['fullstack', 'frontend', 'product'],
   },
   {
     id: 'disaster-mesh',
@@ -251,6 +290,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
       availability: '8-phase solo build',
       encryption: 'Signed report verification',
     },
+    roleFit: ['software', 'backend', 'product'],
   },
 ];
 

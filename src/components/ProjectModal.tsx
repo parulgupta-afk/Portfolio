@@ -196,6 +196,26 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                   ))}
                 </div>
               </div>
+
+              {project.decisions && project.decisions.length > 0 && (
+                <div>
+                  <h4 className="font-code-md text-xs uppercase tracking-widest text-[#9ecafd] mb-3 font-bold">
+                    // WHY I BUILT IT THIS WAY
+                  </h4>
+                  <div className="space-y-3">
+                    {project.decisions.map((d, idx) => (
+                      <div key={idx} className="glass-panel p-4 rounded-lg border border-white/5">
+                        <p className="font-code-md text-xs text-[#4cd9e0] mb-1">{d.question}</p>
+                        <p className="text-xs text-[#8f9195] mb-2">Problem: {d.problem}</p>
+                        <p className="text-sm text-[#dce3ed]">
+                          <span className="text-[#80d4d8]">Chosen:</span> {d.chosen}
+                        </p>
+                        <p className="text-xs text-[#c5c6ca] mt-1 leading-relaxed">{d.reason}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           )}
 

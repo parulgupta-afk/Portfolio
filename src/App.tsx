@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { ShaderBackground } from './components/ShaderBackground';
 import { IntroSequence } from './components/IntroSequence';
 import { TopNavBar } from './components/TopNavBar';
@@ -12,6 +12,9 @@ import { CommsTerminal } from './components/CommsTerminal';
 import { BentoOverview } from './components/BentoOverview';
 import { MobileDrawer } from './components/MobileDrawer';
 import { Footer } from './components/Footer';
+import { CommandCenter } from './components/CommandCenter';
+import { TelemetryHUD } from './components/TelemetryHUD';
+import { RecruiterMode } from './components/RecruiterMode';
 import { ProjectItem } from './types';
 import { playCyberClick } from './utils/audioSynth';
 
@@ -21,8 +24,9 @@ export function App() {
   const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
   const [viewMode, setViewMode] = useState<'desktop' | 'bento'>('desktop');
   const [isMobileDrawerOpen, setIsMobileDrawerOpen] = useState<boolean>(false);
+  const [commandOpen, setCommandOpen] = useState(false);
+  const [recruiterOpen, setRecruiterOpen] = useState(false);
 
-  // Active section tracking on scroll
   useEffect(() => {
     const handleScroll = () => {
       const sections = ['hero', 'about', 'projects', 'capabilities', 'experience', 'connect'];
@@ -45,7 +49,25 @@ export function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleNavigate = (sectionId: string) => {
+  // ⌘K / Ctrl+K command center
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      const isK = e.key.toLowerCase() === 'k';
+      if ((e.metaKey || e.ctrlKey) && isK) {
+        e.preventDefault();
+        setCommandOpen((o) => !o);
+        playCyberClick();
+      }
+      if (e.key === 'Escape') {
+        setCommandOpen(false);
+        setRecruiterOpen(false);
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
+
+  const handleNavigate = useCallback((sectionId: string) => {
     if (viewMode === 'bento' && sectionId !== 'bento') {
       setViewMode('desktop');
     }
@@ -55,7 +77,7 @@ export function App() {
         el.scrollIntoView({ behavior: 'smooth' });
       }
     }, 50);
-  };
+  }, [viewMode]);
 
   const handleInitSequence = () => {
     setShowIntro(true);
@@ -63,10 +85,8 @@ export function App() {
 
   return (
     <div className="relative min-h-screen bg-[#05090c] text-[#dce3ed] overflow-x-hidden font-body-lg selection:bg-[#4cd9e0] selection:text-[#002021]">
-      {/* Dynamic WebGL Shader Canvas Background */}
       <ShaderBackground />
 
-      {/* Cinematic Intro Sequence */}
       {showIntro && (
         <IntroSequence
           onComplete={() => setShowIntro(false)}
@@ -74,7 +94,6 @@ export function App() {
         />
       )}
 
-      {/* Top Application Navigation */}
       <TopNavBar
         activeSection={activeSection}
         onNavigate={handleNavigate}
@@ -82,9 +101,10 @@ export function App() {
         currentView={viewMode}
         onToggleView={(mode) => setViewMode(mode)}
         onOpenMobileDrawer={() => setIsMobileDrawerOpen(true)}
+        onOpenCommand={() => setCommandOpen(true)}
+        onOpenRecruiter={() => setRecruiterOpen(true)}
       />
 
-      {/* Main Viewport Content */}
       <main className="relative z-10">
         {viewMode === 'bento' ? (
           <BentoOverview
@@ -93,39 +113,21 @@ export function App() {
           />
         ) : (
           <>
-            {/* 1. Hero Section ("ENGINEERING ELEGANCE") */}
             <HeroSection
               onInitSequence={handleInitSequence}
               onExploreProjects={() => handleNavigate('projects')}
             />
-
-            {/* 2. System Architect / Engineering Philosophy */}
             <AboutSection />
-
-            {/* 3. System Modules / Projects Carousel */}
-            <ProjectsSection
-              onSelectProject={(project) => setSelectedProject(project)}
-            />
-
-            {/* 4. Performance Matrix / Capabilities */}
+            <ProjectsSection onSelectProject={(project) => setSelectedProject(project)} />
             <CapabilitiesSection />
-
-            {/* 5. Experience Log / Timeline */}
             <ExperienceSection />
-
-            {/* 6. Comms_Link / Interactive Terminal & Transmission */}
             <CommsTerminal />
           </>
         )}
       </main>
 
-      {/* Project Detail Modal / Architectural Inspector */}
-      <ProjectModal
-        project={selectedProject}
-        onClose={() => setSelectedProject(null)}
-      />
+      <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
 
-      {/* Mobile Drawer Menu */}
       <MobileDrawer
         isOpen={isMobileDrawerOpen}
         onClose={() => setIsMobileDrawerOpen(false)}
@@ -136,7 +138,23 @@ export function App() {
         onToggleView={(mode) => setViewMode(mode)}
       />
 
-      {/* Global Footer */}
+      <CommandCenter
+        open={commandOpen}
+        onClose={() => setCommandOpen(false)}
+        onNavigate={handleNavigate}
+        onSelectProject={(p) => setSelectedProject(p)}
+        onOpenRecruiter={() => setRecruiterOpen(true)}
+        onToggleBento={() => setViewMode((m) => (m === 'bento' ? 'desktop' : 'bento'))}
+      />
+
+      <RecruiterMode
+        open={recruiterOpen}
+        onClose={() => setRecruiterOpen(false)}
+        onSelectProject={(p) => setSelectedProject(p)}
+      />
+
+      {!showIntro && <TelemetryHUD compact />}
+
       <Footer />
     </div>
   );
