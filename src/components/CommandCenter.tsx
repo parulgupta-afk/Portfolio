@@ -41,6 +41,9 @@ function buildCommands(): CommandItem[] {
     { id: 'nav-sec', label: 'Security Center', keywords: ['security', 'threat'], section: 'security', action: 'navigate', payload: 'security', group: 'nav' },
     { id: 'nav-dna', label: 'Portfolio DNA', keywords: ['dna', 'fingerprint'], section: 'dna', action: 'navigate', payload: 'dna', group: 'nav' },
     { id: 'nav-perf', label: 'Performance Lab', keywords: ['performance', 'fps', 'perf'], section: 'perf-lab', action: 'navigate', payload: 'perf-lab', group: 'nav' },
+    { id: 'nav-resume', label: 'Interactive Resume', keywords: ['resume', 'cv'], section: 'resume', action: 'navigate', payload: 'resume', group: 'nav' },
+    { id: 'nav-spatial', label: 'Spatial Mode', keywords: ['spatial', 'constellation', '3d'], section: 'spatial', action: 'navigate', payload: 'spatial', group: 'nav' },
+    { id: 'nav-gh', label: 'GitHub Activity', keywords: ['github', 'commits', 'activity'], section: 'github-activity', action: 'navigate', payload: 'github-activity', group: 'nav' },
   ];
 
   const external: CommandItem[] = [

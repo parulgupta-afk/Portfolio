@@ -11,6 +11,8 @@ interface TopNavBarProps {
   onOpenMobileDrawer: () => void;
   onOpenCommand?: () => void;
   onOpenRecruiter?: () => void;
+  onOpenAI?: () => void;
+  onOpenVoice?: () => void;
 }
 
 export const TopNavBar: React.FC<TopNavBarProps> = ({
@@ -22,6 +24,8 @@ export const TopNavBar: React.FC<TopNavBarProps> = ({
   onOpenMobileDrawer,
   onOpenCommand,
   onOpenRecruiter,
+  onOpenAI,
+  onOpenVoice,
 }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [muted, setMuted] = useState(getAudioMuteState());
@@ -133,6 +137,28 @@ export const TopNavBar: React.FC<TopNavBarProps> = ({
             >
               <Terminal className="w-3.5 h-3.5 text-[#4cd9e0]" />
               <span className="text-[11px] uppercase tracking-wider">⌘K</span>
+            </button>
+          )}
+
+          
+          {onOpenAI && (
+            <button
+              type="button"
+              onClick={() => { playCyberClick(870); onOpenAI(); }}
+              title="AI Portfolio Agent"
+              className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded border border-white/10 hover:border-[#4cd9e0]/40 text-[#c5c6ca] hover:text-[#4cd9e0] font-code-md text-xs transition-all bg-white/[0.02]"
+            >
+              <span className="text-[11px] uppercase tracking-wider">AI</span>
+            </button>
+          )}
+          {onOpenVoice && (
+            <button
+              type="button"
+              onClick={() => { playCyberClick(875); onOpenVoice(); }}
+              title="Voice interface"
+              className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded border border-white/10 hover:border-[#4cd9e0]/40 text-[#c5c6ca] hover:text-[#4cd9e0] font-code-md text-xs transition-all bg-white/[0.02]"
+            >
+              <span className="text-[11px] uppercase tracking-wider">Voice</span>
             </button>
           )}
 

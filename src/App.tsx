@@ -23,6 +23,10 @@ import { PerformanceLab } from './components/PerformanceLab';
 import { EngineeringLab } from './components/EngineeringLab';
 import { SecurityCenter } from './components/SecurityCenter';
 import { PortfolioDNA } from './components/PortfolioDNA';
+import { GitHubActivity } from './components/GitHubActivity';
+import { SpatialMode } from './components/SpatialMode';
+import { InteractiveResume } from './components/InteractiveResume';
+import { VoiceInterface } from './components/VoiceInterface';
 import { MissionTimeline } from './components/MissionTimeline';
 import { ProjectItem } from './types';
 import { playCyberClick, playTransmitSuccess } from './utils/audioSynth';
@@ -37,13 +41,14 @@ export function App() {
   const [commandOpen, setCommandOpen] = useState(false);
   const [recruiterOpen, setRecruiterOpen] = useState(false);
   const [aiOpen, setAiOpen] = useState(false);
+  const [voiceOpen, setVoiceOpen] = useState(false);
   const { performanceMode, toggle: togglePerf } = usePerformanceMode();
 
   useEffect(() => {
     const handleScroll = () => {
       const sections = [
         'hero', 'dashboard', 'about', 'projects', 'architecture', 'capabilities',
-        'skill-graph', 'experience', 'mission-log', 'perf-lab', 'lab', 'security', 'dna', 'connect',
+        'skill-graph', 'experience', 'mission-log', 'perf-lab', 'lab', 'security', 'dna', 'resume', 'spatial', 'github-activity', 'connect',
       ];
       const scrollPos = window.scrollY + 200;
       for (const section of sections) {
@@ -73,6 +78,7 @@ export function App() {
         setCommandOpen(false);
         setRecruiterOpen(false);
         setAiOpen(false);
+        setVoiceOpen(false);
       }
     };
     window.addEventListener('keydown', onKey);
@@ -123,6 +129,8 @@ export function App() {
         onOpenMobileDrawer={() => setIsMobileDrawerOpen(true)}
         onOpenCommand={() => setCommandOpen(true)}
         onOpenRecruiter={() => setRecruiterOpen(true)}
+        onOpenAI={() => setAiOpen(true)}
+        onOpenVoice={() => setVoiceOpen(true)}
       />
 
       <main className="relative z-10">
@@ -154,6 +162,9 @@ export function App() {
             <EngineeringLab />
             <SecurityCenter />
             <PortfolioDNA />
+            <InteractiveResume />
+            <SpatialMode onSelectProject={setSelectedProject} />
+            <GitHubActivity />
             <CommsTerminal />
           </>
         )}
@@ -185,6 +196,12 @@ export function App() {
       <AIAgent
         open={aiOpen}
         onClose={() => setAiOpen(false)}
+        onSelectProject={setSelectedProject}
+        onNavigate={handleNavigate}
+      />
+      <VoiceInterface
+        open={voiceOpen}
+        onClose={() => setVoiceOpen(false)}
         onSelectProject={setSelectedProject}
         onNavigate={handleNavigate}
       />
