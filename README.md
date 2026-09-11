@@ -1,33 +1,32 @@
 # Parul Gupta — Engineering Portfolio
 
-Premium engineering portfolio: recruiter-first UX with an optional Engineering OS layer (⌘K).
+Premium Engineering OS portfolio: recruiter-first primary path, deeper systems via ⌘K.
 
 ## Design philosophy
 
-- **80%** professional product UI  
-- **15%** engineering OS (architecture, labs, command center)  
-- **5%** discoverable hacker commands  
+| Layer | Share |
+|-------|------|
+| Professional product UI | ~80% |
+| Engineering OS | ~15% |
+| Discoverable hacker commands | ~5% |
 
-Palette: obsidian · graphite · ice cyan · subtle lime status.
+**Palette locked:** obsidian · graphite · ice cyan · subtle lime status.
 
 ## Featured systems
 
-| Project | Focus |
-|---------|--------|
-| **Priceloop** | Price tracking · FastAPI · PostgreSQL · Stripe |
-| **CodeForge** | AI coding agent · sandbox · repair loops |
-| **PulseOps** | Incident / on-call · queues · realtime |
+- **Priceloop** — price tracking, FastAPI, PostgreSQL, Stripe  
+- **CodeForge** — AI coding agent, sandbox, repair loops  
+- **PulseOps** — incident / on-call workflows  
 
-Also: Pocket-Triage, SkyCall, NutriVibe, Beacon, Disaster Mesh.
+## Engineering features
 
-## Features
-
-- Hero + system panel + 30-second read  
-- Flagship / applied / experiment project tiers  
-- Recruiter Mode (role lens + evidence)  
-- ⌘K Command Center (`whoami`, `trace codeforge`, …)  
-- Architecture explorer, labs, stack evidence  
-- Optional `npm run api` + Gemini-grounded agent  
+- 30-second engineer summary  
+- Flagship / applied / experiment tiers  
+- Recruiter Mode (role evidence, no fake %)  
+- Stack evidence (“Used in”)  
+- System Trace (`> trace codeforge` etc.)  
+- Architecture explorer, labs, security (honest claims)  
+- AI agent grounded in `portfolioData` (+ optional API)  
 
 ## Scripts
 
@@ -36,13 +35,21 @@ npm install
 npm run dev
 npm run typecheck
 npm run build
-npm run api          # optional portfolio API
+npm run test        # requires vitest + jsdom (install if missing)
+npm run api         # optional Gemini portfolio API
 ```
 
-## Content
+## Metric policy
 
-`src/data/portfolioData.ts` — single source of truth for projects and profile.
+| Label | Meaning |
+|-------|---------|
+| MEASURED | Observed in this environment |
+| IMPLEMENTED | Present in repository |
+| DEMO / SIMULATED | Illustrative only |
+| COUNT | Personal count (e.g. DSA) |
 
-## Honest metrics policy
+No fake cluster uptime or invented production SLAs.
 
-Demo/simulated diagnostics are labeled as such. No fake cluster uptime or invented production SLAs.
+## Content source of truth
+
+`src/data/portfolioData.ts`

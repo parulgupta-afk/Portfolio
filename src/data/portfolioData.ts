@@ -24,6 +24,7 @@ export const SYSTEM_METRICS = {
 export const PROJECTS_DATA: ProjectItem[] = [
   {
     id: 'priceloop',
+    tier: 'flagship',
     modNumber: 'MOD_01',
     category: 'PRICE INTELLIGENCE',
     title: 'Priceloop',
@@ -69,6 +70,13 @@ export const PROJECTS_DATA: ProjectItem[] = [
       encryption: 'JWT + bcrypt passwords',
     },
     roleFit: ['backend', 'fullstack', 'product', 'software'],
+    evidence: [
+      { claim: 'FastAPI JWT API + product isolation tests', type: 'implemented', source: 'Priceloop repo', url: 'https://github.com/parulgupta-afk/Priceloop' },
+      { claim: 'PostgreSQL models + Alembic migrations', type: 'implemented', source: 'backend/alembic', url: 'https://github.com/parulgupta-afk/Priceloop' },
+      { claim: 'Stripe Checkout + webhook signature verification', type: 'implemented', source: 'billing', url: 'https://github.com/parulgupta-afk/Priceloop' },
+      { claim: 'Redis/Celery broker scaffold (tasks planned)', type: 'implemented', source: 'README / workers' },
+      { claim: 'GitHub Actions CI with Postgres/Redis services', type: 'implemented', source: '.github/workflows' },
+    ],
     decisions: [
       {
         question: 'Why FastAPI + Alembic instead of only ORM auto-create?',
@@ -88,6 +96,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
   },
   {
     id: 'codeforge',
+    tier: 'flagship',
     modNumber: 'MOD_02',
     category: 'AI CODING AGENT',
     title: 'CodeForge',
@@ -132,6 +141,14 @@ export const PROJECTS_DATA: ProjectItem[] = [
       encryption: 'Sandbox isolation (Docker mode)',
     },
     roleFit: ['ai', 'backend', 'software', 'fullstack'],
+    evidence: [
+      { claim: 'Express orchestrator + Socket.IO studio', type: 'implemented', source: 'CodeForge repo', url: 'https://github.com/parulgupta-afk/CodeForge' },
+      { claim: 'Gemini/Groq/mock LLM providers', type: 'implemented', source: 'server providers' },
+      { claim: 'Bounded repair loop + error classifier', type: 'implemented', source: 'orchestrator tests' },
+      { claim: 'Docker sandbox options (network none, limits)', type: 'implemented', source: 'SECURITY.md / sandbox' },
+      { claim: 'Local subprocess is NOT a security boundary', type: 'implemented', source: 'README honesty' },
+      { claim: 'CI with USE_MOCK_LLM (no real keys)', type: 'implemented', source: 'GitHub Actions' },
+    ],
     decisions: [
       {
         question: 'Why Docker sandbox instead of only local Python?',
@@ -151,10 +168,11 @@ export const PROJECTS_DATA: ProjectItem[] = [
   },
   {
     id: 'pulseops',
+    tier: 'flagship',
     modNumber: 'MOD_03',
     category: 'INCIDENT MANAGEMENT',
     title: 'PulseOps',
-    tagline: 'Production-grade on-call & incident platform (PagerDuty-style)',
+    tagline: 'Production-oriented on-call & incident platform (PagerDuty-style)',
     description:
       'Scoped on-call incident management platform with real-time updates, constraint-based scheduling, automated escalation, RAG triage, SLA/error-budget analytics, and full observability.',
     fullOverview:
@@ -216,6 +234,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
   },
   {
     id: 'pocket-triage',
+    tier: 'applied',
     modNumber: 'MOD_04',
     category: 'HEALTH / EMERGENCY',
     title: 'Pocket-Triage',
@@ -273,6 +292,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
   },
   {
     id: 'skycall',
+    tier: 'applied',
     modNumber: 'MOD_05',
     category: 'TRAVEL',
     title: 'SkyCall',
@@ -317,6 +337,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
   },
   {
     id: 'nutrivibe',
+    tier: 'experiment',
     modNumber: 'MOD_06',
     category: 'HEALTH',
     title: 'NutriVibe',
@@ -352,6 +373,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
   },
   {
     id: 'beacon',
+    tier: 'experiment',
     modNumber: 'MOD_07',
     category: 'DISASTER RESPONSE',
     title: 'Beacon',
@@ -387,6 +409,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
   },
   {
     id: 'disaster-mesh',
+    tier: 'experiment',
     modNumber: 'MOD_08',
     category: 'OFFLINE-FIRST',
     title: 'Disaster Mesh',

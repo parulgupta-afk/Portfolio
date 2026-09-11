@@ -28,6 +28,8 @@ export interface ProjectItem {
   roleFit?: RecruiterRole[];
   /** Short decision records for Architecture Explorer */
   decisions?: EngineeringDecision[];
+  evidence?: EvidenceItem[];
+  tier?: 'flagship' | 'applied' | 'experiment';
 }
 
 export interface CapabilityItem {
@@ -57,6 +59,13 @@ export interface TerminalLog {
   sender: 'system' | 'user' | 'error' | 'success';
   text: string;
   timestamp: string;
+}
+
+export interface EvidenceItem {
+  claim: string;
+  type: 'measured' | 'implemented' | 'demo' | 'target' | 'count';
+  source?: string;
+  url?: string;
 }
 
 export type RecruiterRole =

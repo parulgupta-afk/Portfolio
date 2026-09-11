@@ -10,6 +10,7 @@ interface CommandCenterProps {
   onSelectProject: (project: ProjectItem) => void;
   onOpenRecruiter: () => void;
   onToggleBento: () => void;
+  onTrace?: (projectId: string) => void;
 }
 
 function buildCommands(): CommandItem[] {
@@ -52,8 +53,10 @@ function buildCommands(): CommandItem[] {
     { id: 'ext-email', label: 'Email Parul', keywords: ['email', 'mail'], action: 'external', payload: `mailto:${PROFILE.email}`, group: 'external' },
     { id: 'egg-whoami', label: '> whoami', keywords: ['whoami', 'identity'], action: 'navigate', payload: 'about', group: 'modes' },
     { id: 'egg-sudo', label: '> sudo inspect parul', keywords: ['sudo', 'inspect', 'hire'], action: 'recruiter', group: 'modes' },
-    { id: 'egg-trace', label: '> trace codeforge', keywords: ['trace', 'codeforge'], action: 'project', payload: 'codeforge', group: 'modes' },
+    { id: 'egg-trace', label: '> trace codeforge', keywords: ['trace', 'codeforge'], action: 'trace', payload: 'codeforge', group: 'modes' },
     { id: 'egg-price', label: '> inspect priceloop', keywords: ['priceloop', 'inspect'], action: 'project', payload: 'priceloop', group: 'modes' },
+    { id: 'egg-trace-p', label: '> trace priceloop', keywords: ['trace', 'priceloop'], action: 'trace', payload: 'priceloop', group: 'modes' },
+    { id: 'egg-trace-pu', label: '> trace pulseops', keywords: ['trace', 'pulseops'], action: 'trace', payload: 'pulseops', group: 'modes' },
     { id: 'egg-help', label: '> help', keywords: ['help', 'commands'], action: 'navigate', payload: 'summary', group: 'modes' },
     { id: 'egg-status', label: '> status', keywords: ['status', 'online'], action: 'navigate', payload: 'hero', group: 'modes' },
     { id: 'nav-resume', label: '> open resume', keywords: ['resume', 'cv'], action: 'navigate', payload: 'resume', group: 'nav' },
@@ -78,6 +81,7 @@ export const CommandCenter: React.FC<CommandCenterProps> = ({
   onSelectProject,
   onOpenRecruiter,
   onToggleBento,
+  onTrace,
 }) => {
   const [query, setQuery] = useState('');
   const [activeIdx, setActiveIdx] = useState(0);

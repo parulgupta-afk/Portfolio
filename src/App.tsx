@@ -30,9 +30,11 @@ import { InteractiveResume } from './components/InteractiveResume';
 import { VoiceInterface } from './components/VoiceInterface';
 import { MissionTimeline } from './components/MissionTimeline';
 import { ContactCTA } from './components/ContactCTA';
+import { SystemTrace } from './components/SystemTrace';
 import { StackSection } from './components/StackSection';
 import { ThirtySecondRead } from './components/ThirtySecondRead';
 import { ProjectItem } from './types';
+import { PROJECTS_DATA } from './data/portfolioData';
 import { playCyberClick, playTransmitSuccess } from './utils/audioSynth';
 import { usePerformanceMode } from './hooks/usePerformanceMode';
 
@@ -47,6 +49,7 @@ export function App() {
   const [recruiterOpen, setRecruiterOpen] = useState(false);
   const [aiOpen, setAiOpen] = useState(false);
   const [voiceOpen, setVoiceOpen] = useState(false);
+  const [traceId, setTraceId] = useState<string | null>(null);
   const { performanceMode, toggle: togglePerf } = usePerformanceMode();
 
   useEffect(() => {
@@ -199,6 +202,7 @@ export function App() {
         onSelectProject={setSelectedProject}
         onOpenRecruiter={() => setRecruiterOpen(true)}
         onToggleBento={() => setViewMode((m) => (m === 'bento' ? 'desktop' : 'bento'))}
+        onTrace={(id) => setTraceId(id)}
       />
       <RecruiterMode
         open={recruiterOpen}
@@ -216,6 +220,14 @@ export function App() {
         onClose={() => setVoiceOpen(false)}
         onSelectProject={setSelectedProject}
         onNavigate={handleNavigate}
+      />
+      <SystemTrace
+        projectId={traceId}
+        onClose={() => setTraceId(null)}
+        onOpenProject={(id) => {
+          const p = PROJECTS_DATA.find((x) => x.id === id);
+          if (p) setSelectedProject(p);
+        }}
       />
       {!showBoot && !showIntro && <TelemetryHUD compact />}
       <Footer />
