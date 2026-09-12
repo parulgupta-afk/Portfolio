@@ -1,55 +1,94 @@
 # Parul Gupta — Engineering Portfolio
 
-Premium Engineering OS portfolio: recruiter-first primary path, deeper systems via ⌘K.
+Premium Engineering OS portfolio for software engineering recruiting.
 
-## Design philosophy
+**Static site works with zero API keys and zero paid services.**
+
+## Design
 
 | Layer | Share |
 |-------|------|
 | Professional product UI | ~80% |
-| Engineering OS | ~15% |
-| Discoverable hacker commands | ~5% |
+| Engineering OS (⌘K, labs, architecture) | ~15% |
+| Discoverable commands | ~5% |
 
-**Palette locked:** obsidian · graphite · ice cyan · subtle lime status.
+Palette: obsidian · graphite · ice cyan · subtle lime status.
 
 ## Featured systems
 
-- **Priceloop** — price tracking, FastAPI, PostgreSQL, Stripe  
-- **CodeForge** — AI coding agent, sandbox, repair loops  
-- **PulseOps** — incident / on-call workflows  
+| Project | Stack highlights |
+|---------|------------------|
+| **Priceloop** | FastAPI · PostgreSQL · Stripe · Redis/Celery scaffold |
+| **CodeForge** | Express · Socket.IO · Gemini/Groq · Docker sandbox |
+| **PulseOps** | Node · queues · realtime incident workflows |
 
-## Engineering features
-
-- 30-second engineer summary  
-- Flagship / applied / experiment tiers  
-- Recruiter Mode (role evidence, no fake %)  
-- Stack evidence (“Used in”)  
-- System Trace (`> trace codeforge` etc.)  
-- Architecture explorer, labs, security (honest claims)  
-- AI agent grounded in `portfolioData` (+ optional API)  
-
-## Scripts
+## Local development
 
 ```bash
-npm install
+npm ci
 npm run dev
-npm run typecheck
-npm run build
-npm run test        # requires vitest + jsdom (install if missing)
-npm run api         # optional Gemini portfolio API
 ```
+
+Open http://localhost:3000
+
+### Quality gates
+
+```bash
+npm run typecheck
+npm run lint
+npm run format:check
+npm run test
+npm run build
+npx playwright install chromium   # once
+npm run e2e
+```
+
+### Optional AI API
+
+```bash
+cp .env.example .env
+# set GEMINI_API_KEY
+npm run api
+# optional: VITE_API_URL=http://localhost:8787
+```
+
+Without the API, the AI agent uses local grounded retrieval from `src/data/portfolioData.ts`.
+
+## Deploy (static, free)
+
+```bash
+npm run build
+```
+
+Deploy the `dist/` folder to:
+
+- Vercel
+- Netlify
+- Cloudflare Pages
+- GitHub Pages (set Vite `base` if needed)
+
+No database required for the portfolio site.
+
+## Command Center (⌘K / Ctrl+K)
+
+| Command | Action |
+|---------|--------|
+| `help` | Navigate to summary |
+| `whoami` | About |
+| `sudo inspect parul` | Recruiter Mode |
+| `trace codeforge` / `priceloop` / `pulseops` | System Trace |
+| `open resume` | Resume section |
+| `recruiter mode` | Recruiter Mode |
+| `engineering mode` | Engineering Lab |
 
 ## Metric policy
 
-| Label | Meaning |
-|-------|---------|
-| MEASURED | Observed in this environment |
-| IMPLEMENTED | Present in repository |
-| DEMO / SIMULATED | Illustrative only |
-| COUNT | Personal count (e.g. DSA) |
-
-No fake cluster uptime or invented production SLAs.
+Claims use **implemented / measured / demo / count** semantics. No fabricated uptime or RPS.
 
 ## Content source of truth
 
 `src/data/portfolioData.ts`
+
+## License
+
+Private portfolio project.
