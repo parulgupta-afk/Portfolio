@@ -11,10 +11,13 @@ interface IntroSequenceProps {
 export const IntroSequence: React.FC<IntroSequenceProps> = ({ onComplete, onSkip }) => {
   useEffect(() => {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const t = setTimeout(() => {
-      playTransmitSuccess();
-      onComplete();
-    }, reduced ? 200 : 1600);
+    const t = setTimeout(
+      () => {
+        playTransmitSuccess();
+        onComplete();
+      },
+      reduced ? 200 : 1600
+    );
     return () => clearTimeout(t);
   }, [onComplete]);
 

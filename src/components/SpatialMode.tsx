@@ -20,7 +20,10 @@ export const SpatialMode: React.FC<SpatialModeProps> = ({ onSelectProject }) => 
   const [hover, setHover] = useState<string | null>(null);
 
   return (
-    <section id="spatial" className="relative z-10 px-4 sm:px-8 md:px-12 lg:px-16 py-16 max-w-[1440px] mx-auto">
+    <section
+      id="spatial"
+      className="relative z-10 px-4 sm:px-8 md:px-12 lg:px-16 py-16 max-w-[1440px] mx-auto"
+    >
       <p className="text-[10px] font-mono-custom tracking-[0.25em] text-[#4cd9e0]">SPATIAL_MODE</p>
       <h2 className="text-3xl font-bodoni text-white mt-1 mb-2">Project constellation</h2>
       <p className="text-sm text-[#c5c6ca] mb-6">Lightweight spatial map (CSS) — full R3F optional later.</p>

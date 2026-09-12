@@ -16,10 +16,13 @@ export const SkillGraph: React.FC = () => {
   }, []);
 
   const [selected, setSelected] = useState<string | null>(allTags[0]?.[0] ?? null);
-  const usedIn = selected ? allTags.find(([t]) => t === selected)?.[1] ?? [] : [];
+  const usedIn = selected ? (allTags.find(([t]) => t === selected)?.[1] ?? []) : [];
 
   return (
-    <section id="skill-graph" className="relative z-10 px-4 sm:px-8 md:px-12 lg:px-16 py-16 max-w-[1440px] mx-auto">
+    <section
+      id="skill-graph"
+      className="relative z-10 px-4 sm:px-8 md:px-12 lg:px-16 py-16 max-w-[1440px] mx-auto"
+    >
       <p className="text-[10px] font-mono-custom tracking-[0.25em] text-[#4cd9e0]">SKILL_GRAPH</p>
       <h2 className="text-3xl font-bodoni text-white mt-1 mb-2">Interactive technology map</h2>
       <p className="text-sm text-[#c5c6ca] mb-8 max-w-2xl">Click a node to see which modules use it.</p>

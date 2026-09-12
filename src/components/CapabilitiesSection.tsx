@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Code2, Server, Layout, Sparkles, Activity } from 'lucide-react';
+import { Box, Code2, Server, Layout } from 'lucide-react';
 import { CAPABILITIES_DATA } from '../data/portfolioData';
 import { playCyberClick } from '../utils/audioSynth';
 

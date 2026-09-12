@@ -23,11 +23,10 @@ const SUGGESTIONS = [
 export const AIAgent: React.FC<AIAgentProps> = ({ open, onClose, onSelectProject, onNavigate }) => {
   const [query, setQuery] = useState('');
   const [answer, setAnswer] = useState(() => answerPortfolioQuery(''));
-
-  if (!open) return null;
-
   const [source, setSource] = useState<'api' | 'local' | null>(null);
   const [busy, setBusy] = useState(false);
+
+  if (!open) return null;
 
   const run = async (q: string) => {
     playTerminalChirp();
@@ -46,7 +45,11 @@ export const AIAgent: React.FC<AIAgentProps> = ({ open, onClose, onSelectProject
   };
 
   return (
-    <div className="fixed inset-0 z-[92] flex items-center justify-center p-4" role="dialog" aria-modal="true">
+    <div
+      className="fixed inset-0 z-[92] flex items-center justify-center p-4"
+      role="dialog"
+      aria-modal="true"
+    >
       <div className="absolute inset-0 bg-black/75 backdrop-blur-sm" onClick={onClose} />
       <div className="relative w-full max-w-2xl max-h-[85vh] overflow-y-auto glass-panel rounded-2xl border border-[#4cd9e0]/25">
         <div className="sticky top-0 flex justify-between items-center px-5 py-4 border-b border-white/10 bg-[#0d141b]/95">
@@ -72,7 +75,10 @@ export const AIAgent: React.FC<AIAgentProps> = ({ open, onClose, onSelectProject
               placeholder="e.g. best backend project with queues…"
               className="flex-1 bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-[#4cd9e0]/50"
             />
-            <button type="submit" className="px-4 py-2 rounded-xl bg-[#4cd9e0] text-[#002021] text-sm font-semibold">
+            <button
+              type="submit"
+              className="px-4 py-2 rounded-xl bg-[#4cd9e0] text-[#002021] text-sm font-semibold"
+            >
               Query
             </button>
           </form>
@@ -143,7 +149,8 @@ export const AIAgent: React.FC<AIAgentProps> = ({ open, onClose, onSelectProject
             </div>
           </div>
           <p className="text-[10px] text-[#45474a] font-mono-custom">
-            {source === 'api' ? 'Grounded via portfolio-api + Gemini' : 'Local portfolioKnowledge retriever'} · no fabricated projects · {busy ? 'thinking…' : 'ready'}
+            {source === 'api' ? 'Grounded via portfolio-api + Gemini' : 'Local portfolioKnowledge retriever'}{' '}
+            · no fabricated projects · {busy ? 'thinking…' : 'ready'}
           </p>
         </div>
       </div>

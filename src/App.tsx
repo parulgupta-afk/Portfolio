@@ -55,8 +55,23 @@ export function App() {
   useEffect(() => {
     const handleScroll = () => {
       const sections = [
-        'hero', 'dashboard', 'about', 'projects', 'architecture', 'capabilities',
-        'skill-graph', 'experience', 'mission-log', 'perf-lab', 'lab', 'security', 'dna', 'resume', 'spatial', 'github-activity', 'connect',
+        'hero',
+        'dashboard',
+        'about',
+        'projects',
+        'architecture',
+        'capabilities',
+        'skill-graph',
+        'experience',
+        'mission-log',
+        'perf-lab',
+        'lab',
+        'security',
+        'dna',
+        'resume',
+        'spatial',
+        'github-activity',
+        'connect',
       ];
       const scrollPos = window.scrollY + 200;
       for (const section of sections) {
@@ -122,10 +137,21 @@ export function App() {
   return (
     <div className="relative min-h-screen bg-[#05070a] text-[#e8eef6] overflow-x-hidden selection:bg-[#4cd9e0] selection:text-[#062a2c]">
       {!performanceMode && <ShaderBackground />}
-      {performanceMode && <div className="fixed inset-0 bg-[#05070a] pointer-events-none" style={{ zIndex: 0 }} aria-hidden />}
+      {performanceMode && (
+        <div className="fixed inset-0 bg-[#05070a] pointer-events-none" style={{ zIndex: 0 }} aria-hidden />
+      )}
 
       {showBoot && (
-        <BootSequence onComplete={() => { setShowBoot(false); setShowIntro(false); }} onSkip={() => { setShowBoot(false); setShowIntro(false); }} />
+        <BootSequence
+          onComplete={() => {
+            setShowBoot(false);
+            setShowIntro(false);
+          }}
+          onSkip={() => {
+            setShowBoot(false);
+            setShowIntro(false);
+          }}
+        />
       )}
       {!showBoot && showIntro && (
         <IntroSequence onComplete={() => setShowIntro(false)} onSkip={() => setShowIntro(false)} />

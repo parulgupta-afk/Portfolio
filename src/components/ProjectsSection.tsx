@@ -11,7 +11,8 @@ const FLAGSHIP_IDS = ['priceloop', 'codeforge', 'pulseops'];
 const APPLIED_IDS = ['pocket-triage', 'skycall'];
 
 function statusLabel(p: ProjectItem): string {
-  if (p.metrics.health === 'IN_DEV' || /development/i.test(p.specs.availability || '')) return 'IN DEVELOPMENT';
+  if (p.metrics.health === 'IN_DEV' || /development/i.test(p.specs.availability || ''))
+    return 'IN DEVELOPMENT';
   if (p.id === 'beacon') return 'EXPERIMENTAL';
   if (FLAGSHIP_IDS.includes(p.id) || APPLIED_IDS.includes(p.id)) return 'BUILT';
   return 'BUILT';
@@ -66,7 +67,10 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onSelectProjec
                       <p className="text-sm text-[#8b95a5] mt-2 line-clamp-2 leading-relaxed">{p.tagline}</p>
                       <div className="flex flex-wrap gap-1.5 mt-4">
                         {p.tags.slice(0, 4).map((t) => (
-                          <span key={t} className="text-[10px] px-2 py-0.5 rounded border border-white/10 text-[#6b7380]">
+                          <span
+                            key={t}
+                            className="text-[10px] px-2 py-0.5 rounded border border-white/10 text-[#6b7380]"
+                          >
                             {t}
                           </span>
                         ))}

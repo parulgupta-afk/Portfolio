@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { answerPortfolioQuery } from '../lib/portfolioKnowledge';
-import { PROJECTS_DATA } from '../data/portfolioData';
 import type { ProjectItem } from '../types';
 import { playCyberClick, playTerminalChirp } from '../utils/audioSynth';
 
@@ -114,7 +113,11 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
   const answer = transcript ? answerPortfolioQuery(transcript) : null;
 
   return (
-    <div className="fixed inset-0 z-[93] flex items-center justify-center p-4" role="dialog" aria-modal="true">
+    <div
+      className="fixed inset-0 z-[93] flex items-center justify-center p-4"
+      role="dialog"
+      aria-modal="true"
+    >
       <div className="absolute inset-0 bg-black/75 backdrop-blur-sm" onClick={onClose} />
       <div className="relative w-full max-w-lg glass-panel rounded-2xl border border-[#4cd9e0]/25 p-6">
         <div className="flex justify-between items-start mb-4">
@@ -127,7 +130,9 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
           </button>
         </div>
         {!supported && (
-          <p className="text-xs text-[#ffb4ab] mb-3">Web Speech API unavailable — open AI Agent and type instead.</p>
+          <p className="text-xs text-[#ffb4ab] mb-3">
+            Web Speech API unavailable — open AI Agent and type instead.
+          </p>
         )}
         <div className="flex gap-2 mb-4">
           <button

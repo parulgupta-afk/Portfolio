@@ -68,13 +68,7 @@ export interface EvidenceItem {
   url?: string;
 }
 
-export type RecruiterRole =
-  | 'software'
-  | 'fullstack'
-  | 'backend'
-  | 'frontend'
-  | 'ai'
-  | 'product';
+export type RecruiterRole = 'software' | 'fullstack' | 'backend' | 'frontend' | 'ai' | 'product';
 
 export interface EngineeringDecision {
   question: string;
@@ -89,7 +83,7 @@ export interface CommandItem {
   label: string;
   keywords: string[];
   section?: string;
-  action: 'navigate' | 'project' | 'recruiter' | 'external' | 'mode';
+  action: 'navigate' | 'project' | 'recruiter' | 'external' | 'mode' | 'trace';
   payload?: string;
   group: 'nav' | 'projects' | 'modes' | 'external';
 }

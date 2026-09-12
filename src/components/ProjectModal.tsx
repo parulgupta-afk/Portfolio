@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, Activity, Server, Zap, Shield, ArrowUpRight, CheckCircle2, Play, RefreshCw } from 'lucide-react';
+import { X, Zap, ArrowUpRight, Play, RefreshCw } from 'lucide-react';
 import { ProjectItem } from '../types';
 import { playCyberClick, playTerminalChirp } from '../utils/audioSynth';
 
@@ -160,9 +160,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
           {/* Tab 1: Architecture */}
           {activeTab === 'architecture' && (
             <div className="space-y-6">
-              <p className="font-body-lg text-[#c5c6ca] text-base leading-relaxed">
-                {project.fullOverview}
-              </p>
+              <p className="font-body-lg text-[#c5c6ca] text-base leading-relaxed">{project.fullOverview}</p>
 
               <div>
                 <h4 className="font-code-md text-xs uppercase tracking-widest text-[#4cd9e0] mb-3 font-bold">
@@ -229,15 +227,21 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                 </div>
                 <div className="glass-panel p-4 rounded-xl border-white/5">
                   <span className="font-code-md text-[10px] text-[#80d4d8] uppercase">Concurrency</span>
-                  <div className="font-bodoni text-xl text-white font-bold mt-1">{project.specs.concurrency}</div>
+                  <div className="font-bodoni text-xl text-white font-bold mt-1">
+                    {project.specs.concurrency}
+                  </div>
                 </div>
                 <div className="glass-panel p-4 rounded-xl border-white/5">
                   <span className="font-code-md text-[10px] text-[#9ecafd] uppercase">Availability</span>
-                  <div className="font-bodoni text-xl text-white font-bold mt-1">{project.specs.availability}</div>
+                  <div className="font-bodoni text-xl text-white font-bold mt-1">
+                    {project.specs.availability}
+                  </div>
                 </div>
                 <div className="glass-panel p-4 rounded-xl border-white/5">
                   <span className="font-code-md text-[10px] text-[#ffb4ab] uppercase">Security</span>
-                  <div className="font-bodoni text-xl text-white font-bold mt-1">{project.specs.encryption}</div>
+                  <div className="font-bodoni text-xl text-white font-bold mt-1">
+                    {project.specs.encryption}
+                  </div>
                 </div>
               </div>
 
@@ -278,7 +282,8 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                   {project.title} Virtual Runtime Sandbox
                 </h4>
                 <p className="font-body-sm text-[#c5c6ca] text-sm max-w-md mx-auto">
-                  Verify endpoint health, inspect cryptographic certificates, and test live socket handshakes directly against the mock kernel.
+                  Verify endpoint health, inspect cryptographic certificates, and test live socket handshakes
+                  directly against the mock kernel.
                 </p>
 
                 <div className="flex justify-center gap-4 pt-2">

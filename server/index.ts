@@ -33,7 +33,9 @@ app.get('/api/projects', (_req, res) => {
 
 app.post('/api/ai/chat', async (req, res) => {
   try {
-    const message = String(req.body?.message ?? '').slice(0, 2000).trim();
+    const message = String(req.body?.message ?? '')
+      .slice(0, 2000)
+      .trim();
     const context = String(req.body?.context ?? '').slice(0, 100000);
     if (!message) {
       return res.status(400).json({ error: 'message_required' });
@@ -65,7 +67,9 @@ ${message}`;
     });
     const text =
       (response as { text?: string }).text ||
-      (response as { candidates?: { content?: { parts?: { text?: string }[] } }[] }).candidates?.[0]?.content?.parts
+      (
+        response as { candidates?: { content?: { parts?: { text?: string }[] } }[] }
+      ).candidates?.[0]?.content?.parts
         ?.map((p) => p.text)
         .join('\n') ||
       '';

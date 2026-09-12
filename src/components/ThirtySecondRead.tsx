@@ -11,8 +11,8 @@ export const ThirtySecondRead: React.FC = () => {
         <p className="text-[10px] font-mono-custom tracking-[0.25em] text-[#5eb8c8] mb-3">30 SECOND READ</p>
         <h2 className="text-2xl sm:text-3xl font-semibold text-white mb-4">Software Engineer</h2>
         <p className="text-[#a8b3c4] text-base sm:text-lg max-w-3xl leading-relaxed mb-8">
-          Full-stack engineer building product systems across frontend, backend, AI, data, realtime
-          systems, and infrastructure. Strongest evidence is in end-to-end builds — not isolated demos.
+          Full-stack engineer building product systems across frontend, backend, AI, data, realtime systems,
+          and infrastructure. Strongest evidence is in end-to-end builds — not isolated demos.
         </p>
         <div className="grid sm:grid-cols-3 gap-6 text-sm">
           <div>
@@ -23,9 +23,7 @@ export const ThirtySecondRead: React.FC = () => {
           </div>
           <div>
             <p className="text-[10px] font-mono-custom tracking-widest text-[#6b7380] mb-2">FLAGSHIP</p>
-            <p className="text-[#e8edf4] leading-relaxed">
-              {flagship.map((p) => p.title).join(' · ')}
-            </p>
+            <p className="text-[#e8edf4] leading-relaxed">{flagship.map((p) => p.title).join(' · ')}</p>
           </div>
           <div>
             <p className="text-[10px] font-mono-custom tracking-widest text-[#6b7380] mb-2">ROLE FIT</p>

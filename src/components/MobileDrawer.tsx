@@ -1,6 +1,6 @@
 import React from 'react';
-import { X, Volume2, VolumeX, RotateCcw, LayoutGrid, Terminal, Cpu, ArrowRight } from 'lucide-react';
-import { toggleAudioMute, getAudioMuteState, playCyberClick } from '../utils/audioSynth';
+import { X, RotateCcw, LayoutGrid, ArrowRight } from 'lucide-react';
+import { playCyberClick } from '../utils/audioSynth';
 
 interface MobileDrawerProps {
   isOpen: boolean;

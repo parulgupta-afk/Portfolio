@@ -64,7 +64,11 @@ export const RecruiterMode: React.FC<RecruiterModeProps> = ({ open, onClose, onS
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-[90] flex items-center justify-center p-4" role="dialog" aria-modal="true">
+    <div
+      className="fixed inset-0 z-[90] flex items-center justify-center p-4"
+      role="dialog"
+      aria-modal="true"
+    >
       <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={onClose} />
       <div className="relative w-full max-w-2xl max-h-[88vh] overflow-y-auto rounded-2xl border border-white/10 bg-[#0c1016] shadow-2xl">
         <div className="sticky top-0 flex items-center justify-between px-5 py-4 border-b border-white/10 bg-[#0c1016]/95">
@@ -73,7 +77,12 @@ export const RecruiterMode: React.FC<RecruiterModeProps> = ({ open, onClose, onS
             <h2 className="text-lg font-semibold text-white">{PROFILE.name}</h2>
             <p className="text-sm text-[#8b95a5]">{PROFILE.role}</p>
           </div>
-          <button type="button" onClick={onClose} className="text-[#8b95a5] hover:text-white text-sm" aria-label="Close">
+          <button
+            type="button"
+            onClick={onClose}
+            className="text-[#8b95a5] hover:text-white text-sm"
+            aria-label="Close"
+          >
             Close
           </button>
         </div>
@@ -82,7 +91,9 @@ export const RecruiterMode: React.FC<RecruiterModeProps> = ({ open, onClose, onS
           <p className="text-sm text-[#a8b3c4] leading-relaxed">{PROFILE.tagline}</p>
 
           <div>
-            <p className="text-[10px] font-mono-custom tracking-widest text-[#6b7380] mb-2">SELECT ROLE LENS</p>
+            <p className="text-[10px] font-mono-custom tracking-widest text-[#6b7380] mb-2">
+              SELECT ROLE LENS
+            </p>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
               {ROLES.map((r) => (
                 <button
@@ -105,7 +116,9 @@ export const RecruiterMode: React.FC<RecruiterModeProps> = ({ open, onClose, onS
           </div>
 
           <div className="rounded-xl border border-white/10 p-4 bg-[#05070a]">
-            <p className="text-[10px] font-mono-custom tracking-widest text-[#5eb8c8] mb-1">WHY THIS PROFILE FITS</p>
+            <p className="text-[10px] font-mono-custom tracking-widest text-[#5eb8c8] mb-1">
+              WHY THIS PROFILE FITS
+            </p>
             <p className="text-sm text-[#e8edf4] mb-3">{meta.why}</p>
             <div className="flex flex-wrap gap-2">
               {meta.focus.map((f) => (

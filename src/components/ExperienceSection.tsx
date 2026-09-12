@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Briefcase, CheckCircle2, ChevronDown, ChevronUp } from 'lucide-react';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 import { EXPERIENCE_DATA } from '../data/portfolioData';
 import { playCyberClick } from '../utils/audioSynth';
 

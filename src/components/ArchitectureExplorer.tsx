@@ -63,7 +63,10 @@ export const ArchitectureExplorer: React.FC<ArchitectureExplorerProps> = () => {
   const meta = node ? NODE_META[node] : null;
 
   return (
-    <section id="architecture" className="relative z-10 px-4 sm:px-8 md:px-12 lg:px-16 py-16 max-w-[1440px] mx-auto">
+    <section
+      id="architecture"
+      className="relative z-10 px-4 sm:px-8 md:px-12 lg:px-16 py-16 max-w-[1440px] mx-auto"
+    >
       <p className="text-[10px] font-mono-custom tracking-[0.25em] text-[#4cd9e0]">ARCHITECTURE_MODE</p>
       <h2 className="text-3xl font-bodoni text-white mt-1 mb-6">Interactive stack map</h2>
       <div className="flex flex-wrap gap-2 mb-6">
@@ -77,7 +80,9 @@ export const ArchitectureExplorer: React.FC<ArchitectureExplorerProps> = () => {
               setNode(null);
             }}
             className={`text-xs px-3 py-1.5 rounded-full border ${
-              projectId === p.id ? 'border-[#4cd9e0] text-[#4cd9e0] bg-[#4cd9e0]/10' : 'border-white/10 text-[#c5c6ca]'
+              projectId === p.id
+                ? 'border-[#4cd9e0] text-[#4cd9e0] bg-[#4cd9e0]/10'
+                : 'border-white/10 text-[#c5c6ca]'
             }`}
           >
             {p.title}
@@ -86,7 +91,9 @@ export const ArchitectureExplorer: React.FC<ArchitectureExplorerProps> = () => {
       </div>
       <div className="grid lg:grid-cols-2 gap-6">
         <div className="glass-panel rounded-2xl p-6 min-h-[280px]">
-          <p className="text-[10px] font-mono-custom text-[#8f9195] mb-4">{project.modNumber} · {project.title}</p>
+          <p className="text-[10px] font-mono-custom text-[#8f9195] mb-4">
+            {project.modNumber} · {project.title}
+          </p>
           <div className="flex flex-wrap gap-3 justify-center items-center py-6">
             {nodes.map((n, i) => (
               <React.Fragment key={n}>
@@ -137,11 +144,13 @@ export const ArchitectureExplorer: React.FC<ArchitectureExplorerProps> = () => {
             </div>
           ) : node ? (
             <p className="text-sm text-[#c5c6ca]">
-              <span className="text-[#4cd9e0] font-mono-custom">{node}</span> — used in {project.title}. See architecture
-              pillars for project-specific context.
+              <span className="text-[#4cd9e0] font-mono-custom">{node}</span> — used in {project.title}. See
+              architecture pillars for project-specific context.
             </p>
           ) : (
-            <p className="text-sm text-[#8f9195]">Click a technology node to inspect purpose, rationale, and trade-offs.</p>
+            <p className="text-sm text-[#8f9195]">
+              Click a technology node to inspect purpose, rationale, and trade-offs.
+            </p>
           )}
           {project.decisions && project.decisions[0] && (
             <div className="mt-6 pt-4 border-t border-white/10">

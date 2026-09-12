@@ -12,18 +12,18 @@ export const AboutSection: React.FC = () => {
         <div className="space-y-5 text-base text-[#a8b3c4] leading-relaxed max-w-3xl">
           <p>
             I take products from idea through interface, API, data, and deployment. That includes
-            authentication, payments where needed, background jobs, realtime updates, and AI features
-            when generation or retrieval improves the product — not as decoration.
+            authentication, payments where needed, background jobs, realtime updates, and AI features when
+            generation or retrieval improves the product — not as decoration.
           </p>
           <p>
-            Recent systems work: <span className="text-white">Priceloop</span> (tracking + Stripe +
-            Postgres), <span className="text-white">CodeForge</span> (agent orchestration + sandbox
-            execution), <span className="text-white">PulseOps</span> (queues and incident workflows),
-            and <span className="text-white">Pocket-Triage</span> (retrieval-grounded assistance).
+            Recent systems work: <span className="text-white">Priceloop</span> (tracking + Stripe + Postgres),{' '}
+            <span className="text-white">CodeForge</span> (agent orchestration + sandbox execution),{' '}
+            <span className="text-white">PulseOps</span> (queues and incident workflows), and{' '}
+            <span className="text-white">Pocket-Triage</span> (retrieval-grounded assistance).
           </p>
           <p>
-            I prefer honest scope, typed boundaries, tests where they protect critical paths, and
-            architecture you can explain under interview pressure. {PROFILE.dsa}.
+            I prefer honest scope, typed boundaries, tests where they protect critical paths, and architecture
+            you can explain under interview pressure. {PROFILE.dsa}.
           </p>
         </div>
       </div>

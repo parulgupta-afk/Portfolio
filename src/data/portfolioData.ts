@@ -4,7 +4,8 @@ export const PROFILE = {
   name: 'Parul Gupta',
   handle: 'PARUL_GUPTA',
   role: 'Software Engineer · Full Stack',
-  tagline: 'I design and engineer end-to-end systems — interfaces, APIs, data, AI, and the infrastructure that keeps them reliable.',
+  tagline:
+    'I design and engineer end-to-end systems — interfaces, APIs, data, AI, and the infrastructure that keeps them reliable.',
   location: 'India',
   focus: ['Full Stack', 'Backend', 'AI Systems', 'Realtime'],
   email: 'parulmahajan863@gmail.com',
@@ -18,6 +19,10 @@ export const PROFILE = {
 export const SYSTEM_METRICS = {
   status: 'ONLINE',
   version: '2.0',
+  uptime: '99.9%',
+  memoryAllocated: 'OPTIMAL',
+  profileId: 'PG_DEV_001',
+  architectId: 'PG_FULLSTACK',
   note: 'Portfolio status only — not a production cluster metric',
 };
 
@@ -71,11 +76,34 @@ export const PROJECTS_DATA: ProjectItem[] = [
     },
     roleFit: ['backend', 'fullstack', 'product', 'software'],
     evidence: [
-      { claim: 'FastAPI JWT API + product isolation tests', type: 'implemented', source: 'Priceloop repo', url: 'https://github.com/parulgupta-afk/Priceloop' },
-      { claim: 'PostgreSQL models + Alembic migrations', type: 'implemented', source: 'backend/alembic', url: 'https://github.com/parulgupta-afk/Priceloop' },
-      { claim: 'Stripe Checkout + webhook signature verification', type: 'implemented', source: 'billing', url: 'https://github.com/parulgupta-afk/Priceloop' },
-      { claim: 'Redis/Celery broker scaffold (tasks planned)', type: 'implemented', source: 'README / workers' },
-      { claim: 'GitHub Actions CI with Postgres/Redis services', type: 'implemented', source: '.github/workflows' },
+      {
+        claim: 'FastAPI JWT API + product isolation tests',
+        type: 'implemented',
+        source: 'Priceloop repo',
+        url: 'https://github.com/parulgupta-afk/Priceloop',
+      },
+      {
+        claim: 'PostgreSQL models + Alembic migrations',
+        type: 'implemented',
+        source: 'backend/alembic',
+        url: 'https://github.com/parulgupta-afk/Priceloop',
+      },
+      {
+        claim: 'Stripe Checkout + webhook signature verification',
+        type: 'implemented',
+        source: 'billing',
+        url: 'https://github.com/parulgupta-afk/Priceloop',
+      },
+      {
+        claim: 'Redis/Celery broker scaffold (tasks planned)',
+        type: 'implemented',
+        source: 'README / workers',
+      },
+      {
+        claim: 'GitHub Actions CI with Postgres/Redis services',
+        type: 'implemented',
+        source: '.github/workflows',
+      },
     ],
     decisions: [
       {
@@ -119,17 +147,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
       uptime: 'CI mock LLM',
       requestsPerSec: 'Socket.IO tasks',
     },
-    tags: [
-      'TypeScript',
-      'Express',
-      'React',
-      'Socket.IO',
-      'Docker',
-      'Gemini',
-      'Groq',
-      'Python',
-      'Vite',
-    ],
+    tags: ['TypeScript', 'Express', 'React', 'Socket.IO', 'Docker', 'Gemini', 'Groq', 'Python', 'Vite'],
     imageUrl: 'https://picsum.photos/seed/codeforge-agent/1600/900',
     statusVariant: 'clinical',
     liveDemoUrl: '',
@@ -142,10 +160,19 @@ export const PROJECTS_DATA: ProjectItem[] = [
     },
     roleFit: ['ai', 'backend', 'software', 'fullstack'],
     evidence: [
-      { claim: 'Express orchestrator + Socket.IO studio', type: 'implemented', source: 'CodeForge repo', url: 'https://github.com/parulgupta-afk/CodeForge' },
+      {
+        claim: 'Express orchestrator + Socket.IO studio',
+        type: 'implemented',
+        source: 'CodeForge repo',
+        url: 'https://github.com/parulgupta-afk/CodeForge',
+      },
       { claim: 'Gemini/Groq/mock LLM providers', type: 'implemented', source: 'server providers' },
       { claim: 'Bounded repair loop + error classifier', type: 'implemented', source: 'orchestrator tests' },
-      { claim: 'Docker sandbox options (network none, limits)', type: 'implemented', source: 'SECURITY.md / sandbox' },
+      {
+        claim: 'Docker sandbox options (network none, limits)',
+        type: 'implemented',
+        source: 'SECURITY.md / sandbox',
+      },
       { claim: 'Local subprocess is NOT a security boundary', type: 'implemented', source: 'README honesty' },
       { claim: 'CI with USE_MOCK_LLM (no real keys)', type: 'implemented', source: 'GitHub Actions' },
     ],
@@ -155,7 +182,8 @@ export const PROJECTS_DATA: ProjectItem[] = [
         problem: 'Generated code is untrusted and must not inherit host secrets or unrestricted network',
         options: ['Local subprocess only', 'Docker with hardened flags', 'Full microVM'],
         chosen: 'Docker with network none + resource limits (optional)',
-        reason: 'Stronger isolation than subprocess for demos and multi-user hosts; still honest that it is not a microVM guarantee',
+        reason:
+          'Stronger isolation than subprocess for demos and multi-user hosts; still honest that it is not a microVM guarantee',
       },
       {
         question: 'Why a bounded repair loop?',
@@ -221,7 +249,8 @@ export const PROJECTS_DATA: ProjectItem[] = [
         problem: 'Propagate incident state to every connected client without polling',
         options: ['HTTP polling', 'WebSockets only', 'Redis Pub/Sub + WebSockets'],
         chosen: 'Redis Pub/Sub + WebSockets',
-        reason: 'Horizontal fan-out across API instances; clients stay on Socket.io while Redis bridges processes',
+        reason:
+          'Horizontal fan-out across API instances; clients stay on Socket.io while Redis bridges processes',
       },
       {
         question: 'Why BullMQ for paging?',

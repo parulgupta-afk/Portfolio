@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Terminal, Send, ShieldCheck, Check, Sparkles, AlertCircle, RefreshCw } from 'lucide-react';
+import { Send, ShieldCheck, Check, RefreshCw } from 'lucide-react';
 import { TerminalLog } from '../types';
 import { PROJECTS_DATA, SYSTEM_METRICS, PROFILE } from '../data/portfolioData';
-import { playCyberClick, playTerminalChirp, playTransmitSuccess } from '../utils/audioSynth';
+import { playTerminalChirp, playTransmitSuccess } from '../utils/audioSynth';
 
 export const CommsTerminal: React.FC = () => {
   const [logs, setLogs] = useState<TerminalLog[]>([
@@ -72,7 +72,9 @@ export const CommsTerminal: React.FC = () => {
         break;
       case 'projects':
       case 'ls':
-        responseText = PROJECTS_DATA.map((p) => `[${p.modNumber}] ${p.title} (${p.category}) - ${p.specs.latency}`).join('\n');
+        responseText = PROJECTS_DATA.map(
+          (p) => `[${p.modNumber}] ${p.title} (${p.category}) - ${p.specs.latency}`
+        ).join('\n');
         break;
       case 'whoami':
         responseText = `${PROFILE.name} // ${PROFILE.role}. Contact: ${PROFILE.email}`;

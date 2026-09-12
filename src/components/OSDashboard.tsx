@@ -10,14 +10,13 @@ interface OSDashboardProps {
   onOpenRecruiter: () => void;
 }
 
-export const OSDashboard: React.FC<OSDashboardProps> = ({
-  onSelectProject,
-  onOpenAI,
-  onOpenRecruiter,
-}) => {
+export const OSDashboard: React.FC<OSDashboardProps> = ({ onSelectProject, onOpenAI, onOpenRecruiter }) => {
   const tech = new Set(PROJECTS_DATA.flatMap((p) => p.tags));
   return (
-    <section id="dashboard" className="relative z-10 px-4 sm:px-8 md:px-12 lg:px-16 py-16 max-w-6xl mx-auto border-b border-white/10">
+    <section
+      id="dashboard"
+      className="relative z-10 px-4 sm:px-8 md:px-12 lg:px-16 py-16 max-w-6xl mx-auto border-b border-white/10"
+    >
       <h2 className="text-3xl font-semibold text-white mb-2">Overview</h2>
       <p className="text-[#9aa3b2] text-sm mb-8">Quick snapshot for recruiters</p>
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">

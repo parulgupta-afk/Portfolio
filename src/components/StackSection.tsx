@@ -48,7 +48,9 @@ export const StackSection: React.FC = () => {
                   >
                     <span className="text-sm text-[#e8edf4] font-medium">{skill}</span>
                     <span className="text-xs text-[#6b7380]">
-                      {projects.length ? `Used in: ${projects.slice(0, 3).join(', ')}` : 'Core web foundation'}
+                      {projects.length
+                        ? `Used in: ${projects.slice(0, 3).join(', ')}`
+                        : 'Core web foundation'}
                     </span>
                   </div>
                 ))}

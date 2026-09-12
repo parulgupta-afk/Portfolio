@@ -26,9 +26,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onExploreProjects }) =
           <h1 className="text-5xl sm:text-6xl md:text-7xl font-semibold text-white tracking-tight">
             {PROFILE.name}
           </h1>
-          <p className="mt-3 text-lg sm:text-xl text-[#a8b3c4]">
-            Full Stack · AI · Systems
-          </p>
+          <p className="mt-3 text-lg sm:text-xl text-[#a8b3c4]">Full Stack · AI · Systems</p>
           <p className="mt-6 text-base sm:text-lg text-[#8b95a5] max-w-xl leading-relaxed">
             {PROFILE.tagline}
           </p>
@@ -108,7 +106,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onExploreProjects }) =
               {flagship.map((p) => (
                 <li key={p.id} className="flex justify-between text-[#a8b3c4]">
                   <span className="text-[#e8edf4]">{p.title.toUpperCase()}</span>
-                  <span className="text-[#6b7380] truncate max-w-[45%] text-right">{p.category.split('/')[0]}</span>
+                  <span className="text-[#6b7380] truncate max-w-[45%] text-right">
+                    {p.category.split('/')[0]}
+                  </span>
                 </li>
               ))}
             </ul>

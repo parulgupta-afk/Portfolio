@@ -25,9 +25,7 @@ export class ErrorBoundary extends Component<Props, State> {
       return (
         <div className="min-h-screen bg-[#05090c] text-[#dce3ed] flex items-center justify-center p-8 font-mono-custom">
           <div className="glass-panel max-w-lg w-full p-8 rounded-2xl border border-[#ffb4ab]/40">
-            <p className="text-[#4cd9e0] text-xs tracking-[0.2em] uppercase mb-3">
-              SYSTEM_FAULT
-            </p>
+            <p className="text-[#4cd9e0] text-xs tracking-[0.2em] uppercase mb-3">SYSTEM_FAULT</p>
             <h1 className="text-xl font-semibold mb-2">Runtime exception</h1>
             <p className="text-sm text-[#c5c6ca] mb-6 break-words">{this.state.message}</p>
             <button

@@ -1,7 +1,7 @@
 import React from 'react';
 import { ProjectItem } from '../types';
-import { PROJECTS_DATA, SYSTEM_METRICS, CAPABILITIES_DATA, PROFILE } from '../data/portfolioData';
-import { ArrowUpRight, Activity, Cpu, Shield, Sparkles, Terminal, Layers } from 'lucide-react';
+import { PROJECTS_DATA, PROFILE } from '../data/portfolioData';
+import { ArrowUpRight, Activity, Layers } from 'lucide-react';
 import { playCyberClick } from '../utils/audioSynth';
 
 interface BentoOverviewProps {
@@ -140,7 +140,9 @@ export const BentoOverview: React.FC<BentoOverviewProps> = ({ onSelectProject, o
               Real-time flight meta-search across 300+ airlines, AI travel concierge.
             </p>
           </div>
-          <div className="font-code-md text-[10px] text-[#80d4d8]">HEALTH: {PROJECTS_DATA[0].metrics.health}</div>
+          <div className="font-code-md text-[10px] text-[#80d4d8]">
+            HEALTH: {PROJECTS_DATA[0].metrics.health}
+          </div>
         </div>
 
         {/* Cell 5: NutriVibe Module */}

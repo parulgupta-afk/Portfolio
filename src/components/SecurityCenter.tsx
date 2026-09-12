@@ -34,7 +34,10 @@ const ROWS = [
 ];
 
 export const SecurityCenter: React.FC = () => (
-  <section id="security" className="relative z-10 px-4 sm:px-8 md:px-12 lg:px-16 py-16 max-w-[1440px] mx-auto">
+  <section
+    id="security"
+    className="relative z-10 px-4 sm:px-8 md:px-12 lg:px-16 py-16 max-w-[1440px] mx-auto"
+  >
     <p className="text-[10px] font-mono-custom tracking-[0.25em] text-[#4cd9e0]">SECURITY_CENTER</p>
     <h2 className="text-3xl font-bodoni text-white mt-1 mb-2">Threat → mitigation → implementation</h2>
     <p className="text-sm text-[#c5c6ca] mb-8 max-w-2xl">

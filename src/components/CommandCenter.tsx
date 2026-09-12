@@ -15,12 +15,60 @@ interface CommandCenterProps {
 
 function buildCommands(): CommandItem[] {
   const nav: CommandItem[] = [
-    { id: 'nav-hero', label: 'Open Hero / Home', keywords: ['home', 'hero', 'start'], section: 'hero', action: 'navigate', payload: 'hero', group: 'nav' },
-    { id: 'nav-about', label: 'Open About / Philosophy', keywords: ['about', 'philosophy'], section: 'about', action: 'navigate', payload: 'about', group: 'nav' },
-    { id: 'nav-projects', label: 'Open Projects', keywords: ['projects', 'modules', 'work'], section: 'projects', action: 'navigate', payload: 'projects', group: 'nav' },
-    { id: 'nav-skills', label: 'Open Skills / Capabilities', keywords: ['skills', 'capabilities', 'stack'], section: 'capabilities', action: 'navigate', payload: 'capabilities', group: 'nav' },
-    { id: 'nav-exp', label: 'Open Experience', keywords: ['experience', 'timeline', 'resume'], section: 'experience', action: 'navigate', payload: 'experience', group: 'nav' },
-    { id: 'nav-connect', label: 'Open Contact / Comms', keywords: ['contact', 'comms', 'email', 'connect'], section: 'connect', action: 'navigate', payload: 'connect', group: 'nav' },
+    {
+      id: 'nav-hero',
+      label: 'Open Hero / Home',
+      keywords: ['home', 'hero', 'start'],
+      section: 'hero',
+      action: 'navigate',
+      payload: 'hero',
+      group: 'nav',
+    },
+    {
+      id: 'nav-about',
+      label: 'Open About / Philosophy',
+      keywords: ['about', 'philosophy'],
+      section: 'about',
+      action: 'navigate',
+      payload: 'about',
+      group: 'nav',
+    },
+    {
+      id: 'nav-projects',
+      label: 'Open Projects',
+      keywords: ['projects', 'modules', 'work'],
+      section: 'projects',
+      action: 'navigate',
+      payload: 'projects',
+      group: 'nav',
+    },
+    {
+      id: 'nav-skills',
+      label: 'Open Skills / Capabilities',
+      keywords: ['skills', 'capabilities', 'stack'],
+      section: 'capabilities',
+      action: 'navigate',
+      payload: 'capabilities',
+      group: 'nav',
+    },
+    {
+      id: 'nav-exp',
+      label: 'Open Experience',
+      keywords: ['experience', 'timeline', 'resume'],
+      section: 'experience',
+      action: 'navigate',
+      payload: 'experience',
+      group: 'nav',
+    },
+    {
+      id: 'nav-connect',
+      label: 'Open Contact / Comms',
+      keywords: ['contact', 'comms', 'email', 'connect'],
+      section: 'connect',
+      action: 'navigate',
+      payload: 'connect',
+      group: 'nav',
+    },
   ];
 
   const projects: CommandItem[] = PROJECTS_DATA.map((p) => ({
@@ -33,34 +81,217 @@ function buildCommands(): CommandItem[] {
   }));
 
   const modes: CommandItem[] = [
-    { id: 'mode-recruiter', label: 'Recruiter Mode', keywords: ['recruiter', 'hire', 'role', 'backend', 'frontend'], action: 'recruiter', group: 'modes' },
-    { id: 'mode-bento', label: 'Toggle Bento Overview', keywords: ['bento', 'grid', 'overview'], action: 'mode', payload: 'bento', group: 'modes' },
-    { id: 'nav-dash', label: 'Open OS Dashboard', keywords: ['dashboard', 'os'], section: 'dashboard', action: 'navigate', payload: 'dashboard', group: 'nav' },
-    { id: 'nav-arch', label: 'Architecture Explorer', keywords: ['architecture', 'stack', 'map'], section: 'architecture', action: 'navigate', payload: 'architecture', group: 'nav' },
-    { id: 'nav-skills-g', label: 'Skill Graph', keywords: ['skill graph', 'tags'], section: 'skill-graph', action: 'navigate', payload: 'skill-graph', group: 'nav' },
-    { id: 'nav-lab', label: 'Engineering Lab', keywords: ['lab', 'queue', 'rate limit'], section: 'lab', action: 'navigate', payload: 'lab', group: 'nav' },
-    { id: 'nav-sec', label: 'Security Center', keywords: ['security', 'threat'], section: 'security', action: 'navigate', payload: 'security', group: 'nav' },
-    { id: 'nav-dna', label: 'Portfolio DNA', keywords: ['dna', 'fingerprint'], section: 'dna', action: 'navigate', payload: 'dna', group: 'nav' },
-    { id: 'nav-perf', label: 'Performance Lab', keywords: ['performance', 'fps', 'perf'], section: 'perf-lab', action: 'navigate', payload: 'perf-lab', group: 'nav' },
-    { id: 'nav-resume', label: 'Interactive Resume', keywords: ['resume', 'cv'], section: 'resume', action: 'navigate', payload: 'resume', group: 'nav' },
-    { id: 'nav-spatial', label: 'Spatial Mode', keywords: ['spatial', 'constellation', '3d'], section: 'spatial', action: 'navigate', payload: 'spatial', group: 'nav' },
-    { id: 'nav-gh', label: 'GitHub Activity', keywords: ['github', 'commits', 'activity'], section: 'github-activity', action: 'navigate', payload: 'github-activity', group: 'nav' },
+    {
+      id: 'mode-recruiter',
+      label: 'Recruiter Mode',
+      keywords: ['recruiter', 'hire', 'role', 'backend', 'frontend'],
+      action: 'recruiter',
+      group: 'modes',
+    },
+    {
+      id: 'mode-bento',
+      label: 'Toggle Bento Overview',
+      keywords: ['bento', 'grid', 'overview'],
+      action: 'mode',
+      payload: 'bento',
+      group: 'modes',
+    },
+    {
+      id: 'nav-dash',
+      label: 'Open OS Dashboard',
+      keywords: ['dashboard', 'os'],
+      section: 'dashboard',
+      action: 'navigate',
+      payload: 'dashboard',
+      group: 'nav',
+    },
+    {
+      id: 'nav-arch',
+      label: 'Architecture Explorer',
+      keywords: ['architecture', 'stack', 'map'],
+      section: 'architecture',
+      action: 'navigate',
+      payload: 'architecture',
+      group: 'nav',
+    },
+    {
+      id: 'nav-skills-g',
+      label: 'Skill Graph',
+      keywords: ['skill graph', 'tags'],
+      section: 'skill-graph',
+      action: 'navigate',
+      payload: 'skill-graph',
+      group: 'nav',
+    },
+    {
+      id: 'nav-lab',
+      label: 'Engineering Lab',
+      keywords: ['lab', 'queue', 'rate limit'],
+      section: 'lab',
+      action: 'navigate',
+      payload: 'lab',
+      group: 'nav',
+    },
+    {
+      id: 'nav-sec',
+      label: 'Security Center',
+      keywords: ['security', 'threat'],
+      section: 'security',
+      action: 'navigate',
+      payload: 'security',
+      group: 'nav',
+    },
+    {
+      id: 'nav-dna',
+      label: 'Portfolio DNA',
+      keywords: ['dna', 'fingerprint'],
+      section: 'dna',
+      action: 'navigate',
+      payload: 'dna',
+      group: 'nav',
+    },
+    {
+      id: 'nav-perf',
+      label: 'Performance Lab',
+      keywords: ['performance', 'fps', 'perf'],
+      section: 'perf-lab',
+      action: 'navigate',
+      payload: 'perf-lab',
+      group: 'nav',
+    },
+    {
+      id: 'nav-resume',
+      label: 'Interactive Resume',
+      keywords: ['resume', 'cv'],
+      section: 'resume',
+      action: 'navigate',
+      payload: 'resume',
+      group: 'nav',
+    },
+    {
+      id: 'nav-spatial',
+      label: 'Spatial Mode',
+      keywords: ['spatial', 'constellation', '3d'],
+      section: 'spatial',
+      action: 'navigate',
+      payload: 'spatial',
+      group: 'nav',
+    },
+    {
+      id: 'nav-gh',
+      label: 'GitHub Activity',
+      keywords: ['github', 'commits', 'activity'],
+      section: 'github-activity',
+      action: 'navigate',
+      payload: 'github-activity',
+      group: 'nav',
+    },
   ];
 
   const external: CommandItem[] = [
-    { id: 'ext-github', label: 'Open GitHub', keywords: ['github'], action: 'external', payload: PROFILE.github, group: 'external' },
-    { id: 'ext-linkedin', label: 'Open LinkedIn', keywords: ['linkedin'], action: 'external', payload: PROFILE.linkedin, group: 'external' },
-    { id: 'ext-email', label: 'Email Parul', keywords: ['email', 'mail'], action: 'external', payload: `mailto:${PROFILE.email}`, group: 'external' },
-    { id: 'egg-whoami', label: '> whoami', keywords: ['whoami', 'identity'], action: 'navigate', payload: 'about', group: 'modes' },
-    { id: 'egg-sudo', label: '> sudo inspect parul', keywords: ['sudo', 'inspect', 'hire'], action: 'recruiter', group: 'modes' },
-    { id: 'egg-trace', label: '> trace codeforge', keywords: ['trace', 'codeforge'], action: 'trace', payload: 'codeforge', group: 'modes' },
-    { id: 'egg-price', label: '> inspect priceloop', keywords: ['priceloop', 'inspect'], action: 'project', payload: 'priceloop', group: 'modes' },
-    { id: 'egg-trace-p', label: '> trace priceloop', keywords: ['trace', 'priceloop'], action: 'trace', payload: 'priceloop', group: 'modes' },
-    { id: 'egg-trace-pu', label: '> trace pulseops', keywords: ['trace', 'pulseops'], action: 'trace', payload: 'pulseops', group: 'modes' },
-    { id: 'egg-help', label: '> help', keywords: ['help', 'commands'], action: 'navigate', payload: 'summary', group: 'modes' },
-    { id: 'egg-status', label: '> status', keywords: ['status', 'online'], action: 'navigate', payload: 'hero', group: 'modes' },
-    { id: 'nav-resume', label: '> open resume', keywords: ['resume', 'cv'], action: 'navigate', payload: 'resume', group: 'nav' },
-    { id: 'mode-eng', label: '> engineering mode', keywords: ['engineering', 'lab'], action: 'navigate', payload: 'lab', group: 'modes' },
+    {
+      id: 'ext-github',
+      label: 'Open GitHub',
+      keywords: ['github'],
+      action: 'external',
+      payload: PROFILE.github,
+      group: 'external',
+    },
+    {
+      id: 'ext-linkedin',
+      label: 'Open LinkedIn',
+      keywords: ['linkedin'],
+      action: 'external',
+      payload: PROFILE.linkedin,
+      group: 'external',
+    },
+    {
+      id: 'ext-email',
+      label: 'Email Parul',
+      keywords: ['email', 'mail'],
+      action: 'external',
+      payload: `mailto:${PROFILE.email}`,
+      group: 'external',
+    },
+    {
+      id: 'egg-whoami',
+      label: '> whoami',
+      keywords: ['whoami', 'identity'],
+      action: 'navigate',
+      payload: 'about',
+      group: 'modes',
+    },
+    {
+      id: 'egg-sudo',
+      label: '> sudo inspect parul',
+      keywords: ['sudo', 'inspect', 'hire'],
+      action: 'recruiter',
+      group: 'modes',
+    },
+    {
+      id: 'egg-trace',
+      label: '> trace codeforge',
+      keywords: ['trace', 'codeforge'],
+      action: 'trace',
+      payload: 'codeforge',
+      group: 'modes',
+    },
+    {
+      id: 'egg-price',
+      label: '> inspect priceloop',
+      keywords: ['priceloop', 'inspect'],
+      action: 'project',
+      payload: 'priceloop',
+      group: 'modes',
+    },
+    {
+      id: 'egg-trace-p',
+      label: '> trace priceloop',
+      keywords: ['trace', 'priceloop'],
+      action: 'trace',
+      payload: 'priceloop',
+      group: 'modes',
+    },
+    {
+      id: 'egg-trace-pu',
+      label: '> trace pulseops',
+      keywords: ['trace', 'pulseops'],
+      action: 'trace',
+      payload: 'pulseops',
+      group: 'modes',
+    },
+    {
+      id: 'egg-help',
+      label: '> help',
+      keywords: ['help', 'commands'],
+      action: 'navigate',
+      payload: 'summary',
+      group: 'modes',
+    },
+    {
+      id: 'egg-status',
+      label: '> status',
+      keywords: ['status', 'online'],
+      action: 'navigate',
+      payload: 'hero',
+      group: 'modes',
+    },
+    {
+      id: 'egg-resume',
+      label: '> open resume',
+      keywords: ['resume', 'cv'],
+      action: 'navigate',
+      payload: 'resume',
+      group: 'nav',
+    },
+    {
+      id: 'mode-eng',
+      label: '> engineering mode',
+      keywords: ['engineering', 'lab'],
+      action: 'navigate',
+      payload: 'lab',
+      group: 'modes',
+    },
   ];
 
   return [...nav, ...projects, ...modes, ...external];
@@ -119,6 +350,7 @@ export const CommandCenter: React.FC<CommandCenterProps> = ({
     }
     if (cmd.action === 'recruiter') onOpenRecruiter();
     if (cmd.action === 'mode' && cmd.payload === 'bento') onToggleBento();
+    if (cmd.action === 'trace' && cmd.payload) onTrace?.(cmd.payload);
     if (cmd.action === 'external' && cmd.payload) window.open(cmd.payload, '_blank', 'noopener,noreferrer');
     onClose();
   };
@@ -142,7 +374,7 @@ export const CommandCenter: React.FC<CommandCenterProps> = ({
   if (!open) return null;
 
   const groupLabel = (g: CommandItem['group']) =>
-    ({ nav: 'NAVIGATION', projects: 'PROJECTS', modes: 'MODES', external: 'EXTERNAL' }[g]);
+    ({ nav: 'NAVIGATION', projects: 'PROJECTS', modes: 'MODES', external: 'EXTERNAL' })[g];
 
   return (
     <div

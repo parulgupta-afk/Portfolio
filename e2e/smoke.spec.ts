@@ -10,7 +10,11 @@ test.describe('Portfolio smoke', () => {
     }
     await expect(page.getByRole('heading', { name: /Parul Gupta/i }).first()).toBeVisible({ timeout: 15000 });
     await expect(page.locator('#projects')).toBeVisible();
-    await page.locator('#projects button').filter({ hasText: /Priceloop|PriceLoop/i }).first().click();
+    await page
+      .locator('#projects button')
+      .filter({ hasText: /Priceloop|PriceLoop/i })
+      .first()
+      .click();
     await expect(page.getByText(/Price|FastAPI|track/i).first()).toBeVisible({ timeout: 5000 });
     await page.keyboard.press('Escape');
   });

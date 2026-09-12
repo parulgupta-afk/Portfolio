@@ -11,7 +11,10 @@ export interface AgentAnswer {
 
 function score(text: string, q: string): number {
   const hay = text.toLowerCase();
-  const tokens = q.toLowerCase().split(/\s+/).filter((t) => t.length > 2);
+  const tokens = q
+    .toLowerCase()
+    .split(/\s+/)
+    .filter((t) => t.length > 2);
   if (!tokens.length) return hay.includes(q.toLowerCase()) ? 5 : 0;
   return tokens.reduce((s, t) => s + (hay.includes(t) ? 2 : 0), 0);
 }
@@ -24,7 +27,11 @@ export function answerPortfolioQuery(raw: string): AgentAnswer {
       intent: 'EMPTY',
       summary: 'Ask about projects, skills, stack, or contact.',
       projects: [],
-      bullets: ['Try: “best distributed systems project”', 'Try: “projects using Redis”', 'Try: “how to contact Parul”'],
+      bullets: [
+        'Try: “best distributed systems project”',
+        'Try: “projects using Redis”',
+        'Try: “how to contact Parul”',
+      ],
       actions: [],
     };
   }
@@ -48,7 +55,10 @@ export function answerPortfolioQuery(raw: string): AgentAnswer {
       intent: 'EXPERIENCE',
       summary: 'Experience and education from the mission log.',
       projects: [],
-      bullets: EXPERIENCE_DATA.flatMap((e) => [`${e.role} @ ${e.company} (${e.period})`, ...e.bullets.slice(0, 2)]),
+      bullets: EXPERIENCE_DATA.flatMap((e) => [
+        `${e.role} @ ${e.company} (${e.period})`,
+        ...e.bullets.slice(0, 2),
+      ]),
       actions: [{ type: 'NAVIGATE', payload: 'experience', label: 'Open Experience' }],
     };
   }
@@ -65,9 +75,18 @@ export function answerPortfolioQuery(raw: string): AgentAnswer {
 
   // Project retrieval by tags / text
   const ranked = PROJECTS_DATA.map((p) => {
-    const blob = [p.title, p.tagline, p.description, p.fullOverview, p.category, ...p.tags, ...(p.architectureDetails || [])].join(' ');
+    const blob = [
+      p.title,
+      p.tagline,
+      p.description,
+      p.fullOverview,
+      p.category,
+      ...p.tags,
+      ...(p.architectureDetails || []),
+    ].join(' ');
     let s = score(blob, q);
-    if (/(distribut|realtime|real-time|on-call|incident|queue|redis|bullmq)/.test(q) && p.id === 'pulseops') s += 8;
+    if (/(distribut|realtime|real-time|on-call|incident|queue|redis|bullmq)/.test(q) && p.id === 'pulseops')
+      s += 8;
     if (/(triage|emergency|first.?aid|rag|protocol)/.test(q) && p.id === 'pocket-triage') s += 8;
     if (/(flight|travel|duffel|airline)/.test(q) && p.id === 'skycall') s += 8;
     if (/(food|allerg|barcode|nutri)/.test(q) && p.id === 'nutrivibe') s += 8;
@@ -86,11 +105,7 @@ export function answerPortfolioQuery(raw: string): AgentAnswer {
       intent: 'PROJECT_SEARCH',
       summary: `${best.title} best matches this query.`,
       projects: top,
-      bullets: [
-        best.tagline,
-        ...best.architectureDetails.slice(0, 4),
-        `Stack: ${best.tags.join(', ')}`,
-      ],
+      bullets: [best.tagline, ...best.architectureDetails.slice(0, 4), `Stack: ${best.tags.join(', ')}`],
       actions: top.map((p) => ({
         type: 'OPEN_PROJECT' as const,
         payload: p.id,

@@ -17,7 +17,10 @@ export const PerformanceLab: React.FC<PerformanceLabProps> = ({ performanceMode,
   }, []);
 
   return (
-    <section id="perf-lab" className="relative z-10 px-4 sm:px-8 md:px-12 lg:px-16 py-16 max-w-[1440px] mx-auto">
+    <section
+      id="perf-lab"
+      className="relative z-10 px-4 sm:px-8 md:px-12 lg:px-16 py-16 max-w-[1440px] mx-auto"
+    >
       <p className="text-[10px] font-mono-custom tracking-[0.25em] text-[#4cd9e0]">PERFORMANCE_LAB</p>
       <h2 className="text-3xl font-bodoni text-white mt-1 mb-6">Measured in this browser</h2>
       <div className="grid sm:grid-cols-3 gap-4 mb-6">

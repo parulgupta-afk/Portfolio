@@ -17,7 +17,10 @@ export const GitHubActivity: React.FC = () => {
   }
 
   return (
-    <section id="github-activity" className="relative z-10 px-4 sm:px-8 md:px-12 lg:px-16 py-16 max-w-[1440px] mx-auto">
+    <section
+      id="github-activity"
+      className="relative z-10 px-4 sm:px-8 md:px-12 lg:px-16 py-16 max-w-[1440px] mx-auto"
+    >
       <p className="text-[10px] font-mono-custom tracking-[0.25em] text-[#4cd9e0]">GITHUB_ACTIVITY</p>
       <h2 className="text-3xl font-bodoni text-white mt-1 mb-2">Contribution surface</h2>
       <p className="text-xs text-[#8f9195] mb-4 max-w-xl">
@@ -33,10 +36,7 @@ export const GitHubActivity: React.FC = () => {
               key={i}
               className="rounded-sm"
               style={{
-                background:
-                  lvl === 0
-                    ? 'rgba(255,255,255,0.06)'
-                    : `rgba(76,217,224,${0.15 + lvl * 0.2})`,
+                background: lvl === 0 ? 'rgba(255,255,255,0.06)' : `rgba(76,217,224,${0.15 + lvl * 0.2})`,
               }}
             />
           ))}

@@ -19,7 +19,10 @@ export const PortfolioDNA: React.FC = () => {
   );
 
   return (
-    <section id="dna" className="relative z-10 px-4 sm:px-8 md:px-12 lg:px-16 py-16 max-w-5xl mx-auto border-b border-white/[0.06]">
+    <section
+      id="dna"
+      className="relative z-10 px-4 sm:px-8 md:px-12 lg:px-16 py-16 max-w-5xl mx-auto border-b border-white/[0.06]"
+    >
       <p className="text-[10px] font-mono-custom tracking-[0.25em] text-[#5eb8c8]">PORTFOLIO DNA</p>
       <h2 className="text-3xl font-semibold text-white mt-1 mb-2">Derived from projects</h2>
       <p className="text-sm text-[#8b95a5] mb-8 max-w-xl">

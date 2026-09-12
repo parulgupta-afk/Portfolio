@@ -40,8 +40,7 @@ export function useTelemetry(enabled = true): BrowserTelemetry {
     if (!enabled || typeof window === 'undefined') return;
 
     const nav = navigator as Navigator & { deviceMemory?: number };
-    const memory =
-      typeof nav.deviceMemory === 'number' ? `${nav.deviceMemory} GB` : 'n/a';
+    const memory = typeof nav.deviceMemory === 'number' ? `${nav.deviceMemory} GB` : 'n/a';
 
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 

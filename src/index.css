@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @layer base {
   :root {
@@ -12,8 +12,8 @@
     --color-text: #e8edf4;
     --color-muted: #8b95a5;
     --color-muted-2: #6b7380;
-    --font-sans: "Inter", system-ui, -apple-system, sans-serif;
-    --font-mono: "JetBrains Mono", ui-monospace, monospace;
+    --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
   }
 
   body {
@@ -27,7 +27,10 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  h1, h2, h3, h4 {
+  h1,
+  h2,
+  h3,
+  h4 {
     font-family: var(--font-sans);
     letter-spacing: -0.025em;
     line-height: 1.12;
@@ -35,7 +38,9 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
+    *,
+    *::before,
+    *::after {
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
@@ -49,16 +54,22 @@
   }
 }
 
-.font-display-lg, .font-headline-lg, .font-headline-md, .font-bodoni {
+.font-display-lg,
+.font-headline-lg,
+.font-headline-md,
+.font-bodoni {
   font-family: var(--font-sans);
   font-weight: 600;
 }
 
-.font-code-md, .font-label-xs, .font-mono-custom {
+.font-code-md,
+.font-label-xs,
+.font-mono-custom {
   font-family: var(--font-mono);
 }
 
-.font-body-lg, .font-body-sm {
+.font-body-lg,
+.font-body-sm {
   font-family: var(--font-sans);
 }
 
@@ -74,10 +85,14 @@
   border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-.text-glow { text-shadow: none; }
+.text-glow {
+  text-shadow: none;
+}
 
 .glow-hover {
-  transition: border-color 0.2s ease, background 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease;
 }
 .glow-hover:hover {
   border-color: rgba(94, 184, 200, 0.4);

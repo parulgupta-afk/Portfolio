@@ -55,14 +55,20 @@ export const SystemTrace: React.FC<SystemTraceProps> = ({ projectId, onClose, on
   if (!projectId || !flow || !project) return null;
 
   return (
-    <div className="fixed inset-0 z-[95] flex items-center justify-center p-4" role="dialog" aria-modal="true">
+    <div
+      className="fixed inset-0 z-[95] flex items-center justify-center p-4"
+      role="dialog"
+      aria-modal="true"
+    >
       <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={onClose} />
       <div className="relative w-full max-w-lg max-h-[85vh] overflow-y-auto rounded-2xl border border-white/10 bg-[#0c1016] p-6">
         <div className="flex justify-between items-start mb-4">
           <div>
             <p className="text-[10px] font-mono-custom tracking-[0.2em] text-[#5eb8c8]">SYSTEM TRACE</p>
             <h2 className="text-xl font-semibold text-white">{project.title}</h2>
-            <p className="text-xs text-[#6b7380] mt-1">Architecture flow from portfolio data · not live telemetry</p>
+            <p className="text-xs text-[#6b7380] mt-1">
+              Architecture flow from portfolio data · not live telemetry
+            </p>
           </div>
           <button type="button" onClick={onClose} className="text-[#8b95a5] text-sm" aria-label="Close">
             Close
@@ -79,8 +85,12 @@ export const SystemTrace: React.FC<SystemTraceProps> = ({ projectId, onClose, on
                   i <= step ? 'border-[#5eb8c8] bg-[#5eb8c8]/30' : 'border-white/20 bg-transparent'
                 }`}
               />
-              <p className={`text-sm font-medium ${i <= step ? 'text-white' : 'text-[#6b7380]'}`}>{node.name}</p>
-              <p className={`text-xs mt-0.5 ${i <= step ? 'text-[#8b95a5]' : 'text-[#45474a]'}`}>{node.purpose}</p>
+              <p className={`text-sm font-medium ${i <= step ? 'text-white' : 'text-[#6b7380]'}`}>
+                {node.name}
+              </p>
+              <p className={`text-xs mt-0.5 ${i <= step ? 'text-[#8b95a5]' : 'text-[#45474a]'}`}>
+                {node.purpose}
+              </p>
             </li>
           ))}
         </ol>

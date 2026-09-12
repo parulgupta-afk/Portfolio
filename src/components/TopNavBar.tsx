@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Volume2, VolumeX, Terminal, LayoutGrid, RotateCcw, Menu, X, Cpu } from 'lucide-react';
+import { Volume2, VolumeX, Terminal, LayoutGrid, RotateCcw, Menu, Cpu } from 'lucide-react';
 import { toggleAudioMute, getAudioMuteState, playCyberClick } from '../utils/audioSynth';
 
 interface TopNavBarProps {
@@ -139,11 +139,13 @@ export const TopNavBar: React.FC<TopNavBarProps> = ({
             </button>
           )}
 
-          
           {onOpenAI && (
             <button
               type="button"
-              onClick={() => { playCyberClick(870); onOpenAI(); }}
+              onClick={() => {
+                playCyberClick(870);
+                onOpenAI();
+              }}
               title="AI Portfolio Agent"
               className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded border border-white/10 hover:border-[#4cd9e0]/40 text-[#c5c6ca] hover:text-[#4cd9e0] font-code-md text-xs transition-all bg-white/[0.02]"
             >
@@ -153,7 +155,10 @@ export const TopNavBar: React.FC<TopNavBarProps> = ({
           {onOpenVoice && (
             <button
               type="button"
-              onClick={() => { playCyberClick(875); onOpenVoice(); }}
+              onClick={() => {
+                playCyberClick(875);
+                onOpenVoice();
+              }}
               title="Voice interface"
               className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded border border-white/10 hover:border-[#4cd9e0]/40 text-[#c5c6ca] hover:text-[#4cd9e0] font-code-md text-xs transition-all bg-white/[0.02]"
             >
@@ -182,7 +187,9 @@ export const TopNavBar: React.FC<TopNavBarProps> = ({
             onClick={handleAudioToggle}
             title={muted ? 'Enable Cybernetic Audio FX' : 'Mute Audio'}
             className={`p-2 rounded border border-white/10 hover:border-[#4cd9e0]/40 transition-all font-code-md text-xs ${
-              muted ? 'text-[#8f9195] hover:text-[#dce3ed]' : 'text-[#4cd9e0] bg-[#4cd9e0]/10 border-[#4cd9e0]/40 shadow-[0_0_10px_rgba(76,217,224,0.3)]'
+              muted
+                ? 'text-[#8f9195] hover:text-[#dce3ed]'
+                : 'text-[#4cd9e0] bg-[#4cd9e0]/10 border-[#4cd9e0]/40 shadow-[0_0_10px_rgba(76,217,224,0.3)]'
             }`}
           >
             {muted ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5" />}

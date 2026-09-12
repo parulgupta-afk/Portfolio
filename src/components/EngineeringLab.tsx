@@ -39,7 +39,9 @@ export const EngineeringLab: React.FC = () => {
     <section id="lab" className="relative z-10 px-4 sm:px-8 md:px-12 lg:px-16 py-16 max-w-[1440px] mx-auto">
       <p className="text-[10px] font-mono-custom tracking-[0.25em] text-[#4cd9e0]">ENGINEERING_LAB</p>
       <h2 className="text-3xl font-bodoni text-white mt-1 mb-2">Interactive demos</h2>
-      <p className="text-sm text-[#c5c6ca] mb-8">Toy models of queue workers and rate limits — same ideas as PulseOps / Pocket-Triage.</p>
+      <p className="text-sm text-[#c5c6ca] mb-8">
+        Toy models of queue workers and rate limits — same ideas as PulseOps / Pocket-Triage.
+      </p>
       <div className="grid md:grid-cols-2 gap-6">
         <div className="glass-panel rounded-2xl p-5">
           <h3 className="font-mono-custom text-sm text-[#4cd9e0] mb-3">QUEUE SIMULATOR</h3>
@@ -84,7 +86,13 @@ export const EngineeringLab: React.FC = () => {
             />
           </div>
           <p className="text-sm font-mono-custom mb-3">
-            {blocked ? <span className="text-[#ffb4ab]">429 TOO MANY REQUESTS</span> : <span className="text-[#dce3ed]">{reqs} / {LIMIT}</span>}
+            {blocked ? (
+              <span className="text-[#ffb4ab]">429 TOO MANY REQUESTS</span>
+            ) : (
+              <span className="text-[#dce3ed]">
+                {reqs} / {LIMIT}
+              </span>
+            )}
           </p>
           <div className="flex gap-2">
             <button
@@ -94,7 +102,11 @@ export const EngineeringLab: React.FC = () => {
             >
               SEND REQUEST
             </button>
-            <button type="button" onClick={resetLimit} className="px-4 py-2 rounded-lg border border-white/10 text-xs text-[#8f9195]">
+            <button
+              type="button"
+              onClick={resetLimit}
+              className="px-4 py-2 rounded-lg border border-white/10 text-xs text-[#8f9195]"
+            >
               RESET WINDOW
             </button>
           </div>
