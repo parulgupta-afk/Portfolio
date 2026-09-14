@@ -12,6 +12,7 @@ const FLAGSHIP = ['priceloop', 'codeforge', 'pulseops'];
 
 export const HeroSection: React.FC<HeroSectionProps> = ({ onExploreProjects }) => {
   const flagship = PROJECTS_DATA.filter((p) => FLAGSHIP.includes(p.id));
+  const projectCount = PROJECTS_DATA.filter((p) => p.tier).length;
 
   return (
     <header
@@ -33,6 +34,21 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onExploreProjects }) =
           <p className="mt-3 text-sm text-[#6b7380] max-w-xl">
             I don&apos;t only build interfaces. I engineer the systems behind them.
           </p>
+
+          <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-xs font-mono-custom text-[#8b95a5]">
+            <div>
+              <span className="text-[10px] tracking-widest text-[#6b7380] block mb-0.5">WHY ME</span>
+              <span className="text-[#e8edf4]">3 flagship systems</span>
+            </div>
+            <div>
+              <span className="text-[10px] tracking-widest text-[#6b7380] block mb-0.5">SCOPE</span>
+              <span className="text-[#e8edf4]">Full-stack · Backend · AI</span>
+            </div>
+            <div>
+              <span className="text-[10px] tracking-widest text-[#6b7380] block mb-0.5">PROOF</span>
+              <span className="text-[#e8edf4]">Architecture → implementation → source</span>
+            </div>
+          </div>
 
           <div className="mt-8 flex flex-wrap gap-3">
             <button
@@ -85,11 +101,11 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onExploreProjects }) =
             </div>
             <div className="flex justify-between gap-4">
               <dt>FOCUS</dt>
-              <dd className="text-[#e8edf4] text-right">FULL STACK · AI</dd>
+              <dd className="text-[#e8edf4] text-right">PRICE INTEL · AI</dd>
             </div>
             <div className="flex justify-between gap-4">
               <dt>PROJECTS</dt>
-              <dd className="text-[#e8edf4]">{String(PROJECTS_DATA.length).padStart(2, '0')}</dd>
+              <dd className="text-[#e8edf4]">{String(projectCount).padStart(2, '0')}</dd>
             </div>
             <div className="flex justify-between gap-4">
               <dt>LOCATION</dt>

@@ -4,7 +4,7 @@ Premium Engineering OS portfolio for software engineering recruiting.
 
 **Static site works with zero API keys and zero paid services.**
 
-## Design
+## Design hierarchy
 
 | Layer | Share |
 |-------|------|
@@ -14,13 +14,17 @@ Premium Engineering OS portfolio for software engineering recruiting.
 
 Palette: obsidian · graphite · ice cyan · subtle lime status.
 
-## Featured systems
+**Core philosophy:** recruiter sees a portfolio; engineer discovers an Engineering OS.
 
-| Project | Stack highlights |
-|---------|------------------|
-| **Priceloop** | FastAPI · PostgreSQL · Stripe · Redis/Celery scaffold |
-| **CodeForge** | Express · Socket.IO · Gemini/Groq · Docker sandbox |
-| **PulseOps** | Node · queues · realtime incident workflows |
+## Flagship systems
+
+| Project | Stack highlights | Links |
+|---------|------------------|-------|
+| **PriceLoop** | FastAPI · PostgreSQL · Stripe · Redis/Celery scaffold | [Source](https://github.com/parulgupta-afk/Priceloop) |
+| **CodeForge** | Express · Socket.IO · Gemini/Groq · Docker sandbox | [Demo](https://code-forge-jade.vercel.app) · [Source](https://github.com/parulgupta-afk/CodeForge) |
+| **PulseOps** | Node · queues · realtime incident workflows | [Source](https://github.com/parulgupta-afk/pulseops) |
+
+Applied: Pocket-Triage, SkyCall · Experiments: NutriVibe, Beacon, Disaster Mesh
 
 ## Local development
 
@@ -52,7 +56,8 @@ npm run api
 # optional: VITE_API_URL=http://localhost:8787
 ```
 
-Without the API, the AI agent uses local grounded retrieval from `src/data/portfolioData.ts`.
+Without the API, the AI agent uses local grounded retrieval from `src/data/portfolioData.ts`.  
+**AI is an enhancement, not a dependency.**
 
 ## Deploy (static, free)
 
@@ -60,30 +65,27 @@ Without the API, the AI agent uses local grounded retrieval from `src/data/portf
 npm run build
 ```
 
-Deploy the `dist/` folder to:
+Deploy the `dist/` folder to Vercel, Netlify, Cloudflare Pages, or GitHub Pages.
 
-- Vercel
-- Netlify
-- Cloudflare Pages
-- GitHub Pages (set Vite `base` if needed)
-
-No database required for the portfolio site.
+No database, no paid AI, no paid analytics required for the portfolio site.
 
 ## Command Center (⌘K / Ctrl+K)
 
 | Command | Action |
 |---------|--------|
-| `help` | Navigate to summary |
+| `help` | 30-second summary |
 | `whoami` | About |
 | `sudo inspect parul` | Recruiter Mode |
 | `trace codeforge` / `priceloop` / `pulseops` | System Trace |
 | `open resume` | Resume section |
 | `recruiter mode` | Recruiter Mode |
 | `engineering mode` | Engineering Lab |
+| `contact parul` | Contact |
 
-## Metric policy
+## Metric / evidence policy
 
-Claims use **implemented / measured / demo / count** semantics. No fabricated uptime or RPS.
+Claims use **implemented / measured / demo / target / count** semantics.  
+No fabricated uptime, latency SLAs, or production scale numbers without evidence.
 
 ## Content source of truth
 

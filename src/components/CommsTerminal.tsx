@@ -131,7 +131,7 @@ export const CommsTerminal: React.FC = () => {
   };
 
   return (
-    <section id="connect" className="py-20 sm:py-28 relative">
+    <section id="comms" className="py-20 sm:py-28 relative">
       <div className="px-4 sm:px-8 md:px-12 lg:px-16 max-w-[1440px] mx-auto">
         {/* Section Header */}
         <div className="mb-16 flex flex-col md:flex-row justify-between items-start md:items-end border-b border-white/10 pb-8 gap-4">

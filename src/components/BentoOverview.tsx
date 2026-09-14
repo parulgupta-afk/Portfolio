@@ -38,10 +38,7 @@ export const BentoOverview: React.FC<BentoOverviewProps> = ({ onSelectProject, o
           }}
           className="md:col-span-2 lg:col-span-2 md:row-span-2 glass-panel rounded-2xl p-6 sm:p-8 relative overflow-hidden border-white/15 group cursor-pointer glow-hover flex flex-col justify-between"
         >
-          <div
-            className="absolute inset-0 bg-cover bg-center opacity-40 group-hover:scale-105 transition-transform duration-700 mix-blend-screen"
-            style={{ backgroundImage: `url('${PROJECTS_DATA[3].imageUrl}')` }}
-          />
+          <div className="absolute inset-0 bg-gradient-to-br from-[#0d141b] via-[#0a1218] to-[#05090c]" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#05090c] via-[#05090c]/40 to-transparent" />
           <div className="scan-line" />
 

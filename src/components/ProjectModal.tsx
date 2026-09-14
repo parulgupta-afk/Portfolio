@@ -88,30 +88,28 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
 
         {/* Modal Body */}
         <div className="overflow-y-auto p-6 space-y-6">
-          {/* Banner Image Preview */}
-          <div className="relative h-64 sm:h-72 w-full rounded-xl overflow-hidden border border-white/10 bg-[#0d141b] group">
-            <img
-              src={project.imageUrl}
-              alt={project.title}
-              className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-500"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#05090c] via-transparent to-transparent opacity-80" />
-            <div className="scan-line" />
-
-            {/* Float Overlay Badges */}
-            <div className="absolute top-4 right-4 flex gap-2">
-              <span className="font-code-md text-[11px] bg-[#05090c]/90 border border-[#4cd9e0]/40 text-[#4cd9e0] px-3 py-1 rounded">
-                HEALTH: {project.metrics.health}
-              </span>
-              <span className="font-code-md text-[11px] bg-[#05090c]/90 border border-white/10 text-[#c5c6ca] px-3 py-1 rounded">
-                EXEC: {project.metrics.exec}
-              </span>
+          {/* Project header — no stock imagery */}
+          <div className="relative w-full rounded-xl overflow-hidden border border-white/10 bg-[#0d141b] p-5 sm:p-6">
+            <div className="flex flex-wrap items-start justify-between gap-3 mb-4">
+              <div className="flex flex-wrap gap-2">
+                <span className="font-code-md text-[11px] border border-[#4cd9e0]/40 text-[#4cd9e0] px-3 py-1 rounded">
+                  {project.modNumber}
+                </span>
+                <span className="font-code-md text-[11px] border border-white/10 text-[#c5c6ca] px-3 py-1 rounded">
+                  {project.category}
+                </span>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                <span className="font-code-md text-[11px] border border-[#4cd9e0]/40 text-[#4cd9e0] px-3 py-1 rounded">
+                  {project.metrics.health}
+                </span>
+                <span className="font-code-md text-[11px] border border-white/10 text-[#c5c6ca] px-3 py-1 rounded">
+                  {project.metrics.exec}
+                </span>
+              </div>
             </div>
-
-            <div className="absolute bottom-4 left-4 right-4">
-              <h2 className="font-bodoni text-2xl sm:text-3xl text-white font-bold mb-1">{project.title}</h2>
-              <p className="font-body-sm text-[#80d4d8] text-sm">{project.tagline}</p>
-            </div>
+            <h2 className="font-bodoni text-2xl sm:text-3xl text-white font-bold mb-1">{project.title}</h2>
+            <p className="font-body-sm text-[#80d4d8] text-sm">{project.tagline}</p>
           </div>
 
           {/* Navigation Tabs inside Modal */}
@@ -198,7 +196,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
               {project.decisions && project.decisions.length > 0 && (
                 <div>
                   <h4 className="font-code-md text-xs uppercase tracking-widest text-[#9ecafd] mb-3 font-bold">
-                    // WHY I BUILT IT THIS WAY
+                    // ENGINEERING DECISIONS
                   </h4>
                   <div className="space-y-3">
                     {project.decisions.map((d, idx) => (
@@ -212,6 +210,18 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                       </div>
                     ))}
                   </div>
+                  {project.id === 'codeforge' && (
+                    <div className="mt-4 p-4 rounded-lg border border-[#5eb8c8]/20 bg-[#5eb8c8]/5">
+                      <p className="font-code-md text-[10px] uppercase tracking-widest text-[#5eb8c8] mb-2">
+                        Engineering lesson
+                      </p>
+                      <p className="text-xs text-[#c5c6ca] leading-relaxed">
+                        Local subprocess execution is useful for development but is not equivalent to
+                        container isolation. CodeForge explicitly distinguishes execution convenience from a
+                        security boundary.
+                      </p>
+                    </div>
+                  )}
                 </div>
               )}
             </div>
