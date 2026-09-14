@@ -381,7 +381,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
     tags: ['React', 'TypeScript', 'Express.js', 'MongoDB', 'Duffel API', 'Gemini API'],
     imageUrl: '',
     statusVariant: 'primary',
-    liveDemoUrl: '',
+    liveDemoUrl: 'https://sky-call-app.vercel.app/',
     githubUrl: 'https://github.com/parulgupta-afk/SkyCall-app',
     specs: {
       latency: '< 12ms Cached Response',
@@ -426,7 +426,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
     tags: ['React', 'Node.js', 'Express.js', 'MongoDB', 'Gemini API', 'Open Food Facts'],
     imageUrl: '',
     statusVariant: 'organic',
-    liveDemoUrl: '',
+    liveDemoUrl: 'https://nutri-vibe-app-iota.vercel.app/',
     githubUrl: 'https://github.com/parulgupta-afk/NutriVibe-app',
     specs: {
       latency: '< 8ms Rule Evaluation',
