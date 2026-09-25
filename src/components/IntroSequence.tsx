@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { playTerminalChirp, playTransmitSuccess } from '../utils/audioSynth';
 import { PROFILE } from '../data/portfolioData';
 
@@ -7,162 +7,52 @@ interface IntroSequenceProps {
   onSkip: () => void;
 }
 
+/**
+ * Short name reveal intro — no fake boot telemetry, no decorative book canvas.
+ */
 export const IntroSequence: React.FC<IntroSequenceProps> = ({ onComplete, onSkip }) => {
-  const [phase, setPhase] = useState<'initial' | 'portSplit' | 'archShow' | 'archSplit' | 'bookOpen' | 'done'>('initial');
-  const canvasContainerRef = useRef<HTMLDivElement | null>(null);
+  const [phase, setPhase] = useState<'initial' | 'portSplit' | 'archShow' | 'archSplit' | 'done'>('initial');
 
   useEffect(() => {
     playTerminalChirp();
 
-    // 1. Initial fade in PORTFOLIO
     const t1 = setTimeout(() => {
       setPhase('portSplit');
       playTerminalChirp();
-    }, 1200);
+    }, 1000);
 
-    // 2. Show name in gap
     const t2 = setTimeout(() => {
       setPhase('archShow');
-    }, 1700);
+    }, 1500);
 
-    // 3. Split name
     const t3 = setTimeout(() => {
       setPhase('archSplit');
       playTerminalChirp();
-    }, 3100);
+    }, 2800);
 
-    // 4. Book open effect & transition
     const t4 = setTimeout(() => {
-      setPhase('bookOpen');
-      playTransmitSuccess();
-    }, 3900);
-
-    // 5. Complete and hand off to main OS
-    const t5 = setTimeout(() => {
       setPhase('done');
+      playTransmitSuccess();
       onComplete();
-    }, 5600);
+    }, 3800);
 
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);
       clearTimeout(t3);
       clearTimeout(t4);
-      clearTimeout(t5);
     };
   }, [onComplete]);
-
-  // Book 3D simulation canvas
-  useEffect(() => {
-    if (phase !== 'bookOpen') return;
-    const container = canvasContainerRef.current;
-    if (!container) return;
-
-    // Simple smooth canvas animation simulating the book-opening geometry with glowing grid
-    const canvas = document.createElement('canvas');
-    canvas.className = 'absolute inset-0 w-full h-full';
-    container.appendChild(canvas);
-
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    let animFrame: number;
-    let progress = 0;
-
-    const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
-    resize();
-    window.addEventListener('resize', resize);
-
-    const renderBook = () => {
-      progress = Math.min(progress + 0.02, 1);
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      const cx = canvas.width / 2;
-      const cy = canvas.height / 2;
-      const w = Math.min(canvas.width * 0.35, 260);
-      const h = Math.min(canvas.height * 0.5, 360);
-
-      // Book left page flip
-      ctx.save();
-      ctx.translate(cx, cy);
-
-      // Left page swinging open
-      const angle = -Math.PI * progress * 0.95;
-      const scaleX = Math.cos(angle);
-
-      // Shadow
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
-      ctx.fillRect(-w - 10, -h / 2, w * 2 + 20, h);
-
-      // Right fixed page
-      ctx.fillStyle = '#0a0d0f';
-      ctx.strokeStyle = '#34d399';
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-      ctx.rect(0, -h / 2, w, h);
-      ctx.fill();
-      ctx.stroke();
-
-      // Right page content simulation
-      ctx.fillStyle = 'rgba(52, 211, 153, 0.4)';
-      ctx.fillRect(20, -h / 2 + 30, w - 40, 4);
-      ctx.fillRect(20, -h / 2 + 45, w - 60, 2);
-      ctx.fillRect(20, -h / 2 + 55, w - 80, 2);
-
-      // Left rotating page
-      ctx.save();
-      ctx.transform(scaleX, 0, 0, 1, 0, 0);
-      ctx.fillStyle = '#0f1314';
-      ctx.strokeStyle = '#38bdf8';
-      ctx.beginPath();
-      ctx.rect(-w, -h / 2, w, h);
-      ctx.fill();
-      ctx.stroke();
-
-      // Glowing spine
-      ctx.fillStyle = '#34d399';
-      ctx.fillRect(-2, -h / 2, 4, h);
-
-      ctx.restore();
-      ctx.restore();
-
-      if (progress < 1) {
-        animFrame = requestAnimationFrame(renderBook);
-      }
-    };
-
-    renderBook();
-
-    return () => {
-      window.removeEventListener('resize', resize);
-      cancelAnimationFrame(animFrame);
-      if (container.contains(canvas)) {
-        container.removeChild(canvas);
-      }
-    };
-  }, [phase]);
 
   return (
     <div
       id="intro-overlay"
-      className={`fixed inset-0 z-[100] bg-[#030405] flex items-center justify-center flex-col transition-opacity duration-1000 select-none ${
+      className={`fixed inset-0 z-[100] bg-[#030405] flex items-center justify-center flex-col transition-opacity duration-700 select-none ${
         phase === 'done' ? 'opacity-0 pointer-events-none' : 'opacity-100'
       }`}
     >
-      {/* 3D Scene / Book container */}
-      <div
-        ref={canvasContainerRef}
-        className={`absolute inset-0 w-full h-full transition-opacity duration-1000 pointer-events-none ${
-          phase === 'bookOpen' ? 'opacity-100' : 'opacity-0'
-        }`}
-      />
-
-      {/* Text Layers */}
       <div className="relative z-10 flex flex-col items-center justify-center text-center px-4">
-        {/* PORTFOLIO Split Layer */}
+        {/* PORTFOLIO split */}
         <div className="relative inline-block font-bodoni text-5xl sm:text-7xl md:text-8xl font-extrabold tracking-tight text-[#dce3ed]">
           <div
             className={`clip-top transition-all duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)] ${
@@ -180,12 +70,10 @@ export const IntroSequence: React.FC<IntroSequenceProps> = ({ onComplete, onSkip
           </div>
         </div>
 
-        {/* Name Split Layer */}
+        {/* Name */}
         <div
           className={`absolute inset-0 flex items-center justify-center font-bodoni text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight text-[#34d399] transition-all duration-700 ${
-            phase === 'archShow'
-              ? 'opacity-100 scale-100'
-              : phase === 'archSplit' || phase === 'bookOpen' || phase === 'done'
+            phase === 'archShow' || phase === 'archSplit' || phase === 'done'
               ? 'opacity-100 scale-100'
               : 'opacity-0 scale-90 pointer-events-none'
           }`}
@@ -193,30 +81,24 @@ export const IntroSequence: React.FC<IntroSequenceProps> = ({ onComplete, onSkip
           <div className="relative inline-block">
             <div
               className={`clip-top transition-all duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)] ${
-                phase === 'archSplit' || phase === 'bookOpen' || phase === 'done' ? 'split-up' : ''
+                phase === 'archSplit' || phase === 'done' ? 'split-up' : ''
               }`}
             >
-              {PROFILE.name.toUpperCase().replace(/ /g, "_")}
+              {PROFILE.name.toUpperCase().replace(/ /g, '_')}
             </div>
             <div
               className={`clip-bottom absolute top-0 left-0 transition-all duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)] ${
-                phase === 'archSplit' || phase === 'bookOpen' || phase === 'done' ? 'split-down' : ''
+                phase === 'archSplit' || phase === 'done' ? 'split-down' : ''
               }`}
             >
-              {PROFILE.name.toUpperCase().replace(/ /g, "_")}
+              {PROFILE.name.toUpperCase().replace(/ /g, '_')}
             </div>
           </div>
         </div>
-
-        {/* Boot status label */}
-        <div className="mt-16 font-code-md text-xs tracking-widest text-[#34d399]/70 flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-[#34d399] animate-pulse" />
-          <span>SYS_BOOT_SEQ // KERNEL_INIT</span>
-        </div>
       </div>
 
-      {/* Skip Button */}
       <button
+        type="button"
         id="btn-skip-intro"
         onClick={() => {
           playTransmitSuccess();
@@ -224,7 +106,7 @@ export const IntroSequence: React.FC<IntroSequenceProps> = ({ onComplete, onSkip
         }}
         className="absolute bottom-8 right-8 z-20 font-code-md text-xs uppercase tracking-widest text-[#dce3ed]/60 hover:text-[#34d399] border border-white/10 hover:border-[#34d399]/40 px-4 py-2 bg-[#0f1314]/80 backdrop-blur-md rounded transition-all flex items-center gap-2 group"
       >
-        <span>[ Skip Sequence ]</span>
+        <span>Skip</span>
         <span className="text-[#34d399] group-hover:translate-x-0.5 transition-transform">→</span>
       </button>
     </div>
