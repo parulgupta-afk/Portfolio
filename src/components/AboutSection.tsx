@@ -51,15 +51,26 @@ export const AboutSection: React.FC = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="glass-panel p-6 rounded-xl border-white/5 glow-hover flex flex-col justify-between">
                 <div>
-                  <div className="w-10 h-10 rounded-lg bg-[#34d399]/10 border border-[#34d399]/20 flex items-center justify-center mb-4 text-[#34d399]">
+                  <div className="w-10 h-10 rounded-lg bg-[#38bdf8]/10 border border-[#38bdf8]/20 flex items-center justify-center mb-4 text-[#38bdf8]">
                     <Layers className="w-5 h-5" />
                   </div>
-                  <h4 className="font-code-md text-xs sm:text-sm uppercase tracking-widest text-[#dce3ed] mb-2 font-semibold">
+                  <h4 className="font-code-md text-[#34d399] uppercase tracking-widest text-xs sm:text-sm flex items-center gap-2">
                     Full Stack
                   </h4>
                   <p className="font-body-sm text-[#c5c6ca] text-sm leading-relaxed">
-                    React/Next.js and Tailwind on the frontend, Node.js/Express (plus Spring Boot/Django) on the backend, with JWT/OAuth auth and MongoDB/MySQL/PostgreSQL for data.
-                  </p>
+                      I build full-stack applications across the frontend, backend, database, and deployment layers.
+                      <br />
+                      ~Frontend — React, Next.js, JavaScript, TypeScript, Tailwind CSS
+                      <br />
+                      ~Backend — Node.js, Express.js, REST APIs
+                      <br />
+                      ~Databases — MongoDB, MySQL, PostgreSQL
+                      <br />
+                      ~Authentication — JWT, Google OAuth
+                      <br />
+                      ~Real-time — Socket.io
+                      <br />
+                      ~Tools & Deployment — Git, GitHub, Docker, Vercel, Render                  </p>
                 </div>
               </div>
 
@@ -68,11 +79,15 @@ export const AboutSection: React.FC = () => {
                   <div className="w-10 h-10 rounded-lg bg-[#38bdf8]/10 border border-[#38bdf8]/20 flex items-center justify-center mb-4 text-[#38bdf8]">
                     <Cpu className="w-5 h-5" />
                   </div>
-                  <h4 className="font-code-md text-xs sm:text-sm uppercase tracking-widest text-[#dce3ed] mb-2 font-semibold">
+                  <h4 className="font-code-md text-[#34d399] uppercase tracking-widest text-xs sm:text-sm flex items-center gap-2">
                     AI Integration
                   </h4>
                   <p className="font-body-sm text-[#c5c6ca] text-sm leading-relaxed">
-                    Wiring LLMs into real product features — Gemini-powered concierges and ingredient explanations, RAG-based triage, and an Anthropic-driven coding agent.
+                    ~I integrate Generative AI into applications to create features that are useful beyond simple chat interfaces.
+                    <br />
+                    ~My exploration includes LLM APIs, prompt engineering, embeddings, RAG, AI-powered recommendations, summarization, content generation, conversational interfaces, and AI-assisted developer tools.
+                    <br />
+                    ~I have worked with Google Gemini and other LLM APIs, connecting AI capabilities with application backends, databases, and user-facing interfaces to build practical AI-powered experiences.
                   </p>
                 </div>
               </div>
