@@ -177,35 +177,8 @@ export const PROJECTS_DATA: ProjectItem[] = [
   },
 
   {
-    id: 'disaster-mesh',
-    modNumber: 'MOD_07',
-    category: 'EXPERIMENTAL',
-    title: 'Disaster Mesh',
-    tagline: 'Offline-first BLE mesh network for disaster response',
-    description: 'Phones form a Bluetooth Low Energy mesh network — no internet or cell towers needed — to relay SOS broadcasts, hazard reports, and "I\'m safe" messages across a disaster zone.',
-    fullOverview: 'Disaster Mesh is an offline-first mobile app (Flutter) where phones discover each other over BLE and multi-hop, store-carry-forward relay messages beyond direct BLE range — enabling SOS broadcasts, hazard reports, and family status updates to propagate through a disaster zone with no internet or cell towers. Scoped as an 8-phase solo build: offline app skeleton, offline maps/GPS, BLE discovery and 2-phone messaging, multi-hop relay, core emergency features, backend sync, signed/trusted reports, and final polish.',
-    architectureDetails: [
-      'Flutter mobile app with flutter_reactive_ble for BLE discovery and multi-hop message relay',
-      'sqflite for local storage and flutter_map + offline MBTiles/OSM tiles for maps that work with no connectivity',
-      'Store-carry-forward relay so messages reach phones outside direct BLE range',
-      'Node.js + Express + Prisma + PostgreSQL backend for sync once connectivity is available, with signed reports to distinguish official vs. citizen sources'
-    ],
-    tags: ['Flutter', 'BLE Mesh', 'Node.js', 'PostgreSQL', 'Prisma'],
-    imageUrl: '',
-    statusVariant: 'clinical',
-    liveDemoUrl: '',
-    githubUrl: '',
-    specs: {
-      architecture: 'Multi-hop BLE relay',
-      runtime: 'Mesh peer discovery',
-      status: '8-phase solo build',
-      security: 'Signed report verification'
-    }
-  },
-
-  {
     id: 'quilio',
-    modNumber: 'MOD_08',
+    modNumber: 'MOD_07',
     category: 'SOCIAL / AI',
     title: 'Quilio',
     tagline: 'Social blogging + GenAI learning platform',
