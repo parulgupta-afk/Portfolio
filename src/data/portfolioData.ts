@@ -10,7 +10,7 @@ export const PROFILE = {
   github: 'https://github.com/parulgupta-afk',
   linkedin: 'https://linkedin.com/in/parul-gupta-180250354',
   education: 'B.Tech CSE · Guru Nanak Dev University · CGPA 8.90',
-  availability: 'Open to software engineering roles and internships',
+  status: 'Open to software engineering roles and internships',
 };
 
 export const PROJECTS_DATA: ProjectItem[] = [
@@ -34,10 +34,10 @@ export const PROJECTS_DATA: ProjectItem[] = [
     liveDemoUrl: '',
     githubUrl: 'https://github.com/parulgupta-afk/Priceloop',
     specs: {
-      latency: 'Async scraping pipeline',
-      concurrency: 'Celery background workers',
-      availability: 'Phased build (in progress)',
-      encryption: 'Compliant data access'
+      architecture: 'Async scraping pipeline',
+      runtime: 'Celery background workers',
+      status: 'Phased build (in progress)',
+      security: 'Compliant data access'
     }
   },
 
@@ -61,10 +61,10 @@ export const PROJECTS_DATA: ProjectItem[] = [
     liveDemoUrl: 'https://code-forge-jade.vercel.app',
     githubUrl: 'https://github.com/parulgupta-afk/CodeForge',
     specs: {
-      latency: 'Sandboxed agent loop',
-      concurrency: 'Isolated Docker runs',
-      availability: 'In development',
-      encryption: 'Network-isolated sandbox'
+      architecture: 'Sandboxed agent loop',
+      runtime: 'Isolated Docker runs',
+      status: 'In development',
+      security: 'Network-isolated sandbox'
     }
   },
 
@@ -88,10 +88,10 @@ export const PROJECTS_DATA: ProjectItem[] = [
     liveDemoUrl: '',
     githubUrl: 'https://github.com/parulgupta-afk/pulseops',
     specs: {
-      latency: 'Live WebSocket push',
-      concurrency: 'BullMQ queued ingestion',
-      availability: 'Multi-tenant orgs',
-      encryption: 'Role-based access'
+      architecture: 'Live WebSocket push',
+      runtime: 'BullMQ queued ingestion',
+      status: 'Multi-tenant orgs',
+      security: 'Role-based access'
     }
   },
 
@@ -115,10 +115,10 @@ export const PROJECTS_DATA: ProjectItem[] = [
     liveDemoUrl: 'https://sky-call-app.vercel.app/',
     githubUrl: 'https://github.com/parulgupta-afk/SkyCall-app',
     specs: {
-      latency: 'Cached search path',
-      concurrency: '300+ Airlines Aggregated',
-      availability: 'Rate-limited & Cached',
-      encryption: 'JWT / Google OAuth'
+      architecture: 'Cached search path',
+      runtime: '300+ Airlines Aggregated',
+      status: 'Rate-limited & Cached',
+      security: 'JWT / Google OAuth'
     }
   },
 
@@ -142,10 +142,10 @@ export const PROJECTS_DATA: ProjectItem[] = [
     liveDemoUrl: 'https://nutri-vibe-app-iota.vercel.app/',
     githubUrl: 'https://github.com/parulgupta-afk/NutriVibe-app',
     specs: {
-      latency: 'Rule evaluation path',
-      concurrency: 'Multi-profile Families',
-      availability: 'Vercel + Render',
-      encryption: 'JWT / Google OAuth'
+      architecture: 'Rule evaluation path',
+      runtime: 'Multi-profile Families',
+      status: 'Vercel + Render',
+      security: 'JWT / Google OAuth'
     }
   },
 
@@ -169,17 +169,17 @@ export const PROJECTS_DATA: ProjectItem[] = [
     liveDemoUrl: '',
     githubUrl: 'https://github.com/parulgupta-afk/verge',
     specs: {
-      latency: 'Real-time Supabase updates',
-      concurrency: 'Trust-weighted confidence',
-      availability: 'All 8 PRD phases shipped',
-      encryption: 'Supabase anonymous auth'
+      architecture: 'Real-time Supabase updates',
+      runtime: 'Trust-weighted confidence',
+      status: 'All 8 PRD phases shipped',
+      security: 'Supabase anonymous auth'
     }
   },
 
   {
     id: 'disaster-mesh',
     modNumber: 'MOD_07',
-    category: 'OFFLINE-FIRST',
+    category: 'EXPERIMENTAL',
     title: 'Disaster Mesh',
     tagline: 'Offline-first BLE mesh network for disaster response',
     description: 'Phones form a Bluetooth Low Energy mesh network — no internet or cell towers needed — to relay SOS broadcasts, hazard reports, and "I\'m safe" messages across a disaster zone.',
@@ -196,10 +196,10 @@ export const PROJECTS_DATA: ProjectItem[] = [
     liveDemoUrl: '',
     githubUrl: '',
     specs: {
-      latency: 'Multi-hop BLE relay',
-      concurrency: 'Mesh peer discovery',
-      availability: '8-phase solo build',
-      encryption: 'Signed report verification'
+      architecture: 'Multi-hop BLE relay',
+      runtime: 'Mesh peer discovery',
+      status: '8-phase solo build',
+      security: 'Signed report verification'
     }
   },
 
@@ -223,10 +223,10 @@ export const PROJECTS_DATA: ProjectItem[] = [
     liveDemoUrl: '',
     githubUrl: 'https://github.com/parulgupta-afk/Quilio',
     specs: {
-      latency: 'RAG-based blog Q&A',
-      concurrency: 'Embeddings pipeline',
-      availability: 'V1 core + chat-with-blog',
-      encryption: 'JWT + Google OAuth'
+      architecture: 'RAG-based blog Q&A',
+      runtime: 'Embeddings pipeline',
+      status: 'V1 core + chat-with-blog',
+      security: 'JWT + Google OAuth'
     }
   }
 ];

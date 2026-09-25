@@ -72,7 +72,7 @@ export const CommsTerminal: React.FC = () => {
         break;
       case 'projects':
       case 'ls':
-        responseText = PROJECTS_DATA.map((p) => `[${p.modNumber}] ${p.title} (${p.category}) - ${p.specs.latency}`).join('\n');
+        responseText = PROJECTS_DATA.map((p) => `[${p.modNumber}] ${p.title} (${p.category}) - ${p.specs.architecture}`).join('\n');
         break;
       case 'whoami':
         responseText = `${PROFILE.name} // ${PROFILE.role}. Contact: ${PROFILE.email}`;
@@ -118,7 +118,7 @@ export const CommsTerminal: React.FC = () => {
         {
           id: Date.now().toString(),
           sender: 'success',
-          text: `[COMMS_SENT] Transmission received from <${formData.email}> (${formData.name}). Contact channel ready.`,
+          text: `[COMMS_SENT] Message received from <${formData.email}> (${formData.name}). Contact channel ready.`,
           timestamp: time,
         },
       ]);
@@ -149,7 +149,7 @@ export const CommsTerminal: React.FC = () => {
           </div>
         </div>
 
-        {/* 2-Column Grid: Terminal & Transmission Form */}
+        {/* Terminal + contact form */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
           {/* Left Interactive Shell */}
           <div className="lg:col-span-6 glass-panel rounded-xl border-white/10 overflow-hidden flex flex-col glow-hover">
@@ -207,7 +207,7 @@ export const CommsTerminal: React.FC = () => {
             </form>
           </div>
 
-          {/* Right Direct Transmission Form */}
+          {/* Contact form */}
           <div className="lg:col-span-6 glass-panel p-6 sm:p-8 rounded-xl border-white/10 flex flex-col justify-between glow-hover">
             <div>
               <div className="flex items-center justify-between mb-6 border-b border-white/5 pb-4">

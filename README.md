@@ -16,7 +16,8 @@ Software Engineer · Full-Stack · AI Systems
 | **CodeForge** | Express · sandboxed agent · repair loop | [Demo](https://code-forge-jade.vercel.app) · [Source](https://github.com/parulgupta-afk/CodeForge) |
 | **PulseOps** | Real-time incident / on-call workflows | [Source](https://github.com/parulgupta-afk/pulseops) |
 
-Applied: SkyCall (live), NutriVibe (live), Verge · Experimental: Disaster Mesh, Quilio
+Applied: [SkyCall](https://sky-call-app.vercel.app/) · [NutriVibe](https://nutri-vibe-app-iota.vercel.app/) · Verge  
+Experimental: Disaster Mesh (no public source linked) · Quilio
 
 ## Local development
 
@@ -28,11 +29,31 @@ npm run dev
 Open http://localhost:3000
 
 ```bash
+npm run typecheck   # tsc --noEmit
 npm run build
-npm run lint   # tsc --noEmit
 ```
 
 Deploy the `dist/` folder to Vercel, Netlify, or Cloudflare Pages.
+
+## Resume
+
+Place your PDF at:
+
+```text
+public/resume.pdf
+```
+
+The site links **Resume** in the nav and hero to `/resume.pdf`. Until that file is added, the link will 404 — this is intentional, not a fabricated document.
+
+## Production URL
+
+Set your canonical portfolio URL in this README after first deploy (do not invent a Vercel hostname).
+
+Example (replace with your real URL):
+
+```text
+Live: https://YOUR-PROJECT.vercel.app
+```
 
 ## Content source
 
@@ -43,3 +64,4 @@ Deploy the `dist/` folder to Vercel, Netlify, or Cloudflare Pages.
 - Recruiter-first navigation and project hierarchy
 - Engineering OS visual language without fake telemetry or metrics
 - Live Demo / GitHub only when real URLs exist
+- Specs fields: architecture · runtime · status · security

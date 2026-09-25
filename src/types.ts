@@ -13,10 +13,10 @@ export interface ProjectItem {
   liveDemoUrl?: string;
   githubUrl?: string;
   specs: {
-    latency: string;
-    concurrency: string;
-    availability: string;
-    encryption: string;
+    architecture: string;
+    runtime: string;
+    status: string;
+    security: string;
   };
 }
 

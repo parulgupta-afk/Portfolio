@@ -113,7 +113,7 @@ export function App() {
             {/* 5. Experience Log / Timeline */}
             <ExperienceSection />
 
-            {/* 6. Comms_Link / Interactive Terminal & Transmission */}
+            {/* 6. Contact */}
             <CommsTerminal />
           </>
         )}

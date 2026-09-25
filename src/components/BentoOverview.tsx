@@ -1,7 +1,7 @@
 import React from 'react';
 import { ProjectItem } from '../types';
-import { PROJECTS_DATA, CAPABILITIES_DATA, PROFILE } from '../data/portfolioData';
-import { ArrowUpRight, Activity, Cpu, Shield, Sparkles, Terminal, Layers } from 'lucide-react';
+import { PROJECTS_DATA, PROFILE } from '../data/portfolioData';
+import { ArrowUpRight } from 'lucide-react';
 import { playCyberClick } from '../utils/audioSynth';
 
 interface BentoOverviewProps {
@@ -9,190 +9,131 @@ interface BentoOverviewProps {
   onNavigateSection: (sectionId: string) => void;
 }
 
+const getProject = (id: string): ProjectItem | undefined =>
+  PROJECTS_DATA.find((project) => project.id === id);
+
+const liveDemoCount = PROJECTS_DATA.filter((p) => Boolean(p.liveDemoUrl)).length;
+const flagshipIds = ['priceloop', 'codeforge', 'pulseops'] as const;
+
 export const BentoOverview: React.FC<BentoOverviewProps> = ({ onSelectProject, onNavigateSection }) => {
+  const featured = getProject('codeforge');
+  const p0 = getProject('priceloop');
+  const p1 = getProject('skycall');
+  const p2 = getProject('pulseops');
+
   return (
     <div className="py-24 sm:py-28 px-4 sm:px-8 md:px-12 lg:px-16 max-w-[1440px] mx-auto">
-      {/* Bento Header */}
       <div className="mb-10 flex flex-col md:flex-row justify-between items-start md:items-end border-b border-white/10 pb-6 gap-4">
         <div>
           <span className="font-code-md text-xs text-[#34d399] uppercase tracking-widest flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-[#34d399] animate-pulse" />
-            BENTO_GRID // CONCENTRATED SYSTEM ARCHITECTURE
+            <span className="w-2 h-2 rounded-full bg-[#34d399]" aria-hidden />
+            Compact overview
           </span>
           <h2 className="font-bodoni text-3xl sm:text-5xl text-[#dce3ed] font-bold mt-1">
-            System Operations Overview
+            System overview
           </h2>
         </div>
-        <div className="font-code-md text-xs text-[#c5c6ca]/60">
-          LAYOUT_MODE: MODULAR_BENTO // {PROJECTS_DATA.length + 2} NODES
+        <div className="flex flex-wrap gap-3 items-center">
+          <button
+            type="button"
+            onClick={() => {
+              playCyberClick(700);
+              onNavigateSection('projects');
+            }}
+            className="font-code-md text-xs uppercase tracking-widest text-[#34d399] border border-[#34d399]/40 px-3 py-1.5 rounded hover:bg-[#34d399]/10"
+          >
+            Full projects →
+          </button>
+          <span className="font-code-md text-xs text-[#c5c6ca]/60">
+            {PROJECTS_DATA.length} projects · {flagshipIds.length} flagship · {liveDemoCount} live demos
+          </span>
         </div>
       </div>
 
-      {/* Bento Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 auto-rows-[240px]">
-        {/* Cell 1: Large Hero Project (Featured) - 2x2 on lg */}
-        <div
-          onClick={() => {
-            playCyberClick(850);
-            onSelectProject(PROJECTS_DATA[3]);
-          }}
-          className="md:col-span-2 lg:col-span-2 md:row-span-2 glass-panel rounded-2xl p-6 sm:p-8 relative overflow-hidden border-white/15 group cursor-pointer glow-hover flex flex-col justify-between"
-        >
-          <div className="absolute inset-0 bg-gradient-to-br from-[#0a0d0f] via-[#0f1a14] to-[#030405]" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#030405] via-[#030405]/40 to-transparent" />
-          <div className="scan-line" />
-
-          {/* Top Tag */}
-          <div className="relative z-10 flex justify-between items-start">
-            <div className="font-code-md text-xs bg-[#030405]/90 border border-[#34d399]/40 text-[#34d399] px-3 py-1 rounded">
-              FEATURED // {PROJECTS_DATA[3].modNumber}
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 auto-rows-[min(240px,auto)]">
+        {featured ? (
+          <button
+            type="button"
+            onClick={() => {
+              playCyberClick(850);
+              onSelectProject(featured);
+            }}
+            className="md:col-span-2 lg:col-span-2 md:row-span-2 glass-panel rounded-2xl p-6 sm:p-8 relative overflow-hidden border border-white/15 group cursor-pointer text-left flex flex-col justify-between min-h-[280px]"
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-[#0a0d0f] via-[#0f1a14] to-[#030405]" />
+            <div className="relative z-10 flex justify-between items-start">
+              <span className="font-code-md text-xs bg-[#030405]/90 border border-[#34d399]/40 text-[#34d399] px-3 py-1 rounded">
+                Featured · {featured.modNumber}
+              </span>
+              <ArrowUpRight className="w-4 h-4 text-[#c5c6ca] group-hover:text-[#34d399]" aria-hidden />
             </div>
-            <div className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center text-[#dce3ed] group-hover:border-[#34d399] group-hover:text-[#34d399] transition-colors">
-              <ArrowUpRight className="w-4 h-4" />
+            <div className="relative z-10 mt-auto">
+              <h3 className="font-bodoni text-3xl sm:text-4xl text-white font-bold mb-2 group-hover:text-[#34d399] transition-colors">
+                {featured.title}
+              </h3>
+              <p className="font-body-sm text-sm text-[#c5c6ca] line-clamp-3 mb-4">{featured.tagline}</p>
+              <div className="flex flex-wrap gap-1.5">
+                {featured.tags.slice(0, 5).map((tag) => (
+                  <span key={tag} className="text-[10px] px-2 py-0.5 rounded border border-white/10 text-[#6b7380]">
+                    {tag}
+                  </span>
+                ))}
+              </div>
             </div>
-          </div>
+          </button>
+        ) : null}
 
-          {/* Bottom Info */}
-          <div className="relative z-10">
-            <h3 className="font-bodoni text-3xl sm:text-4xl text-white font-bold mb-2 group-hover:text-[#34d399] transition-colors">
-              {PROJECTS_DATA[3].title}
-            </h3>
-            <p className="font-body-sm text-[#c5c6ca] text-sm sm:text-base line-clamp-2 max-w-lg mb-4">
-              {PROJECTS_DATA[3].description}
-            </p>
-            <div className="flex gap-2">
-              {PROJECTS_DATA[3].tags.map((tag, idx) => (
-                <span
-                  key={idx}
-                  className="font-code-md text-[10px] bg-[#030405]/80 border border-white/10 px-2 py-0.5 rounded text-[#38bdf8]"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Cell 2: Core Ethos Card */}
-        <div
-          onClick={() => {
-            playCyberClick(700);
-            onNavigateSection('about');
-          }}
-          className="md:col-span-1 lg:col-span-2 glass-panel rounded-2xl p-6 relative overflow-hidden border-white/10 group cursor-pointer glow-hover flex flex-col justify-between"
-        >
-          <div className="flex justify-between items-start">
-            <div className="font-code-md text-xs text-[#34d399] uppercase tracking-widest flex items-center gap-2">
-              <Layers className="w-4 h-4" />
-              <span>{PROFILE.handle} // Core Ethos</span>
-            </div>
-            <span className="font-code-md text-[10px] text-[#38bdf8]">{PROFILE.role.toUpperCase()}</span>
-          </div>
-
-          <p className="font-body-sm text-sm text-[#c5c6ca] leading-relaxed my-2">
-            &ldquo;Ship the whole thing — frontend, backend, and the AI wired in between.&rdquo;
-          </p>
-
-          <div className="flex justify-between items-center text-xs font-code-md text-[#34d399]">
-            <span>EXPLORE PHILOSOPHY</span>
-            <ArrowUpRight className="w-3.5 h-3.5" />
-          </div>
-        </div>
-
-        {/* Cell 3: Live System Telemetry Card */}
-        <div className="md:col-span-1 lg:col-span-1 glass-panel rounded-2xl p-6 border-white/10 flex flex-col justify-between">
-          <div className="flex justify-between items-center text-xs font-code-md text-[#34d399]">
-            <span>SYS_METRICS</span>
-            <Activity className="w-4 h-4 animate-pulse" />
-          </div>
-          <div className="my-2">
-            <div className="font-bodoni text-3xl text-white font-bold">ONLINE</div>
-            <div className="font-code-md text-[11px] text-[#c5c6ca]/60 mt-1">GLOBAL STATUS SLA</div>
-          </div>
-          <div className="font-code-md text-[10px] text-[#38bdf8] pt-2 border-t border-white/5 flex justify-between">
-            <span>PING: 4ms</span>
-            <span>MEM: 64%</span>
-          </div>
-        </div>
-
-        {/* Cell 4: SkyCall Module */}
-        <div
-          onClick={() => {
-            playCyberClick(800);
-            onSelectProject(PROJECTS_DATA[0]);
-          }}
-          className="md:col-span-1 lg:col-span-1 glass-panel rounded-2xl p-6 border-white/10 group cursor-pointer glow-hover flex flex-col justify-between relative overflow-hidden"
-        >
-          <div className="flex justify-between items-start">
-            <span className="font-code-md text-[10px] text-[#34d399] bg-[#34d399]/10 border border-[#34d399]/20 px-2 py-0.5 rounded">
-              {PROJECTS_DATA[0].modNumber}
-            </span>
-            <ArrowUpRight className="w-3.5 h-3.5 text-[#c5c6ca] group-hover:text-[#34d399]" />
-          </div>
+        {/* Truthful portfolio meta — not fake telemetry */}
+        <div className="glass-panel rounded-2xl p-6 border border-white/10 flex flex-col justify-between">
           <div>
-            <h4 className="font-bodoni text-xl text-white font-bold group-hover:text-[#34d399] transition-colors">
-              {PROJECTS_DATA[0].title}
-            </h4>
-            <p className="font-body-sm text-xs text-[#c5c6ca] line-clamp-2 mt-1">
-              Real-time flight meta-search across 300+ airlines, AI travel concierge.
-            </p>
+            <p className="font-code-md text-[10px] uppercase tracking-widest text-[#34d399] mb-2">Portfolio</p>
+            <p className="font-bodoni text-2xl text-white font-bold leading-tight">{PROFILE.role.split('·')[0].trim()}</p>
           </div>
-          <div className="font-code-md text-[10px] text-[#38bdf8]">{PROJECTS_DATA[0].category}</div>
-        </div>
-
-        {/* Cell 5: NutriVibe Module */}
-        <div
-          onClick={() => {
-            playCyberClick(800);
-            onSelectProject(PROJECTS_DATA[1]);
-          }}
-          className="md:col-span-1 lg:col-span-2 glass-panel rounded-2xl p-6 border-white/10 group cursor-pointer glow-hover flex flex-col justify-between"
-        >
-          <div className="flex justify-between items-start">
-            <span className="font-code-md text-[10px] text-[#38bdf8] bg-[#38bdf8]/10 border border-[#38bdf8]/20 px-2 py-0.5 rounded">
-              {PROJECTS_DATA[1].modNumber} // {PROJECTS_DATA[1].category}
-            </span>
-            <ArrowUpRight className="w-3.5 h-3.5 text-[#c5c6ca] group-hover:text-[#38bdf8]" />
-          </div>
-          <div>
-            <h4 className="font-bodoni text-2xl text-white font-bold group-hover:text-[#38bdf8] transition-colors">
-              {PROJECTS_DATA[1].title}
-            </h4>
-            <p className="font-body-sm text-xs sm:text-sm text-[#c5c6ca] mt-1">
-              Barcode/label scanning with AI-generated safety verdicts for allergies & medications.
-            </p>
-          </div>
-          <div className="flex justify-between font-code-md text-[10px] text-[#c5c6ca]/60">
-            <span>MERN // GEMINI API</span>
+          <div className="font-code-md text-[11px] text-[#c5c6ca] space-y-1 border-t border-white/10 pt-3">
+            <div className="flex justify-between gap-2">
+              <span>Projects</span>
+              <span className="text-[#dce3ed]">{PROJECTS_DATA.length}</span>
+            </div>
+            <div className="flex justify-between gap-2">
+              <span>Flagship</span>
+              <span className="text-[#dce3ed]">{flagshipIds.length}</span>
+            </div>
+            <div className="flex justify-between gap-2">
+              <span>Live demos</span>
+              <span className="text-[#dce3ed]">{liveDemoCount}</span>
+            </div>
+            <div className="flex justify-between gap-2">
+              <span>Stack</span>
+              <span className="text-[#dce3ed]">React · TS · Vite</span>
+            </div>
           </div>
         </div>
 
-        {/* Cell 6: PulseOps Module */}
-        <div
-          onClick={() => {
-            playCyberClick(800);
-            onSelectProject(PROJECTS_DATA[2]);
-          }}
-          className="md:col-span-2 lg:col-span-2 glass-panel rounded-2xl p-6 border-white/10 group cursor-pointer glow-hover flex flex-col justify-between"
-        >
-          <div className="flex justify-between items-start">
-            <span className="font-code-md text-[10px] text-[#ffb4ab] bg-[#ffb4ab]/10 border border-[#ffb4ab]/20 px-2 py-0.5 rounded">
-              {PROJECTS_DATA[2].modNumber} // URGENT
-            </span>
-            <ArrowUpRight className="w-3.5 h-3.5 text-[#c5c6ca] group-hover:text-[#ffb4ab]" />
-          </div>
-          <div>
-            <h4 className="font-bodoni text-2xl text-white font-bold group-hover:text-[#ffb4ab] transition-colors">
-              {PROJECTS_DATA[2].title}
-            </h4>
-            <p className="font-body-sm text-xs sm:text-sm text-[#c5c6ca] mt-1">
-              Crowdsourced live hazard/SOS map with community-confirmed corroboration.
-            </p>
-          </div>
-          <div className="flex justify-between font-code-md text-[10px] text-[#c5c6ca]/60">
-            <span>SUPABASE // REALTIME</span>
-          </div>
-        </div>
+        {[p0, p1, p2].filter(Boolean).map((project) => (
+          <button
+            key={project!.id}
+            type="button"
+            onClick={() => {
+              playCyberClick(800);
+              onSelectProject(project!);
+            }}
+            className="glass-panel rounded-2xl p-6 border border-white/10 group cursor-pointer text-left flex flex-col justify-between min-h-[200px]"
+          >
+            <div className="flex justify-between items-start gap-2">
+              <span className="font-code-md text-[10px] text-[#34d399] bg-[#34d399]/10 border border-[#34d399]/20 px-2 py-0.5 rounded">
+                {project!.modNumber}
+              </span>
+              <ArrowUpRight className="w-3.5 h-3.5 text-[#c5c6ca] group-hover:text-[#34d399] shrink-0" aria-hidden />
+            </div>
+            <div>
+              <h4 className="font-bodoni text-xl text-white font-bold group-hover:text-[#34d399] transition-colors">
+                {project!.title}
+              </h4>
+              <p className="font-body-sm text-xs sm:text-sm text-[#c5c6ca] mt-1 line-clamp-2">{project!.tagline}</p>
+            </div>
+            <div className="font-code-md text-[10px] text-[#38bdf8]">{project!.category}</div>
+          </button>
+        ))}
       </div>
     </div>
   );

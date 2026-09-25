@@ -87,6 +87,16 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onInitSequence, onExpl
             >
               Contact
             </a>
+            <a
+              href="/resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => playCyberClick(800)}
+              className="inline-flex items-center gap-2 text-xs font-code-md uppercase tracking-widest text-[#c5c6ca] hover:text-[#34d399] px-4 py-3 transition-colors"
+              title="Add public/resume.pdf to enable download"
+            >
+              Resume
+            </a>
           </div>
         </div>
 

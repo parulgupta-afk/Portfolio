@@ -88,10 +88,10 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {(
                 [
-                  ['Architecture', project.specs.latency],
-                  ['Runtime', project.specs.concurrency],
-                  ['Availability', project.specs.availability],
-                  ['Auth / security', project.specs.encryption],
+                  ['Architecture', project.specs.architecture],
+                  ['Runtime', project.specs.runtime],
+                  ['Status', project.specs.status],
+                  ['Security', project.specs.security],
                 ] as const
               ).map(([label, value]) => (
                 <div key={label} className="rounded-lg border border-white/10 bg-white/[0.02] p-3">

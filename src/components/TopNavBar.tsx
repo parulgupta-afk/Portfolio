@@ -77,6 +77,15 @@ export const TopNavBar: React.FC<TopNavBarProps> = ({
 
         <div className="flex items-center gap-2 sm:gap-3">
           <a
+            href="/resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden md:inline-flex text-[11px] uppercase tracking-widest text-[#a8b3c4] hover:text-[#34d399] transition-colors"
+            title="Add public/resume.pdf to enable download"
+          >
+            Resume
+          </a>
+          <a
             href={PROFILE.github}
             target="_blank"
             rel="noopener noreferrer"
