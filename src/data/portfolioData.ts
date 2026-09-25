@@ -85,7 +85,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
     tags: ['React', 'TypeScript', 'Node.js', 'Socket.io', 'Redis', 'PostgreSQL', 'Gemini API'],
     imageUrl: '',
     statusVariant: 'primary',
-    liveDemoUrl: '',
+    liveDemoUrl: 'https://pulseops-server.vercel.app',
     githubUrl: 'https://github.com/parulgupta-afk/pulseops',
     specs: {
       architecture: 'Live WebSocket push',
