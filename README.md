@@ -1,28 +1,45 @@
-# Parul Gupta — Portfolio
+# Parul Gupta — Engineering Portfolio
 
-An interactive, cinematic developer portfolio built with React, TypeScript, and Tailwind CSS — featuring a WebGL shader background, an interactive terminal, and a project inspector modal for each build.
+Software Engineer portfolio focused on full-stack and AI-powered systems.
 
-**Projects featured:** [SkyCall](https://github.com/parulgupta-afk/SkyCall-app) (flight meta-search + AI concierge), [NutriVibe](https://github.com/parulgupta-afk/NutriVibe) (AI-powered food safety), Beacon (crowdsourced hazard/SOS map), and Disaster Mesh (offline-first BLE mesh network).
+**Static site. No paid services required.**
 
-## Run locally
+## Positioning
 
-**Prerequisites:** Node.js 18+
+Software Engineer · Full-Stack · AI Systems
+
+## Flagship systems
+
+| Project | Stack highlights | Links |
+|---------|------------------|-------|
+| **Priceloop** | FastAPI · data pipeline · price intelligence | [Source](https://github.com/parulgupta-afk/Priceloop) |
+| **CodeForge** | Express · sandboxed agent · repair loop | [Demo](https://code-forge-jade.vercel.app) · [Source](https://github.com/parulgupta-afk/CodeForge) |
+| **PulseOps** | Real-time incident / on-call workflows | [Source](https://github.com/parulgupta-afk/pulseops) |
+
+Applied: SkyCall (live), NutriVibe (live), Verge · Experimental: Disaster Mesh, Quilio
+
+## Local development
 
 ```bash
 npm install
 npm run dev
 ```
 
-Then open http://localhost:3000
-
-## Build for production
+Open http://localhost:3000
 
 ```bash
 npm run build
+npm run lint   # tsc --noEmit
 ```
 
-Output is written to `dist/`. Deploy it to Vercel, Netlify, GitHub Pages, or any static host.
+Deploy the `dist/` folder to Vercel, Netlify, or Cloudflare Pages.
 
-## Editing content
+## Content source
 
-All project, skills, and experience data lives in one file: `src/data/portfolioData.ts`. Update `PROJECTS_DATA`, `CAPABILITIES_DATA`, and `EXPERIENCE_DATA` there to add or change content — the rest of the UI reads from it.
+`src/data/portfolioData.ts` — projects, demos, experience, profile.
+
+## Design notes
+
+- Recruiter-first navigation and project hierarchy
+- Engineering OS visual language without fake telemetry or metrics
+- Live Demo / GitHub only when real URLs exist

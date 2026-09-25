@@ -52,7 +52,7 @@ export const CommsTerminal: React.FC = () => {
       case 'help':
         responseText = `Available Commands:
   help               - Displays this manual
-  ./init_contact.sh  - Initiates direct communication handshake
+  ./contact  - Focus the contact form
   status             - Shows contact links & GitHub/LinkedIn
   projects           - Lists all compiled system modules
   whoami             - Query developer identity & contact info
@@ -61,7 +61,7 @@ export const CommsTerminal: React.FC = () => {
         break;
       case './init_contact.sh':
       case 'contact':
-        responseText = `[COMMS_HANDSHAKE_READY] Form fields focused. Direct encrypted channel open on port 443.`;
+        responseText = `[READY] Contact form focused.`;
         responseType = 'success';
         document.getElementById('form-name')?.focus();
         break;
@@ -118,7 +118,7 @@ export const CommsTerminal: React.FC = () => {
         {
           id: Date.now().toString(),
           sender: 'success',
-          text: `[COMMS_SENT] Transmission received from <${formData.email}> (${formData.name}). AES-256 key exchange complete.`,
+          text: `[COMMS_SENT] Transmission received from <${formData.email}> (${formData.name}). Contact channel ready.`,
           timestamp: time,
         },
       ]);
@@ -144,8 +144,8 @@ export const CommsTerminal: React.FC = () => {
           </div>
 
           <div className="flex flex-col items-start md:items-end gap-1 font-code-md text-[10px] text-[#c5c6ca]/60">
-            <span>SECURE_ENCRYPTION: AES_256_GCM</span>
-            <span className="text-[#34d399]">STATUS: LISTENING // PORT: 443</span>
+            <span>SECURE_ENCRYPTION: HTTPS</span>
+            <span className="text-[#34d399]">STATUS: READY · CONTACT FORM</span>
           </div>
         </div>
 
@@ -215,7 +215,7 @@ export const CommsTerminal: React.FC = () => {
                   <ShieldCheck className="w-4 h-4" />
                   <span>// DIRECT TRANSMISSION PROTOCOL</span>
                 </h3>
-                <span className="font-code-md text-[10px] text-[#c5c6ca]/50">P2P_COMMS</span>
+                <span className="font-code-md text-[10px] text-[#c5c6ca]/50">CONTACT</span>
               </div>
 
               <form onSubmit={handleTransmit} className="space-y-4">
@@ -251,7 +251,7 @@ export const CommsTerminal: React.FC = () => {
 
                 <div>
                   <label className="block font-code-md text-[11px] uppercase tracking-widest text-[#c5c6ca] mb-1.5">
-                    Encrypted Payload [ Message / Inquiries ]
+                    Message
                   </label>
                   <textarea
                     rows={4}
@@ -259,7 +259,7 @@ export const CommsTerminal: React.FC = () => {
                     required
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    placeholder="Architectural inquiries, project proposals, or collaboration transmissions..."
+                    placeholder="Role fit, project questions, or collaboration ideas…"
                     className="w-full bg-white/[0.03] border border-white/10 rounded-lg px-4 py-2.5 font-code-md text-sm text-[#dce3ed] focus:outline-none focus:border-[#34d399] transition-colors resize-none"
                   />
                 </div>
@@ -267,7 +267,7 @@ export const CommsTerminal: React.FC = () => {
                 {transmitSuccess && (
                   <div className="p-3 bg-[#34d399]/10 border border-[#34d399]/40 rounded-lg flex items-center gap-2 text-xs font-code-md text-[#34d399]">
                     <Check className="w-4 h-4 text-[#34d399]" />
-                    <span>Packet received! Direct handshake established. Response queued.</span>
+                    <span>Message submitted successfully. (Demo — opens your mail client if configured.)</span>
                   </div>
                 )}
 
@@ -280,11 +280,11 @@ export const CommsTerminal: React.FC = () => {
                   {transmitting ? (
                     <>
                       <RefreshCw className="w-4 h-4 animate-spin" />
-                      <span>Transmitting Payload...</span>
+                      <span>Sending…</span>
                     </>
                   ) : (
                     <>
-                      <span>Transmit_Data</span>
+                      <span>Send message</span>
                       <Send className="w-4 h-4" />
                     </>
                   )}

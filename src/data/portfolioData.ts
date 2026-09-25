@@ -3,16 +3,101 @@ import { ProjectItem, CapabilityItem, ExperienceItem } from '../types';
 export const PROFILE = {
   name: 'Parul Gupta',
   handle: 'PARUL_GUPTA',
-  role: 'Software Developer',
+  role: 'Software Engineer · Full-Stack · AI Systems',
+  tagline:
+    'I build full-stack and AI-powered applications across frontend, backend, data, authentication, and deployment layers.',
   email: 'parulmahajan863@gmail.com',
   github: 'https://github.com/parulgupta-afk',
   linkedin: 'https://linkedin.com/in/parul-gupta-180250354',
+  education: 'B.Tech CSE · Guru Nanak Dev University · CGPA 8.90',
+  availability: 'Open to software engineering roles and internships',
 };
 
 export const PROJECTS_DATA: ProjectItem[] = [
   {
-    id: 'skycall',
+    id: 'priceloop',
     modNumber: 'MOD_01',
+    category: 'PRICE INTELLIGENCE',
+    title: 'Priceloop',
+    tagline: 'AI-powered e-commerce price intelligence platform',
+    description: 'Tracks, matches, and forecasts e-commerce product pricing, with LLM-generated insights on top.',
+    fullOverview: 'Priceloop (formerly PricePulse AI) is an AI-powered price intelligence platform with a React/TypeScript/Tailwind/shadcn frontend and a Python/FastAPI backend. It tracks e-commerce pricing via compliant scraping, matches products and forecasts price trends using scikit-learn and embeddings, and surfaces LLM-generated insights — built in phases from a documented Roadmap, SRS, and DRD.',
+    architectureDetails: [
+      'Python/FastAPI backend with PostgreSQL, Redis, and Celery for background scraping/processing jobs',
+      'Compliant, publicly-accessible-data scraping via httpx, BeautifulSoup, and Playwright',
+      'Product matching and price forecasting using scikit-learn, embeddings, and pgvector',
+      'Phased build (Roadmap + SRS + DRD) with Docker and GitHub Actions for CI/infra'
+    ],
+    tags: ['React', 'TypeScript', 'FastAPI', 'PostgreSQL', 'Redis', 'Celery'],
+    imageUrl: '',
+    statusVariant: 'organic',
+    liveDemoUrl: '',
+    githubUrl: 'https://github.com/parulgupta-afk/Priceloop',
+    specs: {
+      latency: 'Async scraping pipeline',
+      concurrency: 'Celery background workers',
+      availability: 'Phased build (in progress)',
+      encryption: 'Compliant data access'
+    }
+  },
+
+  {
+    id: 'codeforge',
+    modNumber: 'MOD_02',
+    category: 'AI CODING AGENT',
+    title: 'CodeForge',
+    tagline: 'Autonomous coding agent with sandboxed execution',
+    description: 'A self-correcting autonomous coding agent that plans, writes, and runs code inside an isolated Docker sandbox.',
+    fullOverview: 'CodeForge is a self-correcting autonomous coding agent built with a Node.js/Express/TypeScript backend and a React/TypeScript frontend. It uses the Anthropic API for agent reasoning and controls a Docker-based sandbox (via dockerode) with custom resource limits, network isolation, and timeout enforcement — built in-house instead of a managed sandbox like E2B, to demonstrate deeper systems engineering.',
+    architectureDetails: [
+      'Node.js/Express/TypeScript backend driving an agent loop against the Anthropic API',
+      'Docker-based sandbox execution via dockerode with custom resource limits, network isolation, and timeout enforcement',
+      'React/TypeScript frontend for interacting with and observing agent runs',
+      'Deployment-ready client/server architecture, consistent with the rest of the portfolio projects'
+    ],
+    tags: ['React', 'TypeScript', 'Node.js', 'Docker', 'Anthropic API'],
+    imageUrl: '',
+    statusVariant: 'clinical',
+    liveDemoUrl: 'https://code-forge-jade.vercel.app',
+    githubUrl: 'https://github.com/parulgupta-afk/CodeForge',
+    specs: {
+      latency: 'Sandboxed agent loop',
+      concurrency: 'Isolated Docker runs',
+      availability: 'In development',
+      encryption: 'Network-isolated sandbox'
+    }
+  },
+
+  {
+    id: 'pulseops',
+    modNumber: 'MOD_03',
+    category: 'INCIDENT MANAGEMENT',
+    title: 'PulseOps',
+    tagline: 'Real-time on-call & incident response platform',
+    description: 'A PagerDuty-style on-call and incident response platform with live scheduling, escalation, and AI-assisted triage.',
+    fullOverview: 'PulseOps is a real-time on-call and incident response platform with a React/TypeScript/Vite frontend and a Node/Express/TypeScript backend. It pushes live on-call schedules over Socket.io/Redis Pub/Sub, queues incident ingestion through BullMQ with idempotency keys, and uses a vector-backed RAG pipeline to surface similar past incidents and suggested runbook steps during triage.',
+    architectureDetails: [
+      'Socket.io + Redis Pub/Sub for live-pushed on-call schedules and incident updates',
+      'BullMQ event-driven queue with idempotency keys, retry-with-backoff, and circuit breakers on notification providers',
+      'RAG-powered incident triage: PostgreSQL + pgvector similarity search over past incidents via the Gemini API',
+      'Escalation policies via Twilio/SendGrid, multi-tenant orgs with roles, and a public status page'
+    ],
+    tags: ['React', 'TypeScript', 'Node.js', 'Socket.io', 'Redis', 'PostgreSQL', 'Gemini API'],
+    imageUrl: '',
+    statusVariant: 'primary',
+    liveDemoUrl: '',
+    githubUrl: 'https://github.com/parulgupta-afk/pulseops',
+    specs: {
+      latency: 'Live WebSocket push',
+      concurrency: 'BullMQ queued ingestion',
+      availability: 'Multi-tenant orgs',
+      encryption: 'Role-based access'
+    }
+  },
+
+  {
+    id: 'skycall',
+    modNumber: 'MOD_04',
     category: 'TRAVEL',
     title: 'SkyCall',
     tagline: 'Real-time flight search & meta-search platform with AI concierge',
@@ -25,20 +110,21 @@ export const PROJECTS_DATA: ProjectItem[] = [
       'Price-alert system with persistent MongoDB storage for tracking routes and fare-drop notifications'
     ],
     tags: ['React', 'TypeScript', 'Express.js', 'MongoDB', 'Duffel API', 'Gemini API'],
-    imageUrl: 'https://picsum.photos/seed/skycall-flight/1600/900',
+    imageUrl: '',
     statusVariant: 'primary',
     liveDemoUrl: 'https://sky-call-app.vercel.app/',
     githubUrl: 'https://github.com/parulgupta-afk/SkyCall-app',
     specs: {
-      latency: '< 12ms Cached Response',
+      latency: 'Cached search path',
       concurrency: '300+ Airlines Aggregated',
       availability: 'Rate-limited & Cached',
       encryption: 'JWT / Google OAuth'
     }
   },
+
   {
     id: 'nutrivibe',
-    modNumber: 'MOD_02',
+    modNumber: 'MOD_05',
     category: 'HEALTH',
     title: 'NutriVibe',
     tagline: 'Personalized food safety app — scan, check, stay safe',
@@ -51,21 +137,22 @@ export const PROJECTS_DATA: ProjectItem[] = [
       'Multi-user family profiles, JWT + Google OAuth authentication, and a secure hashed/time-limited password-reset flow'
     ],
     tags: ['React', 'Node.js', 'Express.js', 'MongoDB', 'Gemini API', 'Open Food Facts'],
-    imageUrl: 'https://images.unsplash.com/photo-1610348725531-843dff563e2c?q=80&w=1600&auto=format&fit=crop',
+    imageUrl: '',
     statusVariant: 'organic',
     liveDemoUrl: 'https://nutri-vibe-app-iota.vercel.app/',
-    githubUrl: 'https://github.com/parulgupta-afk/NutriVibe',
+    githubUrl: 'https://github.com/parulgupta-afk/NutriVibe-app',
     specs: {
-      latency: '< 8ms Rule Evaluation',
+      latency: 'Rule evaluation path',
       concurrency: 'Multi-profile Families',
       availability: 'Vercel + Render',
       encryption: 'JWT / Google OAuth'
     }
   },
+
   {
     id: 'verge',
-    modNumber: 'MOD_03',
-    category: 'CIVIC / ROUTING',
+    modNumber: 'MOD_06',
+    category: 'ROAD INTELLIGENCE',
     title: 'Verge',
     tagline: 'Verified road-block status & smart rerouting',
     description: 'A real-time crowdsourced app for checking if a road is passable, with trust-scored reports feeding a rerouting engine.',
@@ -77,7 +164,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
       'Vitest test suite (confidence formula, API validation, reroute logic) and GitHub Actions CI for server + client builds'
     ],
     tags: ['React', 'TypeScript', 'MapLibre', 'Hono', 'Supabase', 'PostGIS', 'OSRM'],
-    imageUrl: 'https://picsum.photos/seed/verge-road/1600/900',
+    imageUrl: '',
     statusVariant: 'urgent',
     liveDemoUrl: '',
     githubUrl: 'https://github.com/parulgupta-afk/verge',
@@ -88,9 +175,10 @@ export const PROJECTS_DATA: ProjectItem[] = [
       encryption: 'Supabase anonymous auth'
     }
   },
+
   {
     id: 'disaster-mesh',
-    modNumber: 'MOD_04',
+    modNumber: 'MOD_07',
     category: 'OFFLINE-FIRST',
     title: 'Disaster Mesh',
     tagline: 'Offline-first BLE mesh network for disaster response',
@@ -103,7 +191,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
       'Node.js + Express + Prisma + PostgreSQL backend for sync once connectivity is available, with signed reports to distinguish official vs. citizen sources'
     ],
     tags: ['Flutter', 'BLE Mesh', 'Node.js', 'PostgreSQL', 'Prisma'],
-    imageUrl: 'https://picsum.photos/seed/disaster-mesh-signal/1600/900',
+    imageUrl: '',
     statusVariant: 'clinical',
     liveDemoUrl: '',
     githubUrl: '',
@@ -114,84 +202,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
       encryption: 'Signed report verification'
     }
   },
-  {
-    id: 'codeforge',
-    modNumber: 'MOD_05',
-    category: 'DEV TOOLS',
-    title: 'CodeForge',
-    tagline: 'Autonomous coding agent with sandboxed execution',
-    description: 'A self-correcting autonomous coding agent that plans, writes, and runs code inside an isolated Docker sandbox.',
-    fullOverview: 'CodeForge is a self-correcting autonomous coding agent built with a Node.js/Express/TypeScript backend and a React/TypeScript frontend. It uses the Anthropic API for agent reasoning and controls a Docker-based sandbox (via dockerode) with custom resource limits, network isolation, and timeout enforcement — built in-house instead of a managed sandbox like E2B, to demonstrate deeper systems engineering.',
-    architectureDetails: [
-      'Node.js/Express/TypeScript backend driving an agent loop against the Anthropic API',
-      'Docker-based sandbox execution via dockerode with custom resource limits, network isolation, and timeout enforcement',
-      'React/TypeScript frontend for interacting with and observing agent runs',
-      'Deployment-ready client/server architecture, consistent with the rest of the portfolio projects'
-    ],
-    tags: ['React', 'TypeScript', 'Node.js', 'Docker', 'Anthropic API'],
-    imageUrl: 'https://picsum.photos/seed/codeforge-terminal/1600/900',
-    statusVariant: 'clinical',
-    liveDemoUrl: '',
-    githubUrl: 'https://github.com/parulgupta-afk/CodeForge',
-    specs: {
-      latency: 'Sandboxed agent loop',
-      concurrency: 'Isolated Docker runs',
-      availability: 'In development',
-      encryption: 'Network-isolated sandbox'
-    }
-  },
-  {
-    id: 'priceloop',
-    modNumber: 'MOD_06',
-    category: 'DATA / AI',
-    title: 'Priceloop',
-    tagline: 'AI-powered e-commerce price intelligence platform',
-    description: 'Tracks, matches, and forecasts e-commerce product pricing, with LLM-generated insights on top.',
-    fullOverview: 'Priceloop (formerly PricePulse AI) is an AI-powered price intelligence platform with a React/TypeScript/Tailwind/shadcn frontend and a Python/FastAPI backend. It tracks e-commerce pricing via compliant scraping, matches products and forecasts price trends using scikit-learn and embeddings, and surfaces LLM-generated insights — built in phases from a documented Roadmap, SRS, and DRD.',
-    architectureDetails: [
-      'Python/FastAPI backend with PostgreSQL, Redis, and Celery for background scraping/processing jobs',
-      'Compliant, publicly-accessible-data scraping via httpx, BeautifulSoup, and Playwright',
-      'Product matching and price forecasting using scikit-learn, embeddings, and pgvector',
-      'Phased build (Roadmap + SRS + DRD) with Docker and GitHub Actions for CI/infra'
-    ],
-    tags: ['React', 'TypeScript', 'FastAPI', 'PostgreSQL', 'Redis', 'Celery'],
-    imageUrl: 'https://picsum.photos/seed/priceloop-data/1600/900',
-    statusVariant: 'organic',
-    liveDemoUrl: '',
-    githubUrl: 'https://github.com/parulgupta-afk/Priceloop',
-    specs: {
-      latency: 'Async scraping pipeline',
-      concurrency: 'Celery background workers',
-      availability: 'Phased build (in progress)',
-      encryption: 'Compliant data access'
-    }
-  },
-  {
-    id: 'pulseops',
-    modNumber: 'MOD_07',
-    category: 'INFRA / DEVOPS',
-    title: 'PulseOps',
-    tagline: 'Real-time on-call & incident response platform',
-    description: 'A PagerDuty-style on-call and incident response platform with live scheduling, escalation, and AI-assisted triage.',
-    fullOverview: 'PulseOps is a real-time on-call and incident response platform with a React/TypeScript/Vite frontend and a Node/Express/TypeScript backend. It pushes live on-call schedules over Socket.io/Redis Pub/Sub, queues incident ingestion through BullMQ with idempotency keys, and uses a vector-backed RAG pipeline to surface similar past incidents and suggested runbook steps during triage.',
-    architectureDetails: [
-      'Socket.io + Redis Pub/Sub for live-pushed on-call schedules and incident updates',
-      'BullMQ event-driven queue with idempotency keys, retry-with-backoff, and circuit breakers on notification providers',
-      'RAG-powered incident triage: PostgreSQL + pgvector similarity search over past incidents via the Gemini API',
-      'Escalation policies via Twilio/SendGrid, multi-tenant orgs with roles, and a public status page'
-    ],
-    tags: ['React', 'TypeScript', 'Node.js', 'Socket.io', 'Redis', 'PostgreSQL', 'Gemini API'],
-    imageUrl: 'https://picsum.photos/seed/pulseops-signal/1600/900',
-    statusVariant: 'primary',
-    liveDemoUrl: '',
-    githubUrl: 'https://github.com/parulgupta-afk/pulseops',
-    specs: {
-      latency: 'Live WebSocket push',
-      concurrency: 'BullMQ queued ingestion',
-      availability: 'Multi-tenant orgs',
-      encryption: 'Role-based access'
-    }
-  },
+
   {
     id: 'quilio',
     modNumber: 'MOD_08',
@@ -207,7 +218,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
       'React/Tailwind/Zustand frontend, Node/Express + MongoDB backend, JWT + Google OAuth, Socket.io'
     ],
     tags: ['React', 'Node.js', 'MongoDB', 'LLM / RAG', 'Socket.io'],
-    imageUrl: 'https://picsum.photos/seed/quilio-blog/1600/900',
+    imageUrl: '',
     statusVariant: 'clinical',
     liveDemoUrl: '',
     githubUrl: 'https://github.com/parulgupta-afk/Quilio',

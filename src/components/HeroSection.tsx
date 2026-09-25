@@ -13,6 +13,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onInitSequence, onExpl
   const [tilt, setTilt] = useState({ rx: 0, ry: 0 });
 
   useEffect(() => {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced) return;
     const handleMouseMove = (e: MouseEvent) => {
       const nx = (e.clientX / window.innerWidth - 0.5) * 2;
       const ny = (e.clientY / window.innerHeight - 0.5) * 2;
@@ -25,7 +27,6 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onInitSequence, onExpl
         ry: nx * 14,
       });
     };
-
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
@@ -54,42 +55,42 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onInitSequence, onExpl
               GUPTA
             </span>
           </h1>
-          <p className="font-code-md text-sm sm:text-base text-[#c5c6ca]/70 uppercase tracking-[0.3em] mt-2">
-            {PROFILE.role}
+          <p className="font-code-md text-sm sm:text-base text-[#c5c6ca]/70 uppercase tracking-[0.2em] mt-2">
+            Full-Stack · AI · Systems
+          </p>
+          <p className="text-sm sm:text-base text-[#a8b3c4] max-w-xl leading-relaxed mt-3">
+            {PROFILE.tagline}
           </p>
 
           {/* Description */}
           <p className="font-body-lg text-[#c5c6ca] text-base sm:text-lg max-w-xl mt-4 border-l-2 border-white/10 pl-4 leading-relaxed">
-            Software developer building AI-powered MERN applications — from real-time flight search to offline-first disaster response. 1000+ DSA problems solved, shipped end to end.
+            I build full-stack and AI-powered applications across frontend, backend, data, authentication, and deployment layers.
           </p>
 
           {/* Action Triggers */}
           <div className="mt-8 flex flex-wrap gap-4 items-center">
             <button
-              id="btn-hero-init"
+              type="button"
+              id="btn-hero-projects"
               onClick={() => {
                 playCyberClick(950);
-                onInitSequence();
-              }}
-              className="inline-flex items-center gap-3 bg-transparent border border-white/15 px-6 py-3.5 hover:border-[#34d399]/60 hover:bg-[#34d399]/10 transition-all duration-300 group btn-precision rounded"
-            >
-              <span className="font-code-md text-xs sm:text-[13px] uppercase tracking-widest text-[#dce3ed] group-hover:text-[#34d399] transition-colors">
-                Init_Sequence
-              </span>
-              <ArrowRight className="w-4 h-4 text-[#34d399]/60 group-hover:text-[#34d399] group-hover:translate-x-1.5 transition-all" />
-            </button>
-
-            <button
-              id="btn-hero-explore"
-              onClick={() => {
-                playCyberClick(850);
                 onExploreProjects();
               }}
-              className="inline-flex items-center gap-2 text-xs font-code-md uppercase tracking-widest text-[#c5c6ca]/70 hover:text-[#34d399] px-4 py-3 transition-colors"
+              className="inline-flex items-center gap-3 bg-[#34d399] text-[#002021] px-6 py-3.5 hover:bg-[#6ee7b7] transition-all duration-300 group btn-precision rounded font-semibold"
             >
-              <Terminal className="w-4 h-4 text-[#34d399]/60" />
-              <span>Explore_Modules [{PROJECTS_DATA.length}]</span>
+              <span className="font-code-md text-xs sm:text-[13px] uppercase tracking-widest">
+                View Projects
+              </span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </button>
+
+            <a
+              href="#connect"
+              onClick={() => playCyberClick(850)}
+              className="inline-flex items-center gap-2 text-xs font-code-md uppercase tracking-widest text-[#c5c6ca] hover:text-[#34d399] px-4 py-3 transition-colors border border-white/15 rounded"
+            >
+              Contact
+            </a>
           </div>
         </div>
 

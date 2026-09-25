@@ -38,10 +38,7 @@ export const BentoOverview: React.FC<BentoOverviewProps> = ({ onSelectProject, o
           }}
           className="md:col-span-2 lg:col-span-2 md:row-span-2 glass-panel rounded-2xl p-6 sm:p-8 relative overflow-hidden border-white/15 group cursor-pointer glow-hover flex flex-col justify-between"
         >
-          <div
-            className="absolute inset-0 bg-cover bg-center opacity-40 group-hover:scale-105 transition-transform duration-700 mix-blend-screen"
-            style={{ backgroundImage: `url('${PROJECTS_DATA[3].imageUrl}')` }}
-          />
+          <div className="absolute inset-0 bg-gradient-to-br from-[#0a0d0f] via-[#0f1a14] to-[#030405]" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#030405] via-[#030405]/40 to-transparent" />
           <div className="scan-line" />
 
@@ -109,8 +106,8 @@ export const BentoOverview: React.FC<BentoOverviewProps> = ({ onSelectProject, o
             <Activity className="w-4 h-4 animate-pulse" />
           </div>
           <div className="my-2">
-            <div className="font-bodoni text-3xl text-white font-bold">99.999%</div>
-            <div className="font-code-md text-[11px] text-[#c5c6ca]/60 mt-1">GLOBAL UPTIME SLA</div>
+            <div className="font-bodoni text-3xl text-white font-bold">ONLINE</div>
+            <div className="font-code-md text-[11px] text-[#c5c6ca]/60 mt-1">GLOBAL STATUS SLA</div>
           </div>
           <div className="font-code-md text-[10px] text-[#38bdf8] pt-2 border-t border-white/5 flex justify-between">
             <span>PING: 4ms</span>
