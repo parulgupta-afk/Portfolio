@@ -48,7 +48,7 @@ The site links **Resume** in the nav and hero to `/resume.pdf`. Until that file 
 ## Production URL
 
 ```text
-Live: https://portfolio-omega-roan-89.vercel.app
+Live: https://parulgupta-portfolio.vercel.app
 ```
 
 ## Content source
