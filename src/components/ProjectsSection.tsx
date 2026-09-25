@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { ChevronRight, ChevronLeft, ArrowRight, ExternalLink, Activity } from 'lucide-react';
 import { ProjectItem } from '../types';
 import { PROJECTS_DATA, OTHER_REPOS } from '../data/portfolioData';
@@ -10,6 +10,7 @@ interface ProjectsSectionProps {
 
 export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onSelectProject }) => {
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
+  const isPausedRef = useRef(false);
 
   const scroll = (direction: 'left' | 'right') => {
     playCyberClick(700);
@@ -17,6 +18,39 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onSelectProjec
     const offset = direction === 'left' ? -500 : 500;
     scrollContainerRef.current.scrollBy({ left: offset, behavior: 'smooth' });
   };
+
+  // Auto-rotate the carousel infinitely, pausing while the user hovers or drags
+  useEffect(() => {
+    const el = scrollContainerRef.current;
+    if (!el) return;
+
+    const intervalId = setInterval(() => {
+      if (isPausedRef.current || !el) return;
+
+      const atEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 4;
+      if (atEnd) {
+        el.scrollTo({ left: 0, behavior: 'smooth' });
+      } else {
+        el.scrollBy({ left: 340, behavior: 'smooth' });
+      }
+    }, 2800);
+
+    const pause = () => { isPausedRef.current = true; };
+    const resume = () => { isPausedRef.current = false; };
+
+    el.addEventListener('mouseenter', pause);
+    el.addEventListener('mouseleave', resume);
+    el.addEventListener('touchstart', pause, { passive: true });
+    el.addEventListener('touchend', resume);
+
+    return () => {
+      clearInterval(intervalId);
+      el.removeEventListener('mouseenter', pause);
+      el.removeEventListener('mouseleave', resume);
+      el.removeEventListener('touchstart', pause);
+      el.removeEventListener('touchend', resume);
+    };
+  }, []);
 
   return (
     <section id="projects" className="py-20 sm:py-28 border-b border-white/5 relative">

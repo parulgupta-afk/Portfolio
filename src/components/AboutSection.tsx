@@ -39,7 +39,11 @@ export const AboutSection: React.FC = () => {
                 </h3>
               </div>
               <p className="font-body-lg text-[#c5c6ca] leading-relaxed text-base sm:text-lg">
-                I'm a full stack developer who likes shipping complete products — frontend, backend, and the AI in between. I care about clean, type-safe architecture as much as the interface a user actually touches, and I default to building the whole thing myself, end to end.
+                I am a B.Tech Computer Science and Engineering student at Guru Nanak Dev University, aspiring to become a Software Engineer with a strong interest in full-stack development, Data Structures & Algorithms, Generative AI, and UI/UX. I enjoy learning by building practical projects and solving real-world problems through technology.<br /><br />
+                I have experience working with C++, JavaScript, TypeScript, React, Tailwind CSS, Node.js, Express.js, MongoDB, REST APIs, Git, and GitHub. I have also worked with JWT authentication, Google OAuth, Socket.io, Cloudinary, API integration, and backend development. Alongside development, I actively practice DSA and problem-solving using C++ and LeetCode, with a focus on strengthening my fundamentals in algorithms and computer science.<br /><br />
+                I am also exploring Generative AI and LLM-based applications, including LLM APIs, embeddings, RAG (Retrieval-Augmented Generation), AI-powered content generation, summarization, recommendations, and conversational features. My projects include a Price Intelligence Platform, CodeForge, a flight-booking backend, and full-stack/GenAI-based application development.<br /><br />
+                I am particularly interested in building applications that combine strong engineering, useful functionality, and good user experience. I am continuously improving my knowledge of DBMS, Operating Systems, Computer Networks, backend architecture, APIs, authentication, system design, and scalable application development.<br /><br />
+                My goal is to grow as a Software Engineer, contribute to meaningful products, and gain industry experience through internships and software engineering opportunities.
               </p>
             </div>
 
