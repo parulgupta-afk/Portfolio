@@ -62,10 +62,6 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onInitSequence, onExpl
             {PROFILE.tagline}
           </p>
 
-          {/* Description */}
-          <p className="font-body-lg text-[#c5c6ca] text-base sm:text-lg max-w-xl mt-4 border-l-2 border-white/10 pl-4 leading-relaxed">
-            I build full-stack and AI-powered applications across frontend, backend, data, authentication, and deployment layers.
-          </p>
 
           {/* Action Triggers */}
           <div className="mt-8 flex flex-wrap gap-4 items-center">
