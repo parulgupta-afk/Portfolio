@@ -47,12 +47,8 @@ The site links **Resume** in the nav and hero to `/resume.pdf`. Until that file 
 
 ## Production URL
 
-Set your canonical portfolio URL in this README after first deploy (do not invent a Vercel hostname).
-
-Example (replace with your real URL):
-
 ```text
-Live: https://YOUR-PROJECT.vercel.app
+Live: https://portfolio-omega-roan-89.vercel.app
 ```
 
 ## Content source
@@ -65,3 +61,5 @@ Live: https://YOUR-PROJECT.vercel.app
 - Engineering OS visual language without fake telemetry or metrics
 - Live Demo / GitHub only when real URLs exist
 - Specs fields: architecture · runtime · status · security
+
+
