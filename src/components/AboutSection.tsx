@@ -39,11 +39,11 @@ export const AboutSection: React.FC = () => {
                 </h3>
               </div>
               <p className="font-body-lg text-[#c5c6ca] leading-relaxed text-base sm:text-lg">
-                I am a B.Tech Computer Science and Engineering student at Guru Nanak Dev University, aspiring to become a Software Engineer with a strong interest in full-stack development, Data Structures & Algorithms, Generative AI, and UI/UX. I enjoy learning by building practical projects and solving real-world problems through technology.<br /><br />
-                I have experience working with C++, JavaScript, TypeScript, React, Tailwind CSS, Node.js, Express.js, MongoDB, REST APIs, Git, and GitHub. I have also worked with JWT authentication, Google OAuth, Socket.io, Cloudinary, API integration, and backend development. Alongside development, I actively practice DSA and problem-solving using C++ and LeetCode, with a focus on strengthening my fundamentals in algorithms and computer science.<br /><br />
-                I am also exploring Generative AI and LLM-based applications, including LLM APIs, embeddings, RAG (Retrieval-Augmented Generation), AI-powered content generation, summarization, recommendations, and conversational features. My projects include a Price Intelligence Platform, CodeForge, a flight-booking backend, and full-stack/GenAI-based application development.<br /><br />
-                I am particularly interested in building applications that combine strong engineering, useful functionality, and good user experience. I am continuously improving my knowledge of DBMS, Operating Systems, Computer Networks, backend architecture, APIs, authentication, system design, and scalable application development.<br /><br />
-                My goal is to grow as a Software Engineer, contribute to meaningful products, and gain industry experience through internships and software engineering opportunities.
+                I’m a B.Tech Computer Science and Engineering student at Guru Nanak Dev University, aspiring to become a Software Engineer. I enjoy turning ideas into practical products that solve real problems while keeping the experience simple and intuitive.<br /><br />
+
+                I believe good software is more than code that works — it should be reliable, maintainable, scalable, and enjoyable to use. I learn primarily by building, experimenting, debugging, and continuously improving what I create.<br /><br />
+
+                My interests span full-stack development, Data Structures & Algorithms, Generative AI, and UI/UX, with a focus on building products where strong engineering and thoughtful design work together.
               </p>
             </div>
 
@@ -90,10 +90,19 @@ export const AboutSection: React.FC = () => {
 
                 <div className="space-y-4 font-body-sm text-[#c5c6ca] text-sm leading-relaxed">
                   <p>
-                    B.Tech Computer Engineering student at Guru Nanak Dev University (CGPA 8.90/10), with hands-on experience across MERN stack development, RESTful APIs, and Google Gemini API integration.
+                    B.Tech Computer Science and Engineering student at Guru Nanak Dev University, with a strong foundation in software development and core computer science.
                   </p>
                   <p>
-                    Shipped projects span AI-powered apps (SkyCall, NutriVibe), real-time systems (PulseOps, Verge), and dev tooling (CodeForge) — plus a software developer internship at CodeXIntern building production e-commerce features, and 1000+ DSA problems solved across LeetCode and GeeksforGeeks.
+                    I have built projects across full-stack web development, real-time systems, AI-powered applications, and developer tooling, working with technologies such as MERN, REST APIs, databases, authentication, and LLM APIs.
+                  </p>
+                  <p>
+                    Alongside development, I actively practice Data Structures & Algorithms and strengthen my understanding of Operating Systems, DBMS, Computer Networks, OOP, and software engineering fundamentals.
+                  </p>
+                  <p>
+                    My goal is to continue turning these fundamentals into production-quality applications while growing through internships, collaborative projects, and real-world engineering challenges.
+                  </p>
+                  <p className="font-body-sm text-[#34d399] text-sm leading-relaxed font-bold">
+                    CGPA: 8.90/10 · 1000+ DSA problems · Software Developer Intern
                   </p>
                   {showFullOrigin && (
                     <p className="text-[#38bdf8] pt-2 border-t border-white/5">

@@ -118,7 +118,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onInitSequence, onExpl
             {/* Spherical Hologram Glass Panel */}
             <div className="absolute inset-0 bg-cover bg-center opacity-85 group-hover:opacity-100 transition-opacity duration-700 mix-blend-screen rounded-full overflow-hidden glass-panel border border-[#34d399]/30 shadow-[0_0_50px_rgba(52,211,153,0.2)]">
               <img
-              src="portfolio.jpeg"
+                src="/portfolio.jpeg"
                 alt="Abstract 3D Technological Artifact"
                 className="w-full h-full object-cover mix-blend-screen group-hover:scale-105 transition-transform duration-700"
               />
