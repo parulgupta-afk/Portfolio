@@ -1,134 +1,179 @@
-import React, { useMemo } from 'react';
-import { ExternalLink, Github } from 'lucide-react';
-import { PROJECTS_DATA } from '../data/portfolioData';
-import type { ProjectItem } from '../types';
+import React, { useRef } from 'react';
+import { ChevronRight, ChevronLeft, ArrowRight, ExternalLink, Activity } from 'lucide-react';
+import { ProjectItem } from '../types';
+import { PROJECTS_DATA, OTHER_REPOS } from '../data/portfolioData';
 import { playCyberClick } from '../utils/audioSynth';
 
 interface ProjectsSectionProps {
   onSelectProject: (project: ProjectItem) => void;
 }
 
-const FLAGSHIP_IDS = ['priceloop', 'codeforge', 'pulseops'];
-const APPLIED_IDS = ['pocket-triage', 'skycall'];
-
-function statusLabel(p: ProjectItem): string {
-  if (p.metrics.health === 'IN_DEV' || /development/i.test(p.specs.availability || ''))
-    return 'IN DEVELOPMENT';
-  if (p.id === 'beacon') return 'EXPERIMENTAL';
-  if (FLAGSHIP_IDS.includes(p.id) || APPLIED_IDS.includes(p.id)) return 'BUILT';
-  return 'BUILT';
-}
-
 export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onSelectProject }) => {
-  const groups = useMemo(() => {
-    const flagship = PROJECTS_DATA.filter((p) => FLAGSHIP_IDS.includes(p.id));
-    const applied = PROJECTS_DATA.filter((p) => APPLIED_IDS.includes(p.id));
-    const experiments = PROJECTS_DATA.filter(
-      (p) => !FLAGSHIP_IDS.includes(p.id) && !APPLIED_IDS.includes(p.id)
-    );
-    return [
-      { title: 'FLAGSHIP SYSTEMS', items: flagship },
-      { title: 'APPLIED SYSTEMS', items: applied },
-      { title: 'EXPERIMENTS', items: experiments },
-    ];
-  }, []);
+  const scrollContainerRef = useRef<HTMLDivElement | null>(null);
+
+  const scroll = (direction: 'left' | 'right') => {
+    playCyberClick(700);
+    if (!scrollContainerRef.current) return;
+    const offset = direction === 'left' ? -500 : 500;
+    scrollContainerRef.current.scrollBy({ left: offset, behavior: 'smooth' });
+  };
 
   return (
-    <section id="projects" className="py-16 sm:py-20 border-b border-white/[0.06]">
-      <div className="px-4 sm:px-8 md:px-12 lg:px-16 max-w-6xl mx-auto">
-        <p className="text-[10px] font-mono-custom tracking-[0.25em] text-[#5eb8c8] mb-2">PROJECTS</p>
-        <h2 className="text-3xl sm:text-4xl font-semibold text-white mb-2">Engineering systems</h2>
-        <p className="text-sm text-[#8b95a5] mb-12 max-w-2xl">
-          Flagship work first. Open Live Demo when deployed; Source for the repository.
-        </p>
+    <section id="projects" className="py-20 sm:py-28 border-b border-white/5 relative">
+      {/* Header Container */}
+      <div className="px-4 sm:px-8 md:px-12 lg:px-16 max-w-[1440px] mx-auto mb-12 flex flex-col md:flex-row justify-between items-start md:items-end border-b border-white/10 pb-8 gap-4">
+        <div>
+          <h2 className="font-bodoni text-4xl sm:text-5xl text-[#dce3ed] mb-2 font-bold tracking-tight">
+            System Modules
+          </h2>
+          <p className="font-code-md text-xs uppercase tracking-widest text-[#34d399]/80 flex items-center gap-2">
+            <span className="w-1.5 h-1.5 bg-[#34d399] rounded-full animate-ping" />
+            v2.0 // DEPLOYMENTS_ACTIVE
+          </p>
+        </div>
 
-        {groups.map(
-          (g) =>
-            g.items.length > 0 && (
-              <div key={g.title} className="mb-14">
-                <h3 className="text-xs font-mono-custom tracking-[0.2em] text-[#6b7380] mb-5">{g.title}</h3>
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {g.items.map((p) => (
-                    <article
-                      key={p.id}
-                      className="text-left panel-os p-5 hover:border-[#5eb8c8]/35 transition-colors group flex flex-col"
-                    >
-                      <button
-                        type="button"
-                        onClick={() => {
-                          playCyberClick();
-                          onSelectProject(p);
-                        }}
-                        className="text-left w-full"
-                      >
-                        <div className="flex items-start justify-between gap-2 mb-2">
-                          <span className="text-[10px] font-mono-custom text-[#5eb8c8]">{p.modNumber}</span>
-                          <span className="text-[10px] font-mono-custom text-[#6b7380]">{statusLabel(p)}</span>
-                        </div>
-                        <h4 className="text-lg font-semibold text-white group-hover:text-[#7dd3e0] transition-colors">
-                          {p.title}
-                        </h4>
-                        <p className="text-sm text-[#8b95a5] mt-2 line-clamp-2 leading-relaxed">{p.tagline}</p>
-                        <div className="flex flex-wrap gap-1.5 mt-4">
-                          {p.tags.slice(0, 4).map((t) => (
-                            <span
-                              key={t}
-                              className="text-[10px] px-2 py-0.5 rounded border border-white/10 text-[#6b7380]"
-                            >
-                              {t}
-                            </span>
-                          ))}
-                        </div>
-                      </button>
+        {/* Scroll Nav Controls & Indicator */}
+        <div className="flex items-center gap-4">
+          <div className="flex gap-2 items-center mr-4">
+            <button
+              onClick={() => scroll('left')}
+              title="Scroll Left"
+              className="w-9 h-9 rounded-lg border border-white/10 hover:border-[#34d399]/40 flex items-center justify-center text-[#c5c6ca] hover:text-[#34d399] transition-colors bg-white/[0.02]"
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+            <button
+              onClick={() => scroll('right')}
+              title="Scroll Right"
+              className="w-9 h-9 rounded-lg border border-white/10 hover:border-[#34d399]/40 flex items-center justify-center text-[#c5c6ca] hover:text-[#34d399] transition-colors bg-white/[0.02]"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
 
-                      <div className="mt-auto pt-4 flex flex-wrap items-center gap-2">
-                        {p.liveDemoUrl ? (
-                          <a
-                            href={p.liveDemoUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              playCyberClick();
-                            }}
-                            className="inline-flex items-center gap-1.5 text-[11px] font-mono-custom px-2.5 py-1.5 rounded border border-[#5eb8c8]/40 text-[#5eb8c8] hover:bg-[#5eb8c8]/10 transition-colors"
-                          >
-                            Live Demo
-                            <ExternalLink className="w-3 h-3" />
-                          </a>
-                        ) : null}
-                        {p.githubUrl ? (
-                          <a
-                            href={p.githubUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              playCyberClick();
-                            }}
-                            className="inline-flex items-center gap-1.5 text-[11px] font-mono-custom px-2.5 py-1.5 rounded border border-white/15 text-[#a8b3c4] hover:border-white/30 hover:text-white transition-colors"
-                          >
-                            <Github className="w-3 h-3" />
-                            Source
-                          </a>
-                        ) : null}
-                        <button
-                          type="button"
-                          onClick={() => {
-                            playCyberClick();
-                            onSelectProject(p);
-                          }}
-                          className="text-[11px] font-mono-custom text-[#6b7380] hover:text-[#5eb8c8] ml-auto transition-colors"
-                        >
-                          Details →
-                        </button>
-                      </div>
-                    </article>
-                  ))}
+          <div className="hidden md:flex gap-2">
+            <span className="w-12 h-1 bg-white/10 rounded-full" />
+            <span className="w-4 h-1 bg-[#34d399]/50 rounded-full" />
+            <span className="w-2 h-1 bg-[#34d399] rounded-full shadow-[0_0_6px_rgba(52,211,153,0.8)]" />
+          </div>
+        </div>
+      </div>
+
+      {/* Horizontal Scroll Carousel */}
+      <div
+        ref={scrollContainerRef}
+        className="flex overflow-x-auto gap-8 sm:gap-10 px-4 sm:px-8 md:px-12 lg:px-16 pb-8 hide-scrollbar snap-x snap-mandatory cursor-grab active:cursor-grabbing"
+      >
+        {PROJECTS_DATA.map((project) => {
+          const isUrgent = project.statusVariant === 'urgent';
+          const isOrganic = project.statusVariant === 'organic';
+
+          return (
+            <article
+              key={project.id}
+              id={`project-card-${project.id}`}
+              onClick={() => {
+                playCyberClick(900);
+                onSelectProject(project);
+              }}
+              className={`snap-center shrink-0 w-[86vw] sm:w-[580px] md:w-[680px] lg:w-[700px] glass-panel p-1 group hover:border-[#34d399]/40 transition-all duration-500 relative flex flex-col border-white/10 rounded-xl overflow-hidden cursor-pointer ${
+                isUrgent ? 'hover:border-[#ffb4ab]/50' : isOrganic ? 'hover:border-[#38bdf8]/50' : ''
+              }`}
+            >
+              {/* Category Tag */}
+              <div className="absolute top-4 right-4 flex flex-col gap-1 z-20 items-end">
+                <span
+                  className={`font-code-md text-[10px] bg-[#030405]/90 px-2.5 py-0.5 border rounded ${
+                    isUrgent
+                      ? 'text-[#ffb4ab] border-[#ffb4ab]/30'
+                      : isOrganic
+                      ? 'text-[#38bdf8] border-[#38bdf8]/30'
+                      : 'text-[#34d399] border-[#34d399]/30'
+                  }`}
+                >
+                  {project.category}
+                </span>
+              </div>
+
+              {/* Image & Scanner Stage */}
+              <div className="h-[260px] sm:h-[300px] relative overflow-hidden bg-[#030405]">
+                <div className="scan-line hidden group-hover:block" />
+                <div
+                  className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-700 opacity-60 mix-blend-luminosity group-hover:mix-blend-normal group-hover:opacity-90"
+                  style={{ backgroundImage: `url('${project.imageUrl}')` }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#030405]/90 via-transparent to-transparent" />
+
+                {/* Module Tag */}
+                <div className="absolute top-4 left-4 font-code-md text-[11px] bg-[#030405]/95 px-3 py-1 text-[#dce3ed] border border-white/15 uppercase tracking-widest flex items-center gap-2 rounded">
+                  <span
+                    className={`w-1.5 h-1.5 rounded-full ${
+                      isUrgent
+                        ? 'bg-[#ffb4ab] animate-pulse'
+                        : isOrganic
+                        ? 'bg-[#1e4f78]'
+                        : 'bg-[#34d399]'
+                    }`}
+                  />
+                  {project.modNumber} // {project.category}
                 </div>
               </div>
-            )
-        )}
+
+              {/* Content Body */}
+              <div className="p-6 sm:p-8 flex flex-col flex-grow bg-[#030405]/60 border-t border-white/5">
+                <h3 className="font-bodoni text-2xl sm:text-3xl text-[#dce3ed] mb-2 font-bold uppercase tracking-wide group-hover:text-[#34d399] transition-colors">
+                  {project.title}
+                </h3>
+                <p className="font-body-sm text-sm sm:text-base text-[#c5c6ca] mb-6 line-clamp-3 leading-relaxed">
+                  {project.description}
+                </p>
+
+                {/* Tech Tags */}
+                <div className="flex flex-wrap gap-2 mb-6 mt-auto">
+                  {project.tags.slice(0, 4).map((tag, idx) => (
+                    <span
+                      key={idx}
+                      className="font-code-md text-[11px] bg-white/5 border border-white/10 px-2.5 py-1 text-[#c5c6ca] uppercase rounded"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                {/* Action Link Footer */}
+                <div className="inline-flex items-center justify-between w-full border-t border-white/10 pt-4 text-[#34d399]/80 group-hover:text-[#34d399] transition-colors group/btn btn-precision">
+                  <span className="font-code-md text-xs uppercase tracking-widest font-semibold flex items-center gap-2">
+                    <span>Execute_View</span>
+                    <span className="text-[10px] text-[#c5c6ca]/50 font-normal">[ Click to Inspect ]</span>
+                  </span>
+                  <ChevronRight className="w-4 h-4 transform group-hover/btn:translate-x-1.5 transition-transform text-[#34d399]" />
+                </div>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+
+      {/* Other Repos */}
+      <div className="max-w-6xl mx-auto mt-12 pt-8 border-t border-white/10">
+        <h3 className="font-code-md text-xs uppercase tracking-widest text-[#c5c6ca]/50 mb-4">
+          // Also on GitHub
+        </h3>
+        <div className="flex flex-wrap gap-2">
+          {OTHER_REPOS.map((repo) => (
+            <a
+              key={repo.name}
+              href={repo.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => playCyberClick(600)}
+              className="font-code-md text-xs px-3 py-1.5 rounded bg-white/5 border border-white/10 text-[#c5c6ca] hover:border-[#34d399]/40 hover:text-[#34d399] transition-colors inline-flex items-center gap-1.5"
+            >
+              {repo.name}
+              <ExternalLink className="w-3 h-3" />
+            </a>
+          ))}
+        </div>
       </div>
     </section>
   );

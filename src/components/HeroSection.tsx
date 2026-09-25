@@ -1,5 +1,5 @@
-import React from 'react';
-import { ArrowRight, Github, FileText } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { ArrowRight, Terminal, Activity, ShieldCheck } from 'lucide-react';
 import { playCyberClick } from '../utils/audioSynth';
 import { PROJECTS_DATA, PROFILE } from '../data/portfolioData';
 
@@ -8,130 +8,134 @@ interface HeroSectionProps {
   onExploreProjects: () => void;
 }
 
-const FLAGSHIP = ['priceloop', 'codeforge', 'pulseops'];
+export const HeroSection: React.FC<HeroSectionProps> = ({ onInitSequence, onExploreProjects }) => {
+  const [coords, setCoords] = useState({ x: '1.0024', y: '0.4932' });
+  const [tilt, setTilt] = useState({ rx: 0, ry: 0 });
 
-export const HeroSection: React.FC<HeroSectionProps> = ({ onExploreProjects }) => {
-  const flagship = PROJECTS_DATA.filter((p) => FLAGSHIP.includes(p.id));
-  const projectCount = PROJECTS_DATA.filter((p) => p.tier).length;
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      const nx = (e.clientX / window.innerWidth - 0.5) * 2;
+      const ny = (e.clientY / window.innerHeight - 0.5) * 2;
+      setCoords({
+        x: (1 + nx * 0.15).toFixed(4),
+        y: (0.5 + ny * 0.15).toFixed(4),
+      });
+      setTilt({
+        rx: -ny * 12,
+        ry: nx * 14,
+      });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
 
   return (
     <header
       id="hero"
-      className="relative min-h-[90vh] flex items-center pt-24 pb-16 px-4 sm:px-8 md:px-12 lg:px-16 border-b border-white/[0.06]"
+      className="relative min-h-[92vh] flex items-center justify-center pt-28 pb-16 px-4 sm:px-8 md:px-12 lg:px-16 overflow-hidden border-b border-white/5"
     >
-      <div className="relative z-10 w-full max-w-6xl mx-auto grid lg:grid-cols-[1.2fr_0.8fr] gap-10 lg:gap-14 items-center">
-        <div>
-          <p className="text-xs font-mono-custom tracking-[0.2em] text-[#5eb8c8] mb-4 uppercase">
-            Software Engineer
-          </p>
-          <h1 className="text-5xl sm:text-6xl md:text-7xl font-semibold text-white tracking-tight">
-            {PROFILE.name}
-          </h1>
-          <p className="mt-3 text-lg sm:text-xl text-[#a8b3c4]">Full Stack · AI · Systems</p>
-          <p className="mt-6 text-base sm:text-lg text-[#8b95a5] max-w-xl leading-relaxed">
-            {PROFILE.tagline}
-          </p>
-          <p className="mt-3 text-sm text-[#6b7380] max-w-xl">
-            I don&apos;t only build interfaces. I engineer the systems behind them.
-          </p>
-
-          <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-xs font-mono-custom text-[#8b95a5]">
-            <div>
-              <span className="text-[10px] tracking-widest text-[#6b7380] block mb-0.5">WHY ME</span>
-              <span className="text-[#e8edf4]">3 flagship systems</span>
-            </div>
-            <div>
-              <span className="text-[10px] tracking-widest text-[#6b7380] block mb-0.5">SCOPE</span>
-              <span className="text-[#e8edf4]">Full-stack · Backend · AI</span>
-            </div>
-            <div>
-              <span className="text-[10px] tracking-widest text-[#6b7380] block mb-0.5">PROOF</span>
-              <span className="text-[#e8edf4]">Architecture → implementation → source</span>
+      <div className="relative z-10 w-full max-w-[1440px] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-16 items-center justify-between">
+        {/* Left Editorial Copy */}
+        <div className="flex-1 text-left flex flex-col gap-4 border-l border-[#34d399]/20 pl-6 sm:pl-8">
+          {/* Status Badge */}
+          <div className="font-code-md text-xs text-[#34d399] flex flex-wrap items-center gap-3 mb-2 uppercase tracking-widest">
+            <div className="flex items-center gap-2 border border-[#34d399]/30 bg-[#34d399]/5 px-3 py-1 rounded">
+              <span className="w-1.5 h-1.5 bg-[#34d399] animate-pulse shadow-[0_0_8px_rgba(52,211,153,0.8)] rounded-full" />
+              <span>{PROFILE.role.toUpperCase()}</span>
             </div>
           </div>
 
-          <div className="mt-8 flex flex-wrap gap-3">
+          {/* Headline */}
+          <h1 className="font-bodoni text-6xl sm:text-8xl md:text-9xl lg:text-[104px] text-[#dce3ed] tracking-tight leading-[0.9] uppercase">
+            PARUL
+            <br />
+            <span className="text-[#34d399] text-glow italic font-light ml-4 sm:ml-10 md:ml-16 block sm:inline">
+              GUPTA
+            </span>
+          </h1>
+          <p className="font-code-md text-sm sm:text-base text-[#c5c6ca]/70 uppercase tracking-[0.3em] mt-2">
+            {PROFILE.role}
+          </p>
+
+          {/* Description */}
+          <p className="font-body-lg text-[#c5c6ca] text-base sm:text-lg max-w-xl mt-4 border-l-2 border-white/10 pl-4 leading-relaxed">
+            Software developer building AI-powered MERN applications — from real-time flight search to offline-first disaster response. 1000+ DSA problems solved, shipped end to end.
+          </p>
+
+          {/* Action Triggers */}
+          <div className="mt-8 flex flex-wrap gap-4 items-center">
             <button
-              type="button"
+              id="btn-hero-init"
               onClick={() => {
-                playCyberClick();
+                playCyberClick(950);
+                onInitSequence();
+              }}
+              className="inline-flex items-center gap-3 bg-transparent border border-white/15 px-6 py-3.5 hover:border-[#34d399]/60 hover:bg-[#34d399]/10 transition-all duration-300 group btn-precision rounded"
+            >
+              <span className="font-code-md text-xs sm:text-[13px] uppercase tracking-widest text-[#dce3ed] group-hover:text-[#34d399] transition-colors">
+                Init_Sequence
+              </span>
+              <ArrowRight className="w-4 h-4 text-[#34d399]/60 group-hover:text-[#34d399] group-hover:translate-x-1.5 transition-all" />
+            </button>
+
+            <button
+              id="btn-hero-explore"
+              onClick={() => {
+                playCyberClick(850);
                 onExploreProjects();
               }}
-              className="inline-flex items-center gap-2 bg-[#5eb8c8] text-[#061218] font-semibold text-sm px-5 py-3 rounded-lg hover:bg-[#7dd3e0] transition-colors"
+              className="inline-flex items-center gap-2 text-xs font-code-md uppercase tracking-widest text-[#c5c6ca]/70 hover:text-[#34d399] px-4 py-3 transition-colors"
             >
-              Explore systems
-              <ArrowRight className="w-4 h-4" />
+              <Terminal className="w-4 h-4 text-[#34d399]/60" />
+              <span>Explore_Modules [{PROJECTS_DATA.length}]</span>
             </button>
-            <a
-              href="#resume"
-              className="inline-flex items-center gap-2 border border-white/15 text-[#e8edf4] text-sm px-5 py-3 rounded-lg hover:border-[#5eb8c8]/40 transition-colors"
-            >
-              <FileText className="w-4 h-4" />
-              View resume
-            </a>
-            <a
-              href={PROFILE.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 border border-white/10 text-[#8b95a5] text-sm px-4 py-3 rounded-lg hover:text-white transition-colors"
-            >
-              <Github className="w-4 h-4" />
-              GitHub
-            </a>
           </div>
-
-          <p className="mt-8 text-xs font-mono-custom text-[#6b7380] tracking-wide">
-            React · TypeScript · Node · Python · PostgreSQL · Redis · AI · Docker
-          </p>
         </div>
 
-        {/* System panel — OS feel, not terminal spam */}
-        <div className="panel-os p-5 sm:p-6 font-mono-custom text-xs">
-          <div className="flex items-center justify-between mb-4 pb-3 border-b border-white/[0.06]">
-            <span className="text-[#5eb8c8] tracking-widest">SYSTEM</span>
-            <span className="text-[#9fef7a] flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#9fef7a]" />
-              ONLINE
-            </span>
+        {/* Right Abstract 3D Holographic Artifact */}
+        <div className="flex-1 w-full flex justify-center items-center relative">
+          <div
+            className="aspect-square w-full max-w-[340px] sm:max-w-[420px] lg:max-w-[460px] relative group select-none"
+            style={{
+              transform: `perspective(1000px) rotateX(${tilt.rx}deg) rotateY(${tilt.ry}deg)`,
+              transition: 'transform 0.15s ease-out',
+            }}
+          >
+            {/* Orbital Rings */}
+            <div className="absolute inset-0 border border-white/10 rounded-full scale-105 opacity-60 group-hover:rotate-90 transition-transform duration-1000 border-dashed pointer-events-none" />
+            <div className="absolute inset-0 border border-[#34d399]/25 rounded-full scale-115 opacity-40 group-hover:-rotate-90 transition-transform duration-1000 border-dotted pointer-events-none" />
+            <div className="absolute inset-0 border border-[#38bdf8]/15 rounded-full scale-125 opacity-20 pointer-events-none" />
+
+            {/* Live HUD Coordinate Tracking Labels */}
+            <div className="absolute top-1/2 -left-10 font-code-md text-[10px] text-[#34d399]/80 -translate-y-1/2 bg-[#030405]/80 px-1.5 py-0.5 border border-white/5 rounded">
+              Y: {coords.y}
+            </div>
+            <div className="absolute left-1/2 -bottom-10 font-code-md text-[10px] text-[#34d399]/80 -translate-x-1/2 bg-[#030405]/80 px-1.5 py-0.5 border border-white/5 rounded">
+              X: {coords.x}
+            </div>
+
+            {/* Spherical Hologram Glass Panel */}
+            <div className="absolute inset-0 bg-cover bg-center opacity-85 group-hover:opacity-100 transition-opacity duration-700 mix-blend-screen rounded-full overflow-hidden glass-panel border border-[#34d399]/30 shadow-[0_0_50px_rgba(52,211,153,0.2)]">
+              <img
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6wRIL2zhNG8zTCfNNeSNYv7ChFhOnDzdUpkPSHE9D8DIoqYFysU0FJSG733LHv6Q0EQDoK8spFZH1cdKfT9Wcp0xgUuMOHZBKCAuVO-jFnK4DzV6NQ53llJsxvDG1YzlnAN9JV7ja-gplGxghb5nbRUoZoqllaJn42OGj66CK1P0t34SEWfS7ahIN9F9woiTdWyVTZOTMJbAV_tAEPC_AZ-359es4ZOMqKutBQ8M1CORfPFWPL7FsLw"
+                alt="Abstract 3D Technological Artifact"
+                className="w-full h-full object-cover mix-blend-screen group-hover:scale-105 transition-transform duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-tr from-[#030405] via-transparent to-[#34d399]/15 mix-blend-overlay pointer-events-none" />
+              <div className="scan-line" />
+            </div>
+
+            {/* Floating Telemetry Markers */}
+            <div className="absolute top-4 right-4 bg-[#030405]/90 border border-white/10 px-2 py-1 rounded text-[10px] font-code-md text-[#34d399] flex items-center gap-1.5">
+              <Activity className="w-3 h-3 text-[#34d399]" />
+              <span>SPATIAL_SYNC</span>
+            </div>
+            <div className="absolute bottom-4 left-4 bg-[#030405]/90 border border-white/10 px-2 py-1 rounded text-[10px] font-code-md text-[#38bdf8] flex items-center gap-1.5">
+              <ShieldCheck className="w-3 h-3 text-[#38bdf8]" />
+              <span>RENDER_OK</span>
+            </div>
           </div>
-          <dl className="space-y-2.5 text-[#8b95a5]">
-            <div className="flex justify-between gap-4">
-              <dt>MODE</dt>
-              <dd className="text-[#e8edf4]">ENGINEERING</dd>
-            </div>
-            <div className="flex justify-between gap-4">
-              <dt>FOCUS</dt>
-              <dd className="text-[#e8edf4] text-right">PRICE INTEL · AI</dd>
-            </div>
-            <div className="flex justify-between gap-4">
-              <dt>PROJECTS</dt>
-              <dd className="text-[#e8edf4]">{String(projectCount).padStart(2, '0')}</dd>
-            </div>
-            <div className="flex justify-between gap-4">
-              <dt>LOCATION</dt>
-              <dd className="text-[#e8edf4]">{PROFILE.location}</dd>
-            </div>
-            <div className="flex justify-between gap-4">
-              <dt>STATUS</dt>
-              <dd className="text-[#9fef7a] text-right max-w-[60%]">Open to roles</dd>
-            </div>
-          </dl>
-          <div className="mt-5 pt-4 border-t border-white/[0.06]">
-            <p className="text-[#6b7380] mb-2 tracking-widest text-[10px]">FLAGSHIP</p>
-            <ul className="space-y-1.5">
-              {flagship.map((p) => (
-                <li key={p.id} className="flex justify-between text-[#a8b3c4]">
-                  <span className="text-[#e8edf4]">{p.title.toUpperCase()}</span>
-                  <span className="text-[#6b7380] truncate max-w-[45%] text-right">
-                    {p.category.split('/')[0]}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <p className="mt-5 text-[10px] text-[#6b7380]">
-            Press <kbd className="text-[#5eb8c8]">⌘K</kbd> for command center
-          </p>
         </div>
       </div>
     </header>

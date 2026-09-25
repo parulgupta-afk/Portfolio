@@ -21,8 +21,7 @@ export const ShaderBackground: React.FC = () => {
     syncSize();
     window.addEventListener('resize', syncSize);
 
-    const gl = (canvas.getContext('webgl') ||
-      canvas.getContext('experimental-webgl')) as WebGLRenderingContext | null;
+    const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
     if (!gl) {
       return;
     }
@@ -95,7 +94,11 @@ export const ShaderBackground: React.FC = () => {
 
     const buf = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, buf);
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+    gl.bufferData(
+      gl.ARRAY_BUFFER,
+      new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]),
+      gl.STATIC_DRAW
+    );
 
     const pos = gl.getAttribLocation(prog, 'a_position');
     gl.enableVertexAttribArray(pos);
@@ -143,7 +146,7 @@ export const ShaderBackground: React.FC = () => {
         className="w-full h-full block opacity-75"
         style={{ width: '100vw', height: '100vh' }}
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-[#05090c]/30 via-transparent to-[#05090c] pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#030405]/30 via-transparent to-[#030405] pointer-events-none" />
     </div>
   );
 };

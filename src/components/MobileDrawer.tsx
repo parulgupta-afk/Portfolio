@@ -1,15 +1,16 @@
 import React from 'react';
-import { X } from 'lucide-react';
-import { playCyberClick } from '../utils/audioSynth';
+import { X, Volume2, VolumeX, RotateCcw, LayoutGrid, Terminal, Cpu, ArrowRight } from 'lucide-react';
+import { toggleAudioMute, getAudioMuteState, playCyberClick } from '../utils/audioSynth';
+import { PROFILE } from '../data/portfolioData';
 
 interface MobileDrawerProps {
   isOpen: boolean;
   onClose: () => void;
   activeSection: string;
   onNavigate: (sectionId: string) => void;
-  onReplayIntro?: () => void;
-  currentView?: 'desktop' | 'bento';
-  onToggleView?: (view: 'desktop' | 'bento') => void;
+  onReplayIntro: () => void;
+  currentView: 'desktop' | 'bento';
+  onToggleView: (view: 'desktop' | 'bento') => void;
 }
 
 export const MobileDrawer: React.FC<MobileDrawerProps> = ({
@@ -17,16 +18,19 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
   onClose,
   activeSection,
   onNavigate,
+  onReplayIntro,
+  currentView,
+  onToggleView,
 }) => {
   if (!isOpen) return null;
 
   const links = [
-    { id: 'hero', label: 'Home' },
-    { id: 'about', label: 'About' },
-    { id: 'projects', label: 'Projects' },
-    { id: 'experience', label: 'Experience' },
-    { id: 'resume', label: 'Resume' },
-    { id: 'connect', label: 'Contact' },
+    { id: 'hero', label: '[ System Home ]' },
+    { id: 'about', label: '[ About ]' },
+    { id: 'projects', label: '[ System Modules ]' },
+    { id: 'capabilities', label: '[ Performance Matrix ]' },
+    { id: 'experience', label: '[ Experience Log ]' },
+    { id: 'connect', label: '[ Comms_Link ]' },
   ];
 
   return (
@@ -34,58 +38,89 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
       id="mobile-drawer-backdrop"
       onClick={(e) => {
         if (e.target === e.currentTarget) {
-          playCyberClick();
+          playCyberClick(500);
           onClose();
         }
       }}
-      className="fixed inset-0 z-[90] bg-[#05090c]/85 backdrop-blur-xl flex justify-end"
-      role="dialog"
-      aria-modal="true"
-      aria-label="Navigation menu"
+      className="fixed inset-0 z-[90] bg-[#030405]/85 backdrop-blur-xl flex justify-end"
     >
-      <div className="w-[85vw] max-w-sm bg-[#0d141b] h-full border-l border-white/10 p-6 flex flex-col shadow-[0_0_50px_rgba(76,217,224,0.1)]">
-        <div className="flex justify-between items-center pb-6 border-b border-white/10 mb-6">
-          <span className="text-xs text-[#4cd9e0] font-semibold tracking-widest uppercase">Menu</span>
-          <button
-            type="button"
-            onClick={() => {
-              playCyberClick();
-              onClose();
-            }}
-            className="p-1.5 rounded text-[#c5c6ca] hover:text-[#4cd9e0] border border-white/10"
-            aria-label="Close menu"
-          >
-            <X className="w-5 h-5" />
-          </button>
+      <div className="w-[85vw] max-w-sm bg-[#0a0d0f] h-full border-l border-white/10 p-6 flex flex-col justify-between shadow-[0_0_50px_rgba(52,211,153,0.15)]">
+        <div>
+          {/* Header */}
+          <div className="flex justify-between items-center pb-6 border-b border-white/10 mb-6">
+            <div className="font-code-md text-xs text-[#34d399] font-bold flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-[#34d399] animate-pulse" />
+              <span>PORTFOLIO_OS // MOBILE</span>
+            </div>
+            <button
+              onClick={() => {
+                playCyberClick(500);
+                onClose();
+              }}
+              className="p-1.5 rounded text-[#c5c6ca] hover:text-[#34d399] border border-white/10"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+
+          {/* Links */}
+          <div className="space-y-4">
+            {links.map((link) => {
+              const isActive = activeSection === link.id;
+              return (
+                <button
+                  key={link.id}
+                  onClick={() => {
+                    playCyberClick(800);
+                    onNavigate(link.id);
+                    onClose();
+                  }}
+                  className={`w-full text-left font-code-md text-sm uppercase py-2 px-3 rounded flex items-center justify-between transition-colors ${
+                    isActive
+                      ? 'bg-[#34d399]/10 text-[#34d399] font-bold border border-[#34d399]/30'
+                      : 'text-[#c5c6ca] hover:text-[#34d399] hover:bg-white/[0.02]'
+                  }`}
+                >
+                  <span>{link.label}</span>
+                  <ArrowRight className="w-3.5 h-3.5 opacity-60" />
+                </button>
+              );
+            })}
+          </div>
         </div>
 
-        <div className="space-y-1">
-          {links.map((link) => {
-            const isActive = activeSection === link.id;
-            return (
-              <button
-                key={link.id}
-                type="button"
-                onClick={() => {
-                  playCyberClick();
-                  onNavigate(link.id);
-                  onClose();
-                }}
-                className={`w-full text-left text-sm py-3 px-3 rounded transition-colors ${
-                  isActive
-                    ? 'bg-[#4cd9e0]/10 text-[#4cd9e0] font-semibold border border-[#4cd9e0]/30'
-                    : 'text-[#c5c6ca] hover:text-[#4cd9e0] hover:bg-white/[0.03]'
-                }`}
-              >
-                {link.label}
-              </button>
-            );
-          })}
-        </div>
+        {/* Bottom Actions */}
+        <div className="pt-6 border-t border-white/10 space-y-3">
+          <div className="grid grid-cols-2 gap-2">
+            <button
+              onClick={() => {
+                playCyberClick(900);
+                onToggleView(currentView === 'desktop' ? 'bento' : 'desktop');
+                onClose();
+              }}
+              className="flex items-center justify-center gap-2 font-code-md text-xs py-2.5 px-3 rounded border border-white/10 text-[#c5c6ca] hover:text-[#34d399]"
+            >
+              <LayoutGrid className="w-3.5 h-3.5 text-[#34d399]" />
+              <span>{currentView === 'desktop' ? 'Bento View' : 'Full OS'}</span>
+            </button>
 
-        <p className="mt-auto pt-6 text-[11px] text-[#6b7380]">
-          Press <kbd className="text-[#5eb8c8]">Ctrl+K</kbd> for command palette
-        </p>
+            <button
+              onClick={() => {
+                playCyberClick(1000);
+                onReplayIntro();
+                onClose();
+              }}
+              className="flex items-center justify-center gap-2 font-code-md text-xs py-2.5 px-3 rounded border border-white/10 text-[#c5c6ca] hover:text-[#34d399]"
+            >
+              <RotateCcw className="w-3.5 h-3.5 text-[#38bdf8]" />
+              <span>Reboot Intro</span>
+            </button>
+          </div>
+
+          <div className="font-code-md text-[10px] text-[#c5c6ca]/50 text-center pt-2">
+            {PROFILE.name.toUpperCase()}
+          </div>
+        </div>
       </div>
     </div>
   );

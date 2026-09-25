@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Code2, Server, Layout } from 'lucide-react';
+import { Box, Code2, Server, Layout, Sparkles, Activity } from 'lucide-react';
 import { CAPABILITIES_DATA } from '../data/portfolioData';
 import { playCyberClick } from '../utils/audioSynth';
 
@@ -9,14 +9,16 @@ export const CapabilitiesSection: React.FC = () => {
   const getIcon = (iconName: string) => {
     switch (iconName) {
       case 'view_in_ar':
-        return <Box className="w-6 h-6 text-[#4cd9e0]" />;
+        return <Box className="w-6 h-6 text-[#34d399]" />;
       case 'code_blocks':
-        return <Code2 className="w-6 h-6 text-[#80d4d8]" />;
+        return <Code2 className="w-6 h-6 text-[#38bdf8]" />;
       case 'architecture':
-        return <Server className="w-6 h-6 text-[#9ecafd]" />;
+        return <Server className="w-6 h-6 text-[#22d3ee]" />;
+      case 'sparkles':
+        return <Sparkles className="w-6 h-6 text-[#34d399]" />;
       case 'design_services':
       default:
-        return <Layout className="w-6 h-6 text-[#4cd9e0]" />;
+        return <Layout className="w-6 h-6 text-[#34d399]" />;
     }
   };
 
@@ -29,15 +31,15 @@ export const CapabilitiesSection: React.FC = () => {
             <h2 className="font-bodoni text-4xl sm:text-5xl text-[#dce3ed] mb-2 font-bold tracking-tight">
               Performance Matrix
             </h2>
-            <p className="font-code-md text-xs uppercase tracking-widest text-[#4cd9e0]/80 flex items-center gap-2">
-              <span className="w-1.5 h-1.5 bg-[#4cd9e0] rounded-full animate-ping" />
+            <p className="font-code-md text-xs uppercase tracking-widest text-[#34d399]/80 flex items-center gap-2">
+              <span className="w-1.5 h-1.5 bg-[#34d399] rounded-full animate-ping" />
               SYS_METRICS_DASHBOARD
             </p>
           </div>
 
           <div className="flex flex-col items-start md:items-end gap-1 font-code-md text-[10px] text-[#c5c6ca]/60">
             <span>LOAD_AVG: [0.14, 0.08, 0.05]</span>
-            <span className="text-[#4cd9e0]">UPTIME: 99.999% // ACTIVE</span>
+            <span className="text-[#34d399]">UPTIME: 99.999% // ACTIVE</span>
           </div>
         </div>
 
@@ -55,11 +57,11 @@ export const CapabilitiesSection: React.FC = () => {
                   setSelectedCap(isSelected ? null : cap.id);
                 }}
                 className={`glass-panel p-6 sm:p-7 rounded-xl border-white/10 hover:bg-white/[0.03] transition-all duration-300 relative group glow-hover cursor-pointer flex flex-col justify-between ${
-                  isSelected ? 'border-[#4cd9e0]/50 shadow-[0_0_24px_rgba(76,217,224,0.2)]' : ''
+                  isSelected ? 'border-[#34d399]/50 shadow-[0_0_24px_rgba(52,211,153,0.2)]' : ''
                 }`}
               >
                 {/* Capability Code */}
-                <div className="absolute top-4 right-4 text-[10px] font-code-md text-[#4cd9e0]/70">
+                <div className="absolute top-4 right-4 text-[10px] font-code-md text-[#34d399]/70">
                   {cap.code}
                 </div>
 
@@ -80,7 +82,7 @@ export const CapabilitiesSection: React.FC = () => {
                   </div>
 
                   {/* Title & Description */}
-                  <h4 className="font-code-md text-sm sm:text-base uppercase tracking-wider text-[#dce3ed] mb-2 font-bold group-hover:text-[#4cd9e0] transition-colors">
+                  <h4 className="font-code-md text-sm sm:text-base uppercase tracking-wider text-[#dce3ed] mb-2 font-bold group-hover:text-[#34d399] transition-colors">
                     {cap.title}
                   </h4>
                   <p className="font-body-sm text-xs sm:text-sm text-[#c5c6ca] mb-6 leading-relaxed">
@@ -114,7 +116,7 @@ export const CapabilitiesSection: React.FC = () => {
                       {cap.subMetrics.map((sm, idx) => (
                         <div key={idx} className="flex justify-between">
                           <span className="text-[#c5c6ca]/60">{sm.label}:</span>
-                          <span className="text-[#4cd9e0] font-semibold">{sm.value}</span>
+                          <span className="text-[#34d399] font-semibold">{sm.value}</span>
                         </div>
                       ))}
                     </div>

@@ -7,12 +7,6 @@ export interface ProjectItem {
   description: string;
   fullOverview: string;
   architectureDetails: string[];
-  metrics: {
-    health: string;
-    exec: string;
-    uptime?: string;
-    requestsPerSec?: string;
-  };
   tags: string[];
   imageUrl: string;
   statusVariant: 'clinical' | 'organic' | 'urgent' | 'primary';
@@ -24,12 +18,6 @@ export interface ProjectItem {
     availability: string;
     encryption: string;
   };
-  /** Roles this project best demonstrates (Recruiter Mode) */
-  roleFit?: RecruiterRole[];
-  /** Short decision records for Architecture Explorer */
-  decisions?: EngineeringDecision[];
-  evidence?: EvidenceItem[];
-  tier?: 'flagship' | 'applied' | 'experiment';
 }
 
 export interface CapabilityItem {
@@ -59,42 +47,4 @@ export interface TerminalLog {
   sender: 'system' | 'user' | 'error' | 'success';
   text: string;
   timestamp: string;
-}
-
-export interface EvidenceItem {
-  claim: string;
-  type: 'measured' | 'implemented' | 'demo' | 'target' | 'count';
-  source?: string;
-  url?: string;
-}
-
-export type RecruiterRole = 'software' | 'fullstack' | 'backend' | 'frontend' | 'ai' | 'product';
-
-export interface EngineeringDecision {
-  question: string;
-  problem: string;
-  options: string[];
-  chosen: string;
-  reason: string;
-}
-
-export interface CommandItem {
-  id: string;
-  label: string;
-  keywords: string[];
-  section?: string;
-  action: 'navigate' | 'project' | 'recruiter' | 'external' | 'mode' | 'trace';
-  payload?: string;
-  group: 'nav' | 'projects' | 'modes' | 'external';
-}
-
-export interface BrowserTelemetry {
-  fps: number | null;
-  viewport: string;
-  deviceMemory: string;
-  connection: string;
-  online: boolean;
-  reducedMotion: boolean;
-  webgl: string;
-  language: string;
 }

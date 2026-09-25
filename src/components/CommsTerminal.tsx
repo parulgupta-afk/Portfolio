@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Send, ShieldCheck, Check, RefreshCw } from 'lucide-react';
+import { Terminal, Send, ShieldCheck, Check, Sparkles, AlertCircle, RefreshCw } from 'lucide-react';
 import { TerminalLog } from '../types';
-import { PROJECTS_DATA, SYSTEM_METRICS, PROFILE } from '../data/portfolioData';
-import { playTerminalChirp, playTransmitSuccess } from '../utils/audioSynth';
+import { PROJECTS_DATA, PROFILE } from '../data/portfolioData';
+import { playCyberClick, playTerminalChirp, playTransmitSuccess } from '../utils/audioSynth';
 
 export const CommsTerminal: React.FC = () => {
   const [logs, setLogs] = useState<TerminalLog[]>([
@@ -53,9 +53,9 @@ export const CommsTerminal: React.FC = () => {
         responseText = `Available Commands:
   help               - Displays this manual
   ./init_contact.sh  - Initiates direct communication handshake
-  status             - Displays real-time kernel telemetry
+  status             - Shows contact links & GitHub/LinkedIn
   projects           - Lists all compiled system modules
-  whoami             - Query verified system architect credentials
+  whoami             - Query developer identity & contact info
   cat origin.log     - Prints origin architecture log
   clear              - Clears terminal output`;
         break;
@@ -67,14 +67,12 @@ export const CommsTerminal: React.FC = () => {
         break;
       case 'status':
       case 'sys_status':
-        responseText = `KERNEL_STATUS: ${SYSTEM_METRICS.status} | UPTIME: ${SYSTEM_METRICS.uptime} | MEMORY: ${SYSTEM_METRICS.memoryAllocated} | ARCH_ID: ${SYSTEM_METRICS.architectId}`;
+        responseText = `Email: ${PROFILE.email} | GitHub: ${PROFILE.github} | LinkedIn: ${PROFILE.linkedin}`;
         responseType = 'success';
         break;
       case 'projects':
       case 'ls':
-        responseText = PROJECTS_DATA.map(
-          (p) => `[${p.modNumber}] ${p.title} (${p.category}) - ${p.specs.latency}`
-        ).join('\n');
+        responseText = PROJECTS_DATA.map((p) => `[${p.modNumber}] ${p.title} (${p.category}) - ${p.specs.latency}`).join('\n');
         break;
       case 'whoami':
         responseText = `${PROFILE.name} // ${PROFILE.role}. Contact: ${PROFILE.email}`;
@@ -131,7 +129,7 @@ export const CommsTerminal: React.FC = () => {
   };
 
   return (
-    <section id="comms" className="py-20 sm:py-28 relative">
+    <section id="connect" className="py-20 sm:py-28 relative">
       <div className="px-4 sm:px-8 md:px-12 lg:px-16 max-w-[1440px] mx-auto">
         {/* Section Header */}
         <div className="mb-16 flex flex-col md:flex-row justify-between items-start md:items-end border-b border-white/10 pb-8 gap-4">
@@ -139,15 +137,15 @@ export const CommsTerminal: React.FC = () => {
             <h2 className="font-bodoni text-4xl sm:text-5xl text-[#dce3ed] mb-2 font-bold tracking-tight">
               Comms_Link
             </h2>
-            <p className="font-code-md text-xs uppercase tracking-widest text-[#4cd9e0]/80 flex items-center gap-2">
-              <span className="w-1.5 h-1.5 bg-[#4cd9e0] rounded-full animate-pulse" />
+            <p className="font-code-md text-xs uppercase tracking-widest text-[#34d399]/80 flex items-center gap-2">
+              <span className="w-1.5 h-1.5 bg-[#34d399] rounded-full animate-pulse" />
               /bin/sh - CONTACT & TRANSMISSION
             </p>
           </div>
 
           <div className="flex flex-col items-start md:items-end gap-1 font-code-md text-[10px] text-[#c5c6ca]/60">
             <span>SECURE_ENCRYPTION: AES_256_GCM</span>
-            <span className="text-[#4cd9e0]">STATUS: LISTENING // PORT: 443</span>
+            <span className="text-[#34d399]">STATUS: LISTENING // PORT: 443</span>
           </div>
         </div>
 
@@ -156,28 +154,28 @@ export const CommsTerminal: React.FC = () => {
           {/* Left Interactive Shell */}
           <div className="lg:col-span-6 glass-panel rounded-xl border-white/10 overflow-hidden flex flex-col glow-hover">
             {/* Terminal Window Chrome */}
-            <div className="bg-[#11161d] px-4 py-3 border-b border-white/10 flex items-center justify-between">
+            <div className="bg-[#0f1314] px-4 py-3 border-b border-white/10 flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <span className="w-3 h-3 rounded-full bg-[#ffb4ab]/40 border border-[#ffb4ab]/60" />
                 <span className="w-3 h-3 rounded-full bg-yellow-500/40 border border-yellow-500/60" />
-                <span className="w-3 h-3 rounded-full bg-[#4cd9e0]/40 border border-[#4cd9e0]/60" />
+                <span className="w-3 h-3 rounded-full bg-[#34d399]/40 border border-[#34d399]/60" />
                 <span className="ml-2 font-code-md text-[11px] text-[#c5c6ca]/60">
                   root@portfolio_os:~ (bash)
                 </span>
               </div>
-              <span className="font-code-md text-[10px] text-[#4cd9e0]/80">TLS 1.3</span>
+              <span className="font-code-md text-[10px] text-[#34d399]/80">TLS 1.3</span>
             </div>
 
             {/* Terminal Log Area */}
-            <div className="p-4 sm:p-6 font-code-md text-xs sm:text-[13px] text-[#c5c6ca] flex-grow min-h-[300px] max-h-[380px] overflow-y-auto space-y-3 bg-[#05090c]/80">
+            <div className="p-4 sm:p-6 font-code-md text-xs sm:text-[13px] text-[#c5c6ca] flex-grow min-h-[300px] max-h-[380px] overflow-y-auto space-y-3 bg-[#030405]/80">
               {logs.map((log) => (
                 <div key={log.id} className="leading-relaxed">
                   {log.sender === 'user' ? (
-                    <div className="text-[#4cd9e0] font-semibold">{log.text}</div>
+                    <div className="text-[#34d399] font-semibold">{log.text}</div>
                   ) : log.sender === 'error' ? (
                     <div className="text-[#ffb4ab]">{log.text}</div>
                   ) : log.sender === 'success' ? (
-                    <div className="text-[#80d4d8] font-semibold">{log.text}</div>
+                    <div className="text-[#38bdf8] font-semibold">{log.text}</div>
                   ) : (
                     <div className="text-[#c5c6ca] whitespace-pre-line">{log.text}</div>
                   )}
@@ -189,9 +187,9 @@ export const CommsTerminal: React.FC = () => {
             {/* Terminal Command Input Form */}
             <form
               onSubmit={handleCommand}
-              className="p-3 bg-[#11161d] border-t border-white/10 flex items-center gap-2"
+              className="p-3 bg-[#0f1314] border-t border-white/10 flex items-center gap-2"
             >
-              <span className="text-[#4cd9e0] font-code-md font-bold text-sm pl-2">$</span>
+              <span className="text-[#34d399] font-code-md font-bold text-sm pl-2">$</span>
               <input
                 type="text"
                 id="terminal-input"
@@ -202,7 +200,7 @@ export const CommsTerminal: React.FC = () => {
               />
               <button
                 type="submit"
-                className="font-code-md text-[11px] text-[#4cd9e0] uppercase px-3 py-1 bg-[#4cd9e0]/10 border border-[#4cd9e0]/30 rounded hover:bg-[#4cd9e0]/20 transition-all"
+                className="font-code-md text-[11px] text-[#34d399] uppercase px-3 py-1 bg-[#34d399]/10 border border-[#34d399]/30 rounded hover:bg-[#34d399]/20 transition-all"
               >
                 Send
               </button>
@@ -213,7 +211,7 @@ export const CommsTerminal: React.FC = () => {
           <div className="lg:col-span-6 glass-panel p-6 sm:p-8 rounded-xl border-white/10 flex flex-col justify-between glow-hover">
             <div>
               <div className="flex items-center justify-between mb-6 border-b border-white/5 pb-4">
-                <h3 className="font-code-md text-[#4cd9e0] uppercase tracking-widest text-xs sm:text-sm flex items-center gap-2">
+                <h3 className="font-code-md text-[#34d399] uppercase tracking-widest text-xs sm:text-sm flex items-center gap-2">
                   <ShieldCheck className="w-4 h-4" />
                   <span>// DIRECT TRANSMISSION PROTOCOL</span>
                 </h3>
@@ -232,7 +230,7 @@ export const CommsTerminal: React.FC = () => {
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     placeholder="e.g. Dr. Jane Doe // Vertex Systems"
-                    className="w-full bg-white/[0.03] border border-white/10 rounded-lg px-4 py-2.5 font-code-md text-sm text-[#dce3ed] focus:outline-none focus:border-[#4cd9e0] transition-colors"
+                    className="w-full bg-white/[0.03] border border-white/10 rounded-lg px-4 py-2.5 font-code-md text-sm text-[#dce3ed] focus:outline-none focus:border-[#34d399] transition-colors"
                   />
                 </div>
 
@@ -247,7 +245,7 @@ export const CommsTerminal: React.FC = () => {
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     placeholder="jane@vertex.org"
-                    className="w-full bg-white/[0.03] border border-white/10 rounded-lg px-4 py-2.5 font-code-md text-sm text-[#dce3ed] focus:outline-none focus:border-[#4cd9e0] transition-colors"
+                    className="w-full bg-white/[0.03] border border-white/10 rounded-lg px-4 py-2.5 font-code-md text-sm text-[#dce3ed] focus:outline-none focus:border-[#34d399] transition-colors"
                   />
                 </div>
 
@@ -262,13 +260,13 @@ export const CommsTerminal: React.FC = () => {
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     placeholder="Architectural inquiries, project proposals, or collaboration transmissions..."
-                    className="w-full bg-white/[0.03] border border-white/10 rounded-lg px-4 py-2.5 font-code-md text-sm text-[#dce3ed] focus:outline-none focus:border-[#4cd9e0] transition-colors resize-none"
+                    className="w-full bg-white/[0.03] border border-white/10 rounded-lg px-4 py-2.5 font-code-md text-sm text-[#dce3ed] focus:outline-none focus:border-[#34d399] transition-colors resize-none"
                   />
                 </div>
 
                 {transmitSuccess && (
-                  <div className="p-3 bg-[#4cd9e0]/10 border border-[#4cd9e0]/40 rounded-lg flex items-center gap-2 text-xs font-code-md text-[#4cd9e0]">
-                    <Check className="w-4 h-4 text-[#4cd9e0]" />
+                  <div className="p-3 bg-[#34d399]/10 border border-[#34d399]/40 rounded-lg flex items-center gap-2 text-xs font-code-md text-[#34d399]">
+                    <Check className="w-4 h-4 text-[#34d399]" />
                     <span>Packet received! Direct handshake established. Response queued.</span>
                   </div>
                 )}
@@ -277,7 +275,7 @@ export const CommsTerminal: React.FC = () => {
                   type="submit"
                   id="btn-transmit-data"
                   disabled={transmitting}
-                  className="w-full bg-[#4cd9e0] text-[#002021] font-code-md text-xs sm:text-sm font-bold uppercase tracking-widest py-3.5 rounded-lg flex items-center justify-center gap-2 hover:bg-[#80d4d8] hover:shadow-[0_0_20px_rgba(76,217,224,0.5)] transition-all duration-300 btn-precision mt-6"
+                  className="w-full bg-[#34d399] text-[#002021] font-code-md text-xs sm:text-sm font-bold uppercase tracking-widest py-3.5 rounded-lg flex items-center justify-center gap-2 hover:bg-[#38bdf8] hover:shadow-[0_0_20px_rgba(52,211,153,0.5)] transition-all duration-300 btn-precision mt-6"
                 >
                   {transmitting ? (
                     <>
