@@ -52,12 +52,24 @@ export const CommsTerminal: React.FC = () => {
       case 'help':
         responseText = `Available Commands:
   help               - Displays this manual
-  ./contact  - Focus the contact form
+  skills             - View technical skills & categories
+  ./contact          - Focus the contact form
   status             - Shows contact links & GitHub/LinkedIn
   projects           - Lists all compiled system modules
   whoami             - Query developer identity & contact info
   cat origin.log     - Prints origin architecture log
   clear              - Clears terminal output`;
+        break;
+      case 'skills':
+      case 'stack':
+        responseText = `Skills & Technical Capabilities:
+  Languages: C++, JavaScript, TypeScript, SQL, Python
+  Databases: MySQL, PostgreSQL, MongoDB, SQL, RDBMS / DBMS
+  Core: DBMS / RDBMS, Operating Systems, Computer Networks, OOP, DSA
+  Full-Stack: React, Next.js, Node.js, Express, REST APIs, Tailwind CSS
+  AI Systems: Google Gemini API, LLMs, Embeddings, RAG, Prompt Engineering
+  DevOps & Tools: Docker, Git, GitHub, Postman, Vercel, Render`;
+        responseType = 'success';
         break;
       case './init_contact.sh':
       case 'contact':

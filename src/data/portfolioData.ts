@@ -232,14 +232,14 @@ export const CAPABILITIES_DATA: CapabilityItem[] = [
     id: 'prc-02',
     code: 'PRC_02',
     title: 'Node.js / Express',
-    description: 'RESTful API design, JWT and Google OAuth authentication, and MVC backend architecture with MongoDB, MySQL, and PostgreSQL.',
+    description: 'RESTful API design, JWT and Google OAuth authentication, and MVC backend architecture with MySQL, PostgreSQL, and MongoDB.',
     capacity: 88,
     icon: 'architecture',
     accentColor: '#38bdf8',
     subMetrics: [
       { label: 'APIs', value: 'REST' },
       { label: 'Auth', value: 'JWT / OAuth' },
-      { label: 'DBs', value: 'Mongo / SQL' }
+      { label: 'DBs', value: 'MySQL / SQL / Mongo' }
     ]
   },
   {
@@ -273,14 +273,14 @@ export const CAPABILITIES_DATA: CapabilityItem[] = [
   {
     id: 'prc-05',
     code: 'PRC_05',
-    title: 'Systems & CS Fundamentals',
-    description: 'C++ and core computer science: Operating Systems, DBMS, and Computer Networks, applied across real-time (Socket.io/WebSockets) and sandboxed (Docker) backend projects.',
+    title: 'Systems & Core CS',
+    description: 'C++, SQL, and core computer science: Operating Systems, DBMS / RDBMS, and Computer Networks, applied across real-time (Socket.io/WebSockets) and sandboxed (Docker) backend projects.',
     capacity: 80,
     icon: 'architecture',
     accentColor: '#22d3ee',
     subMetrics: [
-      { label: 'Language', value: 'C++' },
-      { label: 'Coursework', value: 'OS / DBMS / Networks' },
+      { label: 'Languages', value: 'C++ / SQL' },
+      { label: 'Core', value: 'OS / DBMS / Networks' },
       { label: 'Applied via', value: 'Socket.io / Docker' }
     ]
   }
@@ -309,11 +309,11 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
     period: 'EXPECTED JUNE 2028',
     status: 'ACTIVE',
     bullets: [
-      'CGPA 8.90/10, coursework spanning OOP, Operating Systems, DBMS, and Computer Networks.',
+      'CGPA 8.90/10, coursework spanning OOP, Operating Systems, DBMS / RDBMS, and Computer Networks.',
       'Solved 1000+ DSA problems across LeetCode and GeeksforGeeks alongside coursework.',
       'HackerRank Certified: Software Engineer, Problem Solving (Intermediate), SQL (Intermediate).'
     ],
-    techStack: ['DSA', 'OOP', 'DBMS', 'Computer Networks'],
+    techStack: ['DSA', 'OOP', 'DBMS / RDBMS', 'SQL', 'MySQL', 'Computer Networks'],
     impactScore: 'CGPA 8.90/10'
   }
 ];

@@ -3,6 +3,21 @@ import { PROJECTS_DATA } from '../data/portfolioData';
 
 const CATEGORIES = [
   {
+    title: 'Languages',
+    items: ['C++', 'JavaScript', 'TypeScript', 'SQL', 'Python'],
+    evidence: ['1000+ DSA', 'HackerRank Certified (SQL)', 'Production backends'],
+  },
+  {
+    title: 'Database',
+    items: ['MySQL', 'PostgreSQL', 'MongoDB', 'SQL', 'RDBMS / DBMS'],
+    evidence: ['Priceloop', 'PulseOps', 'SkyCall'],
+  },
+  {
+    title: 'Core',
+    items: ['DBMS / RDBMS', 'Operating Systems', 'Computer Networks', 'OOP', 'Data Structures & Algorithms'],
+    evidence: ['Coursework', '1000+ DSA (LeetCode/GfG)', 'CGPA 8.90'],
+  },
+  {
     title: 'Full-stack',
     items: ['React', 'TypeScript', 'Node.js', 'Express', 'REST APIs', 'Tailwind CSS'],
     evidence: ['SkyCall', 'NutriVibe', 'Priceloop'],
@@ -13,19 +28,9 @@ const CATEGORIES = [
     evidence: ['CodeForge', 'SkyCall', 'NutriVibe'],
   },
   {
-    title: 'Data',
-    items: ['MongoDB', 'PostgreSQL', 'MySQL'],
-    evidence: ['Priceloop', 'PulseOps', 'SkyCall'],
-  },
-  {
-    title: 'Systems',
+    title: 'Systems & DevOps',
     items: ['Socket.IO / WebSockets', 'Docker', 'Auth (JWT / OAuth)', 'Background jobs'],
     evidence: ['CodeForge', 'PulseOps', 'SkyCall'],
-  },
-  {
-    title: 'Algorithms',
-    items: ['1000+ DSA problems', 'C++', 'LeetCode / GfG'],
-    evidence: ['Coursework · practice'],
   },
 ];
 

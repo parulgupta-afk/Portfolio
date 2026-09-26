@@ -60,11 +60,15 @@ export const AboutSection: React.FC = () => {
                   <p className="font-body-sm text-[#c5c6ca] text-sm leading-relaxed">
                       I build full-stack applications across the frontend, backend, database, and deployment layers.
                       <br />
+                      ~Languages — C++, JavaScript, TypeScript, SQL, Python
+                      <br />
                       ~Frontend — React, Next.js, JavaScript, TypeScript, Tailwind CSS
                       <br />
                       ~Backend — Node.js, Express.js, REST APIs
                       <br />
-                      ~Databases — MongoDB, MySQL, PostgreSQL
+                      ~Databases — MySQL, PostgreSQL, MongoDB, SQL, RDBMS / DBMS
+                      <br />
+                      ~Core CS — Operating Systems, DBMS / RDBMS, Computer Networks, OOP, DSA
                       <br />
                       ~Authentication — JWT, Google OAuth
                       <br />
@@ -111,7 +115,7 @@ export const AboutSection: React.FC = () => {
                     I have built projects across full-stack web development, real-time systems, AI-powered applications, and developer tooling, working with technologies such as MERN, REST APIs, databases, authentication, and LLM APIs.
                   </p>
                   <p>
-                    Alongside development, I actively practice Data Structures & Algorithms and strengthen my understanding of Operating Systems, DBMS, Computer Networks, OOP, and software engineering fundamentals.
+                    Alongside development, I actively practice Data Structures & Algorithms and strengthen my understanding of Operating Systems, DBMS / RDBMS, Computer Networks, OOP, and software engineering fundamentals.
                   </p>
                   <p>
                     My goal is to continue turning these fundamentals into production-quality applications while growing through internships, collaborative projects, and real-world engineering challenges.
@@ -121,7 +125,7 @@ export const AboutSection: React.FC = () => {
                   </p>
                   {showFullOrigin && (
                     <p className="text-[#38bdf8] pt-2 border-t border-white/5">
-                      Core CS fundamentals: Operating Systems, DBMS, and Computer Networks. Deployed with Docker, Vercel, and Render, backed by MongoDB, MySQL, and PostgreSQL depending on the project.
+                      Core CS fundamentals: Operating Systems, DBMS / RDBMS, and Computer Networks. Deployed with Docker, Vercel, and Render, backed by MySQL, PostgreSQL, and MongoDB depending on the project.
                     </p>
                   )}
                 </div>
