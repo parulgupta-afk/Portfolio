@@ -11,7 +11,7 @@ Software Engineer · Full-Stack · AI Systems
 ## Flagship systems
 
 | Project | Stack highlights | Links |
-|---------|------------------|-------|
+| --- | --- | --- |
 | **Priceloop** | FastAPI · data pipeline · price intelligence | [Source](https://github.com/parulgupta-afk/Priceloop) |
 | **CodeForge** | Express · sandboxed agent · repair loop | [Demo](https://code-forge-jade.vercel.app) · [Source](https://github.com/parulgupta-afk/CodeForge) |
 | **PulseOps** | Real-time incident / on-call workflows | [Source](https://github.com/parulgupta-afk/pulseops) |
@@ -26,7 +26,7 @@ npm install
 npm run dev
 ```
 
-Open http://localhost:3000
+Open <http://localhost:3000>
 
 ```bash
 npm run typecheck   # tsc --noEmit
@@ -58,8 +58,5 @@ Live: https://parulgupta-portfolio.vercel.app
 ## Design notes
 
 - Recruiter-first navigation and project hierarchy
-- Engineering OS visual language without fake telemetry or metrics
 - Live Demo / GitHub only when real URLs exist
 - Specs fields: architecture · runtime · status · security
-
-
