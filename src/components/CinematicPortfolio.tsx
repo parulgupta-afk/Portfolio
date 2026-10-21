@@ -1,7 +1,8 @@
 import { Suspense, lazy, useEffect, useLayoutEffect, useRef, useState, type MouseEvent as ReactMouseEvent, type ReactNode } from 'react';
-import { ArrowUpRight, Check, Github, Linkedin, Mail, Menu, X } from 'lucide-react';
+import { ArrowUpRight, Award, Check, Github, GraduationCap, Linkedin, Mail, Menu, X } from 'lucide-react';
 import {
   ACHIEVEMENTS_DATA,
+  EDUCATION_DATA,
   EXPERIENCE_DATA,
   OTHER_REPOS,
   PROFILE,
@@ -173,6 +174,7 @@ function ExperienceHeader() {
       <p className={`section-kicker kicker-fade ${inView ? 'is-in' : ''}`}>Experience &amp; education</p>
       <SplitHeading id="experience-title" lead="Where I&rsquo;ve" accent="worked" inView={inView} />
       <ExperienceTimeline />
+      <EducationBlock inView={inView} />
     </div>
   );
 }
@@ -203,14 +205,17 @@ function ExperienceTimeline() {
                 <span className="exp-role">{e.role}</span>
                 <span className="exp-company">{e.company}</span>
               </span>
-              <span className="exp-meta">{e.period ? <span>{e.period}</span> : null}<span>{e.status}</span></span>
+              <span className="exp-meta">
+                {e.period ? <span>{e.period}</span> : null}
+                {e.status ? <span>{e.status}</span> : null}
+              </span>
               <span className="exp-plus" aria-hidden="true"><i /><i /></span>
             </button>
             <div className="exp-body">
               <div className="exp-body-inner">
                 <ul>
                   {e.bullets.map((b) => (
-                    <li key={b}><Check size={12} />{b}</li>
+                    <li key={b}><Check size={12} /><span>{b}</span></li>
                   ))}
                 </ul>
                 <div className="experience-tech">
@@ -221,6 +226,62 @@ function ExperienceTimeline() {
           </article>
         );
       })}
+    </div>
+  );
+}
+
+function EducationBlock({ inView }: { inView: boolean }) {
+  return (
+    <div className={`education-section-block ${inView ? 'is-in' : ''}`} id="education">
+      <div className="education-header">
+        <div className="education-kicker">
+          <GraduationCap size={14} />
+          <span>Academic Background</span>
+        </div>
+        <h3 className="education-title">Education</h3>
+      </div>
+      <div className="education-grid">
+        {EDUCATION_DATA.map((edu, i) => (
+          <article className="education-card" key={edu.id} style={{ ['--i' as string]: i }}>
+            <div className="education-card-top">
+              <div className="education-badge-group">
+                <span className="education-pill">{edu.status ?? 'Undergraduate'}</span>
+                <span className="education-cgpa">CGPA {edu.cgpa}</span>
+              </div>
+              <span className="education-period">{edu.period}</span>
+            </div>
+            <h4 className="education-degree">{edu.degree}</h4>
+            <p className="education-institution">{edu.institution}</p>
+            <ul className="education-bullets">
+              {edu.details.map((d) => (
+                <li key={d}><Check size={12} /><span>{d}</span></li>
+              ))}
+            </ul>
+            <div className="education-meta-block">
+              <div className="education-tech-row">
+                <span className="education-tech-label">Coursework:</span>
+                <div className="experience-tech">
+                  {edu.coursework.map((c) => (
+                    <span key={c}>{c}</span>
+                  ))}
+                </div>
+              </div>
+              {edu.certifications && edu.certifications.length > 0 && (
+                <div className="education-tech-row">
+                  <span className="education-tech-label">Certifications:</span>
+                  <div className="experience-tech">
+                    {edu.certifications.map((cert) => (
+                      <span key={cert} className="education-cert-tag">
+                        <Award size={11} /> {cert}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </article>
+        ))}
+      </div>
     </div>
   );
 }
@@ -395,12 +456,32 @@ export function CinematicPortfolio() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openProject, setOpenProject] = useState<ProjectItem | null>(null);
 
+  const [activeSection, setActiveSection] = useState('top');
+
   useEffect(() => {
     document.body.style.overflow = showIntro ? 'hidden' : '';
     return () => {
       document.body.style.overflow = '';
     };
   }, [showIntro]);
+
+  useEffect(() => {
+    const sectionIds = ['top', 'about', 'work', 'skills', 'experience', 'achievements', 'contact'];
+    const onScroll = () => {
+      const scrollPos = window.scrollY + 220;
+      for (let i = sectionIds.length - 1; i >= 0; i--) {
+        const id = sectionIds[i];
+        const el = document.getElementById(id);
+        if (el && el.offsetTop <= scrollPos) {
+          setActiveSection(id);
+          break;
+        }
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   useEffect(() => {
     const close = (event: KeyboardEvent) => {
@@ -442,18 +523,23 @@ export function CinematicPortfolio() {
           {PROFILE.name}
         </a>
         <nav className="reference-nav" aria-label="Sections">
-          {links.map((l) => (
-            <a
-              key={l.id}
-              href={`#${l.id}`}
-              onClick={(event) => {
-                event.preventDefault();
-                jump(l.id);
-              }}
-            >
-              {l.label}
-            </a>
-          ))}
+          {links.map((l) => {
+            const isActive = activeSection === l.id;
+            return (
+              <a
+                key={l.id}
+                href={`#${l.id}`}
+                className={isActive ? 'is-active' : ''}
+                aria-current={isActive ? 'true' : undefined}
+                onClick={(event) => {
+                  event.preventDefault();
+                  jump(l.id);
+                }}
+              >
+                {l.label}
+              </a>
+            );
+          })}
         </nav>
         <div className="reference-utilities">
           <a href="/resume.pdf" target="_blank" rel="noreferrer">Resume</a>
@@ -473,11 +559,23 @@ export function CinematicPortfolio() {
 
       {mobileOpen && (
         <div className="reference-mobile-menu">
-          {links.map((l) => (
-            <a key={l.id} href={`#${l.id}`} onClick={(e) => { e.preventDefault(); jump(l.id); }}>
-              {l.label} <ArrowUpRight size={15} />
-            </a>
-          ))}
+          {links.map((l) => {
+            const isActive = activeSection === l.id;
+            return (
+              <a
+                key={l.id}
+                href={`#${l.id}`}
+                className={isActive ? 'is-active' : ''}
+                aria-current={isActive ? 'true' : undefined}
+                onClick={(e) => {
+                  e.preventDefault();
+                  jump(l.id);
+                }}
+              >
+                {l.label} <ArrowUpRight size={15} />
+              </a>
+            );
+          })}
           <a href="/resume.pdf" target="_blank" rel="noreferrer">Resume <ArrowUpRight size={15} /></a>
           <a href={PROFILE.github} target="_blank" rel="noreferrer">GitHub <Github size={15} /></a>
           <a href={`mailto:${PROFILE.email}`}>Contact <Mail size={15} /></a>
@@ -509,6 +607,7 @@ export function CinematicPortfolio() {
 
         {/* ---------- Work ---------- */}
         <SectionShell id="work" label="02 / Selected Work" className="projects-section">
+          <span id="projects" className="section-anchor" aria-hidden="true" />
           <div className="projects-copy">
             <p className="section-kicker">Projects</p>
             <h2 id="work-title">Selected <em>work</em></h2>
@@ -522,7 +621,13 @@ export function CinematicPortfolio() {
                         <h3>{p.title}</h3>
                         <p>{p.description}</p>
                         <div className="project-links">
-                          <button type="button" onClick={() => setOpenProject(p)}>Details <ArrowUpRight size={12} /></button>
+                          <button
+                            type="button"
+                            aria-label={`View architectural details for ${p.title}`}
+                            onClick={() => setOpenProject(p)}
+                          >
+                            Details <ArrowUpRight size={12} />
+                          </button>
                           {p.liveDemoUrl && <a href={p.liveDemoUrl} target="_blank" rel="noreferrer">Live <ArrowUpRight size={12} /></a>}
                           {p.githubUrl && <a href={p.githubUrl} target="_blank" rel="noreferrer">Source <ArrowUpRight size={12} /></a>}
                         </div>
@@ -545,18 +650,21 @@ export function CinematicPortfolio() {
           <SkillsOrbit />
         </Suspense>
 
-        {/* ---------- Experience ---------- */}
-        <SectionShell id="experience" label="04 / Experience" className="experience-section">
+        {/* ---------- Experience & Education ---------- */}
+        <SectionShell id="experience" label="04 / Experience &amp; Education" className="experience-section">
+          <span id="education" className="section-anchor" aria-hidden="true" />
           <ExperienceHeader />
         </SectionShell>
 
         {/* ---------- Hackathons & Achievements ---------- */}
         <SectionShell id="achievements" label="05 / Achievements" className="achievements-section">
+          <span id="hackathons" className="section-anchor" aria-hidden="true" />
           <AchievementsHeader />
         </SectionShell>
 
         {/* ---------- Contact ---------- */}
         <SectionShell id="contact" label="06 / Contact" className="contact-section">
+          <span id="connect" className="section-anchor" aria-hidden="true" />
           <ContactPanel />
         </SectionShell>
       </main>
