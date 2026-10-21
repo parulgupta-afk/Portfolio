@@ -202,7 +202,7 @@ function ExperienceTimeline() {
                 <span className="exp-role">{e.role}</span>
                 <span className="exp-company">{e.company}</span>
               </span>
-              <span className="exp-meta"><span>{e.period}</span><span>{e.status}</span></span>
+              <span className="exp-meta">{e.period ? <span>{e.period}</span> : null}<span>{e.status}</span></span>
               <span className="exp-plus" aria-hidden="true"><i /><i /></span>
             </button>
             <div className="exp-body">

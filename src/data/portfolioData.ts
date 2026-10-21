@@ -312,8 +312,37 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
     impactScore: 'Full-stack e-commerce'
   },
   {
+    id: 'exp-inamigos',
+    role: 'AI Web Development Intern',
+    company: 'InAmigos Foundation',
+    period: '',
+    status: 'ACTIVE',
+    bullets: [
+      'Selected for the AI Web Development Internship program.',
+      'Developed an NGO awareness webpage highlighting the organization\'s mission, initiatives, projects, and social impact.',
+      'Used HTML and CSS to structure and style the webpage, with emphasis on clear information architecture and visual presentation.',
+      'Designed content and call-to-action sections to help visitors understand the NGO\'s work and engage with its initiatives.'
+    ],
+    techStack: ['HTML5', 'CSS3', 'Responsive Web Design', 'UI Development'],
+    impactScore: 'NGO awareness web page'
+  },
+  {
+    id: 'exp-hackathons',
+    role: 'Hackathon Winner — ₹5,000 Cash Prize',
+    company: 'College hackathons (multiple departments)',
+    period: '',
+    status: 'COMPLETED',
+    bullets: [
+      'Won the most recent college hackathon I participated in and received a cash prize of ₹5,000.',
+      'Participated in hackathons organized by multiple departments at my college.',
+      'Received further hackathon invitations from judges following recognition of the winning project.'
+    ],
+    techStack: ['Team collaboration', 'Rapid prototyping', 'Problem solving'],
+    impactScore: '₹5,000 prize'
+  },
+  {
     id: 'exp-2',
-    role: 'B.Tech, Computer Engineering',
+    role: 'Bachelor of Technology (B.Tech), Computer Science and Engineering',
     company: 'Guru Nanak Dev University, Amritsar',
     period: 'EXPECTED JUNE 2028',
     status: 'ACTIVE',

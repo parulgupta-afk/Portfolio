@@ -1298,3 +1298,5 @@ button:focus-visible {
 .skip-link { position: fixed; left: 1rem; top: -4rem; z-index: 1000; padding: .7rem 1rem; background: #fff; color: #000; font: 600 12px var(--mono); border-radius: 8px; transition: top .2s ease; }
 .skip-link:focus { top: 1rem; }
 main:focus { outline: none; }
+
+
