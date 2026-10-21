@@ -48,3 +48,11 @@ export interface TerminalLog {
   text: string;
   timestamp: string;
 }
+
+export interface SkillGroup {
+  id: string;
+  code: string;
+  title: string;
+  description: string;
+  items: string[];
+}

@@ -8,39 +8,55 @@ interface ProjectsSectionProps {
   onSelectProject: (project: ProjectItem) => void;
 }
 
-const FLAGSHIP = ['priceloop', 'codeforge', 'pulseops'] as const;
-const APPLIED = ['skycall', 'nutrivibe', 'verge'] as const;
+const FIRST_ROW_IDS = ['priceloop', 'codeforge', 'pulseops', 'skycall'] as const;
+const SECOND_ROW_IDS = ['nutrivibe', 'verge', 'quilio'] as const;
+const FLAGSHIP_IDS = new Set(['priceloop', 'codeforge', 'pulseops']);
 
 const ProjectCard: React.FC<{
   project: ProjectItem;
-  onSelect: (p: ProjectItem) => void;
-  featured?: boolean;
-}> = ({ project, onSelect, featured }) => {
+  onSelect: (project: ProjectItem) => void;
+}> = ({ project, onSelect }) => {
+  const featured = FLAGSHIP_IDS.has(project.id);
+
   return (
-    <article
-      className={`flex flex-col text-left rounded-xl border border-white/10 bg-white/[0.02] hover:border-[#34d399]/35 transition-colors ${
-        featured ? 'p-6 sm:p-7' : 'p-5'
-      }`}
-    >
+    <article className="project-marquee-card flex flex-col text-left rounded-xl border border-white/10 bg-white/[0.025] hover:border-[#34d399]/40 transition-colors">
       <button
         type="button"
         onClick={() => {
           playCyberClick(700);
           onSelect(project);
         }}
+        aria-label={`View ${project.title} project architecture`}
         className="text-left w-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#34d399] rounded"
       >
-        <div className="flex items-start justify-between gap-2 mb-3">
-          <span className="font-code-md text-[10px] text-[#34d399] tracking-widest">{project.modNumber}</span>
-          <span className="font-code-md text-[10px] text-[#6b7380] uppercase tracking-wide">{project.category}</span>
+        <div className="flex items-start justify-between gap-3 mb-3">
+          <span className="font-code-md text-[10px] text-[#34d399] tracking-widest">
+            {project.modNumber}
+          </span>
+          <span className="font-code-md text-[10px] text-[#6b7380] uppercase tracking-wide text-right">
+            {project.category}
+          </span>
         </div>
-        <h3 className={`font-semibold text-white mb-1 ${featured ? 'text-xl sm:text-2xl' : 'text-lg'}`}>
-          {project.title}
-        </h3>
-        <p className="text-sm text-[#a8b3c4] leading-relaxed mb-4 line-clamp-2">{project.tagline}</p>
-        <div className="flex flex-wrap gap-1.5 mb-1">
-          {project.tags.slice(0, featured ? 6 : 4).map((tag) => (
-            <span key={tag} className="text-[10px] px-2 py-0.5 rounded border border-white/10 text-[#6b7380]">
+
+        <div className="flex items-center gap-2 mb-1.5">
+          <h3 className="font-semibold text-white text-xl tracking-tight">{project.title}</h3>
+          {featured && (
+            <span className="font-code-md text-[9px] uppercase tracking-wider text-[#34d399] border border-[#34d399]/25 rounded px-1.5 py-0.5">
+              Flagship
+            </span>
+          )}
+        </div>
+
+        <p className="text-sm text-[#a8b3c4] leading-relaxed mb-4 line-clamp-2">
+          {project.tagline}
+        </p>
+
+        <div className="flex flex-wrap gap-1.5 mb-3">
+          {project.tags.slice(0, 5).map((tag) => (
+            <span
+              key={tag}
+              className="text-[10px] px-2 py-1 rounded border border-white/10 text-[#8793a5] bg-white/[0.025]"
+            >
               {tag}
             </span>
           ))}
@@ -53,25 +69,20 @@ const ProjectCard: React.FC<{
             href={project.liveDemoUrl}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={(e) => {
-              e.stopPropagation();
-              playCyberClick(650);
-            }}
+            onClick={() => playCyberClick(650)}
             className="inline-flex items-center gap-1.5 text-[11px] font-code-md px-2.5 py-1.5 rounded border border-[#34d399]/45 text-[#34d399] hover:bg-[#34d399]/10 transition-colors"
           >
             Live Demo
             <ExternalLink className="w-3 h-3" aria-hidden />
           </a>
         ) : null}
+
         {project.githubUrl ? (
           <a
             href={project.githubUrl}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={(e) => {
-              e.stopPropagation();
-              playCyberClick(650);
-            }}
+            onClick={() => playCyberClick(650)}
             className="inline-flex items-center gap-1.5 text-[11px] font-code-md px-2.5 py-1.5 rounded border border-white/15 text-[#a8b3c4] hover:border-white/30 hover:text-white transition-colors"
           >
             <Github className="w-3 h-3" aria-hidden />
@@ -80,6 +91,7 @@ const ProjectCard: React.FC<{
         ) : (
           <span className="text-[11px] font-code-md text-[#6b7380]">Source pending</span>
         )}
+
         <button
           type="button"
           onClick={() => {
@@ -95,50 +107,92 @@ const ProjectCard: React.FC<{
   );
 };
 
+interface MarqueeRowProps {
+  projects: ProjectItem[];
+  direction: 'left' | 'right';
+  label: string;
+  onSelectProject: (project: ProjectItem) => void;
+}
+
+const MarqueeRow: React.FC<MarqueeRowProps> = ({
+  projects,
+  direction,
+  label,
+  onSelectProject,
+}) => (
+  <div className="project-marquee-window" aria-label={label}>
+    <div className={`project-marquee-track project-marquee-track--${direction}`}>
+      {[0, 1].map((copy) => (
+        <div
+          className="project-marquee-group"
+          key={`${direction}-copy-${copy}`}
+          aria-hidden={copy === 1 ? true : undefined}
+        >
+          {projects.map((project) => (
+            <ProjectCard
+              key={`${project.id}-${copy}`}
+              project={project}
+              onSelect={onSelectProject}
+            />
+          ))}
+        </div>
+      ))}
+    </div>
+  </div>
+);
+
 export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onSelectProject }) => {
-  const byId = Object.fromEntries(PROJECTS_DATA.map((p) => [p.id, p]));
-  const flagship = FLAGSHIP.map((id) => byId[id]).filter(Boolean);
-  const applied = APPLIED.map((id) => byId[id]).filter(Boolean);
-  const experimental = PROJECTS_DATA.filter(
-    (p) => !FLAGSHIP.includes(p.id as (typeof FLAGSHIP)[number]) && !APPLIED.includes(p.id as (typeof APPLIED)[number])
-  );
+  const byId = Object.fromEntries(PROJECTS_DATA.map((project) => [project.id, project]));
+  const firstRow = FIRST_ROW_IDS.map((id) => byId[id]).filter(Boolean) as ProjectItem[];
+  const secondRow = SECOND_ROW_IDS.map((id) => byId[id]).filter(Boolean) as ProjectItem[];
 
   return (
     <section id="projects" className="py-16 sm:py-24 border-b border-white/5">
-      <div className="px-4 sm:px-8 md:px-12 lg:px-16 max-w-6xl mx-auto">
-        <p className="font-code-md text-[10px] tracking-[0.25em] text-[#34d399] mb-2 uppercase">Projects</p>
-        <h2 className="text-3xl sm:text-4xl font-semibold text-white mb-2 tracking-tight">Engineering systems</h2>
-        <p className="text-sm text-[#8b95a5] mb-10 max-w-2xl leading-relaxed">
-          Flagship systems first. Open Live Demo when deployed, or GitHub to inspect the implementation.
+      <div className="max-w-6xl mx-auto mb-9 px-4 sm:px-8 md:px-12 lg:px-16">
+        <p className="font-code-md text-[10px] tracking-[0.25em] text-[#34d399] mb-2 uppercase">
+          Selected work / 07 systems
         </p>
-
-        <h3 className="font-code-md text-xs tracking-[0.2em] text-[#6b7380] mb-4 uppercase">Flagship systems</h3>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
-          {flagship.map((p) => (
-            <ProjectCard key={p.id} project={p} onSelect={onSelectProject} featured />
-          ))}
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+          <div>
+            <h2 className="text-3xl sm:text-4xl font-semibold text-white mb-2 tracking-tight">
+              Engineering systems
+            </h2>
+            <p className="text-sm text-[#8b95a5] max-w-2xl leading-relaxed">
+              A moving showcase of full-stack products, real-time systems, and AI-powered tools.
+              Select any card to inspect its architecture.
+            </p>
+          </div>
+          <span className="font-code-md text-[10px] uppercase tracking-widest text-[#6b7380] shrink-0">
+            Two tracks · Opposite directions
+          </span>
         </div>
+      </div>
 
-        <h3 className="font-code-md text-xs tracking-[0.2em] text-[#6b7380] mb-4 uppercase">Applied products</h3>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
-          {applied.map((p) => (
-            <ProjectCard key={p.id} project={p} onSelect={onSelectProject} />
-          ))}
-        </div>
+      <div className="space-y-4">
+        <MarqueeRow
+          projects={firstRow}
+          direction="left"
+          label="Featured projects scrolling left"
+          onSelectProject={onSelectProject}
+        />
+        <MarqueeRow
+          projects={secondRow}
+          direction="right"
+          label="Additional projects scrolling right"
+          onSelectProject={onSelectProject}
+        />
+      </div>
 
-        {experimental.length > 0 && (
-          <>
-            <h3 className="font-code-md text-xs tracking-[0.2em] text-[#6b7380] mb-4 uppercase">Experimental</h3>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
-              {experimental.map((p) => (
-                <ProjectCard key={p.id} project={p} onSelect={onSelectProject} />
-              ))}
-            </div>
-          </>
-        )}
-
-        <div className="pt-8 border-t border-white/10">
-          <h3 className="font-code-md text-xs uppercase tracking-widest text-[#6b7380] mb-4">Also on GitHub</h3>
+      <div className="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16 mt-10">
+        <div className="pt-7 border-t border-white/10">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+            <h3 className="font-code-md text-xs uppercase tracking-widest text-[#6b7380]">
+              Also on GitHub
+            </h3>
+            <span className="font-code-md text-[10px] text-[#505b6b]">
+              Open-source experiments & builds
+            </span>
+          </div>
           <div className="flex flex-wrap gap-2">
             {OTHER_REPOS.map((repo) => (
               <a

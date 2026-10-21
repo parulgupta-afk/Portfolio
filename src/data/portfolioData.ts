@@ -1,4 +1,4 @@
-import { ProjectItem, CapabilityItem, ExperienceItem } from '../types';
+import { ProjectItem, CapabilityItem, ExperienceItem, SkillGroup } from '../types';
 
 export const PROFILE = {
   name: 'Parul Gupta',
@@ -316,4 +316,88 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
     techStack: ['DSA', 'OOP', 'DBMS / RDBMS', 'SQL', 'MySQL', 'Computer Networks'],
     impactScore: 'CGPA 8.90/10'
   }
+];
+
+/** Skill groups shown in the 3D skills section (order = top to bottom of the spiral). */
+export const SKILL_GROUPS: SkillGroup[] = [
+  {
+    id: 'languages',
+    code: 'LANG_DEV',
+    title: 'Programming Languages',
+    description:
+      'C++ for DSA, problem-solving and OOP; Java for core concepts; JavaScript (ES6+) and TypeScript across frontend and backend; Python for AI/ML-related work; SQL for relational databases.',
+    items: ['C++', 'Java', 'JavaScript (ES6+)', 'TypeScript', 'Python', 'SQL'],
+  },
+  {
+    id: 'frontend',
+    code: 'FE_ENG',
+    title: 'Frontend Development',
+    description:
+      'Responsive, component-driven interfaces with React.js, Next.js, Tailwind CSS and TypeScript, built on solid HTML5 / CSS3 and UI/UX principles.',
+    items: ['React.js', 'Next.js', 'TypeScript', 'JavaScript', 'HTML5', 'CSS3', 'Tailwind CSS', 'Bootstrap', 'AngularJS', 'Responsive Design', 'UI/UX Principles'],
+  },
+  {
+    id: 'backend',
+    code: 'BE_ENG',
+    title: 'Backend Development',
+    description:
+      'REST APIs, JWT and Google OAuth authentication and MVC architecture on Node.js and Express.js — plus real-time features with WebSockets and Socket.io, rate limiting and caching.',
+    items: ['Node.js', 'Express.js', 'REST APIs', 'Spring Boot', 'Django', 'JWT Auth', 'Google OAuth', 'MVC', 'API Integration', 'WebSockets', 'Socket.io', 'Rate Limiting', 'Caching', 'Error Handling & Debugging'],
+  },
+  {
+    id: 'databases',
+    code: 'DATA_OPS',
+    title: 'Databases & Data',
+    description:
+      'MongoDB as the primary store, with MySQL, PostgreSQL and Redis — data modeling, database design, querying and integration, grounded in DBMS fundamentals.',
+    items: ['MongoDB', 'MySQL', 'PostgreSQL', 'Redis', 'DBMS', 'PDBMS', 'Database Design & Querying', 'Database Integration', 'Data Modeling'],
+  },
+  {
+    id: 'ai',
+    code: 'AI_ML',
+    title: 'AI & Machine Learning',
+    description:
+      'LLM-powered applications: Gemini API integration, prompt engineering, embeddings and RAG — applied in CodeForge, an autonomous coding agent, and in Priceloop’s LLM-based market analysis.',
+    items: ['Generative AI', 'LLMs', 'LLM API Integration', 'Gemini API', 'Prompt Engineering', 'Embeddings', 'RAG', 'AI-Powered Apps', 'Autonomous AI Agents', 'LLM Market Analysis'],
+  },
+  {
+    id: 'dsa',
+    code: 'DSA_LAB',
+    title: 'Data Structures & Algorithms',
+    description:
+      '1,000+ problems solved across LeetCode and GeeksforGeeks — from arrays, hashing and trees to graphs, recursion, dynamic programming and complexity analysis.',
+    items: ['Arrays & Strings', 'Linked Lists', 'Stacks & Queues', 'Hashing', 'Trees & BSTs', 'Graphs', 'BFS / DFS', 'Recursion & Backtracking', 'Binary Search', 'Sorting & Searching', 'Greedy', 'Dynamic Programming', 'Complexity Analysis', 'OOP'],
+  },
+  {
+    id: 'cs-core',
+    code: 'CS_CORE',
+    title: 'Computer Science Core',
+    description:
+      'The software-engineering fundamentals: OOP, DBMS, operating systems, computer networks, client-server architecture and MVC.',
+    items: ['OOP', 'DBMS', 'PDBMS', 'Operating Systems', 'Computer Networks', 'SQL & Relational DBs', 'DSA', 'Software Dev Principles', 'Client-Server Architecture', 'MVC'],
+  },
+  {
+    id: 'tools',
+    code: 'DEV_TOOLS',
+    title: 'Tools & Platforms',
+    description:
+      'Git and GitHub for version control, Postman for API testing, Docker for containers, Kafka for streaming, MongoDB Atlas, and Vercel and Render for deployment.',
+    items: ['Git', 'GitHub', 'Postman', 'Docker', 'Redis', 'Kafka', 'MongoDB Atlas', 'Vercel', 'Render', 'WebSockets', 'Socket.io'],
+  },
+  {
+    id: 'fullstack',
+    code: 'FULL_STK',
+    title: 'Full-Stack Development',
+    description:
+      'Primarily the MERN stack — React.js, Node.js, Express.js and MongoDB — extended with MySQL / SQL, Gemini and LLM API integration, authentication and deployment.',
+    items: ['React.js', 'Node.js', 'Express.js', 'MongoDB', 'MySQL / SQL', 'Gemini API', 'Authentication', 'Authorization', 'Vercel', 'Render'],
+  },
+  {
+    id: 'engineering',
+    code: 'ENG_OPS',
+    title: 'Engineering Skills',
+    description:
+      'Problem-solving, debugging, API design and integration, UI/UX awareness, version control and collaborative development, and continuous learning through project-based work.',
+    items: ['Problem Solving', 'Analytical Thinking', 'Debugging', 'API Design', 'UI/UX Awareness', 'Version Control', 'Collaboration', 'Project-Based Learning'],
+  },
 ];

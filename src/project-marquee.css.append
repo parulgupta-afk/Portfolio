@@ -1,0 +1,96 @@
+/* Two-row infinite project marquee */
+.project-marquee-window {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: 0.25rem 0;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+}
+
+.project-marquee-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+
+.project-marquee-track--left {
+  animation: project-marquee-left 52s linear infinite;
+}
+
+.project-marquee-track--right {
+  animation: project-marquee-right 46s linear infinite;
+}
+
+.project-marquee-group {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: stretch;
+  gap: 1rem;
+  padding-right: 1rem;
+}
+
+.project-marquee-card {
+  box-sizing: border-box;
+  flex: 0 0 290px;
+  width: 290px;
+  min-height: 245px;
+  padding: 1.125rem;
+  background:
+    radial-gradient(ellipse at top left, rgba(52, 211, 153, 0.055), transparent 58%),
+    rgba(255, 255, 255, 0.025);
+  transition: border-color 220ms ease, background-color 220ms ease, transform 220ms ease;
+}
+
+.project-marquee-card:hover {
+  background-color: rgba(255, 255, 255, 0.045);
+  transform: translateY(-2px);
+}
+
+@keyframes project-marquee-left {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+
+@keyframes project-marquee-right {
+  from { transform: translate3d(-50%, 0, 0); }
+  to { transform: translate3d(0, 0, 0); }
+}
+
+.project-marquee-window:hover .project-marquee-track,
+.project-marquee-window:focus-within .project-marquee-track {
+  animation-play-state: paused;
+}
+
+@media (min-width: 640px) {
+  .project-marquee-card {
+    flex-basis: 330px;
+    width: 330px;
+    min-height: 255px;
+    padding: 1.35rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-marquee-window {
+    overflow-x: auto;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .project-marquee-track {
+    animation: none !important;
+    transform: none !important;
+    will-change: auto;
+  }
+
+  .project-marquee-group[aria-hidden='true'] {
+    display: none;
+  }
+
+  .project-marquee-card,
+  .project-marquee-card:hover {
+    transition: none;
+    transform: none;
+  }
+}
