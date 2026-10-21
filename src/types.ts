@@ -35,11 +35,23 @@ export interface ExperienceItem {
   id: string;
   role: string;
   company: string;
-  period: string;
-  status: 'ACTIVE' | 'COMPLETED';
+  period?: string;
+  status?: 'ACTIVE' | 'COMPLETED' | string;
   bullets: string[];
   techStack: string[];
   impactScore?: string;
+}
+
+export interface EducationItem {
+  id: string;
+  degree: string;
+  institution: string;
+  period: string;
+  status?: string;
+  cgpa: string;
+  details: string[];
+  coursework: string[];
+  certifications?: string[];
 }
 
 export interface TerminalLog {

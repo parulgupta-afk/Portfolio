@@ -1,4 +1,4 @@
-import { ProjectItem, CapabilityItem, ExperienceItem, SkillGroup, AchievementItem } from '../types';
+import { ProjectItem, CapabilityItem, ExperienceItem, SkillGroup, AchievementItem, EducationItem } from '../types';
 
 export const PROFILE = {
   name: 'Parul Gupta',
@@ -316,53 +316,55 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
     role: 'AI Web Development Intern',
     company: 'InAmigos Foundation',
     period: '',
-    status: 'ACTIVE',
+    status: '',
     bullets: [
-      'Selected for the AI Web Development Internship program.',
-      'Developed an NGO awareness webpage highlighting the organization\'s mission, initiatives, projects, and social impact.',
-      'Used HTML and CSS to structure and style the webpage, with emphasis on clear information architecture and visual presentation.',
-      'Designed content and call-to-action sections to help visitors understand the NGO\'s work and engage with its initiatives.'
+      'Selected for the AI Web Development Internship program at InAmigos Foundation.',
+      'Developed an NGO awareness webpage highlighting the organization’s mission, initiatives, and social impact.',
+      'Used HTML5 and CSS3 to structure and style the webpage, focusing on clear content presentation and user experience.'
     ],
-    techStack: ['HTML5', 'CSS3', 'Responsive Web Design', 'UI Development'],
-    impactScore: 'NGO awareness web page'
-  },
-  {
-    id: 'exp-2',
-    role: 'Bachelor of Technology (B.Tech), Computer Science and Engineering',
-    company: 'Guru Nanak Dev University, Amritsar',
-    period: 'EXPECTED JUNE 2028',
-    status: 'ACTIVE',
-    bullets: [
-      'CGPA 8.90/10, coursework spanning OOP, Operating Systems, DBMS / RDBMS, and Computer Networks.',
-      'Solved 1000+ DSA problems across LeetCode and GeeksforGeeks alongside coursework.',
-      'HackerRank Certified: Software Engineer, Problem Solving (Intermediate), SQL (Intermediate).'
-    ],
-    techStack: ['DSA', 'OOP', 'DBMS / RDBMS', 'SQL', 'MySQL', 'Computer Networks'],
-    impactScore: 'CGPA 8.90/10'
+    techStack: ['HTML5', 'CSS3', 'Web Development'],
+    impactScore: 'NGO awareness webpage'
   }
 ];
 
+export const EDUCATION_DATA: EducationItem[] = [
+  {
+    id: 'edu-1',
+    degree: 'Bachelor of Technology (B.Tech) in Computer Science and Engineering',
+    institution: 'Guru Nanak Dev University, Amritsar',
+    period: 'Expected June 2028',
+    status: 'Undergraduate',
+    cgpa: '8.90 / 10',
+    details: [
+      'Academic focus on foundational computer science, core engineering principles, and systems architecture.',
+      '1,000+ Data Structures & Algorithms problems solved across LeetCode and GeeksforGeeks alongside coursework.',
+      'HackerRank Certified: Software Engineer, Problem Solving (Intermediate), SQL (Intermediate).'
+    ],
+    coursework: ['OOP', 'Operating Systems', 'DBMS / RDBMS', 'Computer Networks', 'Data Structures & Algorithms', 'SQL'],
+    certifications: [
+      'HackerRank: Software Engineer',
+      'HackerRank: Problem Solving (Intermediate)',
+      'HackerRank: SQL (Intermediate)'
+    ]
+  }
+];
 
-/** College hackathons — only verified outcomes; no invented event names or dates. */
+/** College hackathons — only verified outcomes; no invented event names, projects, or dates. */
 export const ACHIEVEMENTS_DATA: AchievementItem[] = [
   {
     id: 'ach-hack-win',
     category: 'hackathon',
     title: 'Hackathon Winner — ₹5,000 Cash Prize',
     summary:
-      'Won the most recent college hackathon I participated in and received a cash prize of ₹5,000.',
-    detail:
-      'Following recognition of the winning project, the judges invited me to participate in other hackathons.',
+      'Won the most recent college hackathon and received a ₹5,000 cash prize. The judges subsequently invited me to participate in additional hackathons.',
     highlight: '₹5,000',
   },
   {
     id: 'ach-hack-multi',
     category: 'hackathon',
-    title: 'Multi-Department College Hackathons',
+    title: 'College Hackathons',
     summary:
-      'Participated in hackathons organized by multiple departments at my college.',
-    detail:
-      'Built and presented projects under timed conditions across different departmental events.',
+      'Participated in multiple college hackathons organized by different departments.',
   },
 ];
 
