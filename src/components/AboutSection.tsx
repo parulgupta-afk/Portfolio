@@ -179,6 +179,9 @@ export const AboutSection: React.FC = () => {
         >
           <img
             src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgB6_uIrY2KbV2mD4czvLWyvfTnDpz75jl9lvOhwVExlYY6txlSXJcI2bejU_Y7HVTKsdu6F2KrHvsZBSaSK8ZMEzNqjt_Xc1-OPh2Q4MOm_SuAz6jwVjhcJ6ErOJ0giaHnNIeJcX5qv-DFQ99chjZVZ05ZGg3arKJBxRB_WvvobLTRciwUqLTW37hhJOXlM1WdDAquVDFhkvTul-Y9WaS0LYIUeuCFTzZIU5qj94A6FTgPm-ncSzoag"
+            loading="lazy"
+            decoding="async"
+            onError={(e) => { e.currentTarget.style.display = 'none'; }}
             alt="Peach 3D rose"
             className="w-full h-full object-contain flower-img drop-shadow-[0_20px_40px_rgba(251,146,60,0.3)]"
           />
@@ -195,6 +198,9 @@ export const AboutSection: React.FC = () => {
         >
           <img
             src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7SzDmR2zc6SWJfxtvxy16ZjlS820YIjQQ1FPEYEmEJJWFXbJWwctJN2xKyPtqNmXk_6uMp5SFqIAgsoQh1IMi8rT2Et-MaDXCdeKa5XY4-eZ2fgMddVB__OAJjqBLIzJPTIhC4mT3Q5hewrwCpXPCDns3xtJyuPknuULtPwh_rEy86PFqsUSSyXiJJhfQotvZF4I-vFVmcrnc6sqsQMSPOoesan1VPQomrO2VvurGH4pP6sKt9jHudA"
+            loading="lazy"
+            decoding="async"
+            onError={(e) => { e.currentTarget.style.display = 'none'; }}
             alt="Lavender 3D flower"
             className="w-full h-full object-contain flower-img drop-shadow-[0_30px_60px_rgba(168,85,247,0.4)]"
           />
@@ -211,6 +217,9 @@ export const AboutSection: React.FC = () => {
         >
           <img
             src="https://lh3.googleusercontent.com/aida-public/AB6AXuAiDri49_ORUdLu00HqT7KCP7IrLtj_sfU0WSo4bwb_LA9DvspC5s1hkjtfKHIxsbcglDCKI4zeHEK2CteQzPHOO27y-RTH76HY3kAF_QU6kTh_PeLLtEEuBPglQYJGzLGYBddkbjeqksR4sRm6biXMmp-MPHLiGmqofcJfyQgIzUT8M9jvJcIt-oFCDcEK2rAsoTU1RUqmGNRGRm6jfRPwa4TiS3CemC3Id2ux0Itl4LGIqS9Eai8G6Q"
+            loading="lazy"
+            decoding="async"
+            onError={(e) => { e.currentTarget.style.display = 'none'; }}
             alt="Deep purple orchid"
             className="w-full h-full object-contain flower-img drop-shadow-[0_25px_50px_rgba(147,51,234,0.35)]"
           />
@@ -228,6 +237,9 @@ export const AboutSection: React.FC = () => {
         >
           <img
             src="https://lh3.googleusercontent.com/aida-public/AB6AXuAk8ApiqWhiKJtjJ3FbyFN9VEsED9lBR8BfWNTubQ4Hf6cEVAZ-5XZLvg9dQUglO7eMaBHXeCKxLFNtX3frlbUms5eBzvA_2C11eirQ9te6kfO12bs7PwlhBnHtwG20mCh_xUhYMDvCTlh-EoDzGo7gFj8JREkV8GL9XBdxeqclNGHP2AguOgyentolGIWBliFGxqt-0kzmHRc4d89_Eg4cfNmzuR6RXlvQ9Sc-IGLjcJ8aHlD28P9gtg"
+            loading="lazy"
+            decoding="async"
+            onError={(e) => { e.currentTarget.style.display = 'none'; }}
             alt="Cyan-blue 3D flower"
             className="w-full h-full object-contain flower-img drop-shadow-[0_25px_50px_rgba(6,182,212,0.35)]"
           />
@@ -244,6 +256,9 @@ export const AboutSection: React.FC = () => {
         >
           <img
             src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7SzDmR2zc6SWJfxtvxy16ZjlS820YIjQQ1FPEYEmEJJWFXbJWwctJN2xKyPtqNmXk_6uMp5SFqIAgsoQh1IMi8rT2Et-MaDXCdeKa5XY4-eZ2fgMddVB__OAJjqBLIzJPTIhC4mT3Q5hewrwCpXPCDns3xtJyuPknuULtPwh_rEy86PFqsUSSyXiJJhfQotvZF4I-vFVmcrnc6sqsQMSPOoesan1VPQomrO2VvurGH4pP6sKt9jHudA"
+            loading="lazy"
+            decoding="async"
+            onError={(e) => { e.currentTarget.style.display = 'none'; }}
             alt="Pearlescent flower"
             className="w-full h-full object-contain flower-img scale-x-[-1] drop-shadow-[0_30px_60px_rgba(192,132,252,0.4)]"
             style={{ filter: 'hue-rotate(15deg) brightness(1.08) contrast(1.05)' }}
@@ -261,6 +276,9 @@ export const AboutSection: React.FC = () => {
         >
           <img
             src="https://lh3.googleusercontent.com/aida-public/AB6AXuAiDri49_ORUdLu00HqT7KCP7IrLtj_sfU0WSo4bwb_LA9DvspC5s1hkjtfKHIxsbcglDCKI4zeHEK2CteQzPHOO27y-RTH76HY3kAF_QU6kTh_PeLLtEEuBPglQYJGzLGYBddkbjeqksR4sRm6biXMmp-MPHLiGmqofcJfyQgIzUT8M9jvJcIt-oFCDcEK2rAsoTU1RUqmGNRGRm6jfRPwa4TiS3CemC3Id2ux0Itl4LGIqS9Eai8G6Q"
+            loading="lazy"
+            decoding="async"
+            onError={(e) => { e.currentTarget.style.display = 'none'; }}
             alt="Purple bloom"
             className="w-full h-full object-contain flower-img scale-x-[-1] drop-shadow-[0_25px_50px_rgba(124,58,237,0.35)]"
           />

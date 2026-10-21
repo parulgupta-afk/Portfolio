@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState, type MouseEvent as ReactMouseEvent, type ReactNode } from 'react';
+import { Suspense, lazy, useEffect, useLayoutEffect, useRef, useState, type MouseEvent as ReactMouseEvent, type ReactNode } from 'react';
 import { ArrowUpRight, Check, Github, Linkedin, Mail, Menu, X } from 'lucide-react';
 import {
   EXPERIENCE_DATA,
@@ -8,7 +8,7 @@ import {
 } from '../data/portfolioData';
 import type { ProjectItem } from '../types';
 import { PixelPortrait } from './PixelPortrait';
-import { SkillsOrbit } from './SkillsOrbit';
+const SkillsOrbit = lazy(() => import('./SkillsOrbit').then((m) => ({ default: m.SkillsOrbit })));
 import { AboutSection } from './AboutSection';
 
 const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&';
@@ -281,20 +281,34 @@ function SectionShell({ id, label, className, children }: { id: string; label: s
 }
 
 function ProjectModal({ project, onClose }: { project: ProjectItem; onClose: () => void }) {
+  const cardRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
+    const opener = document.activeElement as HTMLElement | null;
+    const card = cardRef.current;
+    card?.querySelector<HTMLElement>('.modal-close')?.focus();
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') return onClose();
+      if (e.key !== 'Tab' || !card) return;
+      const f = card.querySelectorAll<HTMLElement>('a[href], button:not([disabled])');
+      if (!f.length) return;
+      const first = f[0];
+      const last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    };
     window.addEventListener('keydown', onKey);
     const prev = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
     return () => {
       window.removeEventListener('keydown', onKey);
       document.body.style.overflow = prev;
+      opener?.focus?.();
     };
   }, [onClose]);
 
   return (
     <div className="reference-modal" role="dialog" aria-modal="true" aria-label={project.title} onClick={onClose}>
-      <div className="reference-modal-card" onClick={(e) => e.stopPropagation()}>
+      <div className="reference-modal-card" ref={cardRef} onClick={(e) => e.stopPropagation()}>
         <button className="modal-close" type="button" aria-label="Close" onClick={onClose}>
           <X size={20} />
         </button>
@@ -363,6 +377,7 @@ export function CinematicPortfolio() {
     <div className={`reference-shell ${showIntro ? 'is-intro' : 'is-live'}`}>
       {showIntro && <ReferenceIntro onReveal={() => setRevealed(true)} onComplete={() => setShowIntro(false)} />}
 
+      <a className="skip-link" href="#top" onClick={(e) => { e.preventDefault(); document.getElementById('top')?.focus(); document.getElementById('top')?.scrollIntoView(); }}>Skip to content</a>
       <header className="reference-header">
         <a
           className="header-identity"
@@ -418,7 +433,7 @@ export function CinematicPortfolio() {
         </div>
       )}
 
-      <main id="top">
+      <main id="top" tabIndex={-1}>
         {/* ---------- Hero: the pixels assemble into the portrait ---------- */}
         <section className="reference-hero" aria-labelledby="hero-title">
           <div className="portrait-stage">
@@ -475,7 +490,9 @@ export function CinematicPortfolio() {
         </SectionShell>
 
         {/* ---------- Skills: glass cards orbiting a particle tree ---------- */}
-        <SkillsOrbit />
+        <Suspense fallback={<section id="skills" className="skills-section" aria-label="Skills" style={{ minHeight: '100vh' }} />}>
+          <SkillsOrbit />
+        </Suspense>
 
         {/* ---------- Experience ---------- */}
         <SectionShell id="experience" label="04 / Experience" className="experience-section">
