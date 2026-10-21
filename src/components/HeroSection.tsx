@@ -34,7 +34,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onInitSequence, onExpl
   return (
     <header
       id="hero"
-      className="relative min-h-[92vh] flex items-center justify-center pt-28 pb-16 px-4 sm:px-8 md:px-12 lg:px-16 overflow-hidden border-b border-white/5"
+      className="relative min-h-[min(92vh,900px)] flex items-center justify-center pt-24 sm:pt-28 pb-12 sm:pb-16 px-4 sm:px-8 md:px-12 lg:px-16 overflow-hidden border-b border-white/5"
     >
       <div className="relative z-10 w-full max-w-[1440px] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-16 items-center justify-between">
         {/* Left Editorial Copy */}
@@ -61,7 +61,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onInitSequence, onExpl
           <p className="text-sm sm:text-base text-[#a8b3c4] max-w-xl leading-relaxed mt-3">
             {PROFILE.tagline}
           </p>
-
+          <p className="font-code-md text-[11px] sm:text-xs text-[#6b7380] uppercase tracking-widest mt-2">
+            {PROFILE.education}
+          </p>
 
           {/* Action Triggers */}
           <div className="mt-8 flex flex-wrap gap-4 items-center">
@@ -89,13 +91,34 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onInitSequence, onExpl
             </a>
             <a
               href="/resume.pdf"
+              download="Parul_Gupta_Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => playCyberClick(800)}
-              className="inline-flex items-center gap-2 text-xs font-code-md uppercase tracking-widest text-[#c5c6ca] hover:text-[#34d399] px-4 py-3 transition-colors"
-              title="Add public/resume.pdf to enable download"
+              className="inline-flex items-center gap-2 text-xs font-code-md uppercase tracking-widest text-[#c5c6ca] hover:text-[#34d399] px-4 py-3 transition-colors border border-white/15 rounded"
+              title="Download resume (PDF)"
             >
               Resume
+            </a>
+            <a
+              href={PROFILE.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => playCyberClick(750)}
+              className="inline-flex items-center gap-2 text-xs font-code-md uppercase tracking-widest text-[#c5c6ca] hover:text-[#34d399] px-4 py-3 transition-colors"
+              aria-label="GitHub profile"
+            >
+              GitHub
+            </a>
+            <a
+              href={PROFILE.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => playCyberClick(750)}
+              className="inline-flex items-center gap-2 text-xs font-code-md uppercase tracking-widest text-[#c5c6ca] hover:text-[#34d399] px-4 py-3 transition-colors"
+              aria-label="LinkedIn profile"
+            >
+              LinkedIn
             </a>
           </div>
         </div>

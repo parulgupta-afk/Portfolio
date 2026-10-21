@@ -5,12 +5,12 @@ export const PROFILE = {
   handle: 'PARUL_GUPTA',
   role: 'Software Engineer · Full-Stack · AI Systems',
   tagline:
-    'I build full-stack and AI-powered applications across frontend, backend, data, authentication, and deployment layers.',
+    'Computer Science Engineering student building full-stack applications and AI-powered systems, with a focus on practical engineering, reliable backends, and clear user experiences.',
   email: 'parulmahajan863@gmail.com',
   github: 'https://github.com/parulgupta-afk',
   linkedin: 'https://linkedin.com/in/parul-gupta-180250354',
-  education: 'B.Tech CSE · Guru Nanak Dev University · CGPA 8.90',
-  status: 'Open to software engineering roles and internships',
+  education: 'B.Tech CSE · Guru Nanak Dev University · Expected 2028 · CGPA 8.90',
+  status: 'Open to software engineering internships and entry-level roles',
 };
 
 export const PROJECTS_DATA: ProjectItem[] = [
@@ -19,25 +19,28 @@ export const PROJECTS_DATA: ProjectItem[] = [
     modNumber: 'MOD_01',
     category: 'PRICE INTELLIGENCE',
     title: 'Priceloop',
-    tagline: 'AI-powered e-commerce price intelligence platform',
-    description: 'Tracks, matches, and forecasts e-commerce product pricing, with LLM-generated insights on top.',
-    fullOverview: 'Priceloop (formerly PricePulse AI) is an AI-powered price intelligence platform with a React/TypeScript/Tailwind/shadcn frontend and a Python/FastAPI backend. It tracks e-commerce pricing via compliant scraping, matches products and forecasts price trends using scikit-learn and embeddings, and surfaces LLM-generated insights — built in phases from a documented Roadmap, SRS, and DRD.',
+    tagline: 'Price-tracking platform with auth, product tracking, and real Stripe billing',
+    description:
+      'Register, track products across marketplace listings, and manage paid plans via real Stripe Checkout. Analytics, matching, forecasting, and alerts are planned — not yet shipped.',
+    fullOverview:
+      'Priceloop is a price-tracking platform with a React/TypeScript dashboard and a FastAPI backend. Implemented today: JWT authentication, per-user product tracking with marketplace listings, PostgreSQL persistence (Alembic migrations), real Stripe Checkout + webhook subscription updates, health endpoints, and one working scraper adapter (books.toscrape.com) with multi-currency price normalization. Cross-marketplace matching, forecasting, anomaly detection, and alerts are documented as planned and are not claimed as complete.',
     architectureDetails: [
-      'Python/FastAPI backend with PostgreSQL, Redis, and Celery for background scraping/processing jobs',
-      'Compliant, publicly-accessible-data scraping via httpx, BeautifulSoup, and Playwright',
-      'Product matching and price forecasting using scikit-learn, embeddings, and pgvector',
-      'Phased build (Roadmap + SRS + DRD) with Docker and GitHub Actions for CI/infra'
+      'FastAPI + SQLAlchemy + Alembic + PostgreSQL for users, products, listings, and subscriptions',
+      'JWT auth with verified per-user data isolation (covered by backend tests)',
+      'Stripe Checkout sessions and verified webhooks that update subscription status',
+      'Scraper package with one working adapter and fixture-based tests; Celery app present but no tasks registered yet',
+      'Docker Compose (dev + prod layouts), GitHub Actions CI for backend tests and frontend typecheck/build'
     ],
-    tags: ['React', 'TypeScript', 'FastAPI', 'PostgreSQL', 'Redis', 'Celery'],
+    tags: ['React', 'TypeScript', 'FastAPI', 'PostgreSQL', 'Redis', 'Stripe', 'Docker'],
     imageUrl: '',
     statusVariant: 'organic',
     liveDemoUrl: '',
     githubUrl: 'https://github.com/parulgupta-afk/Priceloop',
     specs: {
-      architecture: 'Async scraping pipeline',
-      runtime: 'Celery background workers',
-      status: 'Phased build (in progress)',
-      security: 'Compliant data access'
+      architecture: 'JWT API + dashboard',
+      runtime: 'Postgres + Stripe webhooks',
+      status: 'Core auth & billing live; analytics planned',
+      security: 'JWT isolation + verified webhooks'
     }
   },
 
@@ -46,25 +49,58 @@ export const PROJECTS_DATA: ProjectItem[] = [
     modNumber: 'MOD_02',
     category: 'AI CODING AGENT',
     title: 'CodeForge',
-    tagline: 'Autonomous coding agent with sandboxed execution',
-    description: 'A self-correcting autonomous coding agent that plans, writes, and runs code inside an isolated Docker sandbox.',
-    fullOverview: 'CodeForge is a self-correcting autonomous coding agent built with a Node.js/Express/TypeScript backend and a React/TypeScript frontend. It uses the Anthropic API for agent reasoning and controls a Docker-based sandbox (via dockerode) with custom resource limits, network isolation, and timeout enforcement — built in-house instead of a managed sandbox like E2B, to demonstrate deeper systems engineering.',
+    tagline: 'Autonomous coding agent with bounded repair and optional Docker sandbox',
+    description:
+      'Task → LLM generates Python → execute in sandbox → classify errors → repair (max 3) → result. Focus on bounded autonomy and isolation of untrusted code.',
+    fullOverview:
+      'CodeForge is an autonomous coding agent with a Node.js/Express/TypeScript orchestrator and a React studio UI over Socket.IO. The agent loop uses Gemini (primary), Groq (fallback), or a mock LLM for CI. Generated Python runs either in a local subprocess (default, not a security boundary) or in Docker with network disabled, memory/CPU/PID limits, non-root user, and capability drops. Errors are classified and the agent attempts bounded repairs (max 3). Optional PostgreSQL when DATABASE_URL is set. Tests cover classifier, orchestrator, provider fallback, and local sandbox safety; Docker security tests are separate and require a daemon.',
     architectureDetails: [
-      'Node.js/Express/TypeScript backend driving an agent loop against the Anthropic API',
-      'Docker-based sandbox execution via dockerode with custom resource limits, network isolation, and timeout enforcement',
-      'React/TypeScript frontend for interacting with and observing agent runs',
-      'Deployment-ready client/server architecture, consistent with the rest of the portfolio projects'
+      'Express orchestrator + Socket.IO studio; Gemini / Groq / mock providers with explicit fallback',
+      'Bounded repair loop: generate → execute → classify → repair (capped attempts)',
+      'Docker mode: NetworkMode none, 512MB memory, 1 CPU, PID 64, nobody user, dropped capabilities',
+      'Local subprocess mode for solo demos only — timeouts and output limits, not isolation',
+      'CI: typecheck, tests under USE_MOCK_LLM, server + client build; no real API keys required'
     ],
-    tags: ['React', 'TypeScript', 'Node.js', 'Docker', 'Anthropic API'],
+    tags: ['React', 'TypeScript', 'Node.js', 'Express', 'Socket.IO', 'Docker', 'Gemini API'],
     imageUrl: '',
     statusVariant: 'clinical',
     liveDemoUrl: 'https://code-forge-jade.vercel.app',
     githubUrl: 'https://github.com/parulgupta-afk/CodeForge',
     specs: {
-      architecture: 'Sandboxed agent loop',
-      runtime: 'Isolated Docker runs',
-      status: 'In development',
-      security: 'Network-isolated sandbox'
+      architecture: 'Agent loop + classifier',
+      runtime: 'Docker or local Python',
+      status: 'MVP with tests & CI',
+      security: 'Docker isolation optional; local is not a sandbox'
+    }
+  },
+
+  {
+    id: 'skycall',
+    modNumber: 'MOD_04',
+    category: 'TRAVEL',
+    title: 'SkyCall',
+    tagline: 'Flight meta-search with caching, queues, WebSockets, and click-out booking',
+    description:
+      'Live provider search (Duffel + sample fallback), Redis caching with stampede protection, BullMQ price alerts, authenticated WebSockets, and airline click-out with signed tokens. Booking holds are an engineering model with idempotency — not a completed real booking flow.',
+    fullOverview:
+      'SkyCall is a full-stack flight meta-search platform (React/Vite client, Express/TypeScript API, MongoDB, Redis, BullMQ). Search goes through a FlightProvider abstraction (Duffel live offers + sample fallback). Identical searches are cached in Redis with singleflight stampede protection. Price alerts are evaluated in the background and delivered over JWT-authenticated WebSockets. Booking path is click-out to airline/Google Flights with server-signed anti-tamper tokens; optional booking holds demonstrate idempotency and last-seat race handling as an engineering model, not production PCI booking. Ops: Zod validation, rate limits, request IDs, /health/live and /health/ready, multi-stage Docker, GitHub Actions CI.',
+    architectureDetails: [
+      'Validation (Zod) → Controller → Service → Repository / FlightProvider',
+      'Redis TTL cache with getOrSetCache singleflight; BullMQ retries/backoff for alerts',
+      'JWT WebSocket auth, heartbeat, per-user alert delivery',
+      'Click-out tokens signed with a separate secret; optional booking holds with Idempotency-Key',
+      'Docker multi-stage non-root image, Compose healthchecks, CI badge on the repo'
+    ],
+    tags: ['React', 'TypeScript', 'Express', 'MongoDB', 'Redis', 'BullMQ', 'Duffel API'],
+    imageUrl: '',
+    statusVariant: 'primary',
+    liveDemoUrl: 'https://sky-call-app.vercel.app/',
+    githubUrl: 'https://github.com/parulgupta-afk/SkyCall-app',
+    specs: {
+      architecture: 'Provider abstraction + cache',
+      runtime: 'Redis + BullMQ jobs',
+      status: 'Meta-search + click-out live',
+      security: 'JWT / signed click-out tokens'
     }
   },
 
@@ -92,33 +128,6 @@ export const PROJECTS_DATA: ProjectItem[] = [
       runtime: 'BullMQ queued ingestion',
       status: 'Multi-tenant orgs',
       security: 'Role-based access'
-    }
-  },
-
-  {
-    id: 'skycall',
-    modNumber: 'MOD_04',
-    category: 'TRAVEL',
-    title: 'SkyCall',
-    tagline: 'Real-time flight search & meta-search platform with AI concierge',
-    description: 'A full-stack flight meta-search platform integrating the Duffel API to fetch and normalize real-time offers from 300+ airlines into a single unified model.',
-    fullOverview: 'SkyCall is a full-stack flight search platform built with React, TypeScript, Express, and MongoDB. It integrates the Duffel API to pull live flight offers from 300+ airlines and normalizes them into one internal schema, then layers a redirect-based meta-search booking flow (Skyscanner/Kayak style) with click-out referral logging on top, avoiding payment/PCI overhead entirely.',
-    architectureDetails: [
-      'Modular MVC backend (types/services/controllers/routes) with centralized error handling and a /api/health diagnostics endpoint',
-      '10-minute TTL in-memory caching layer plus rate limiting to cut down redundant third-party API calls',
-      'Google Gemini-powered AI travel concierge with function-calling access to live flight search and Google Maps grounding for airport/terminal queries',
-      'Price-alert system with persistent MongoDB storage for tracking routes and fare-drop notifications'
-    ],
-    tags: ['React', 'TypeScript', 'Express.js', 'MongoDB', 'Duffel API', 'Gemini API'],
-    imageUrl: '',
-    statusVariant: 'primary',
-    liveDemoUrl: 'https://sky-call-app.vercel.app/',
-    githubUrl: 'https://github.com/parulgupta-afk/SkyCall-app',
-    specs: {
-      architecture: 'Cached search path',
-      runtime: '300+ Airlines Aggregated',
-      status: 'Rate-limited & Cached',
-      security: 'JWT / Google OAuth'
     }
   },
 
@@ -218,7 +227,7 @@ export const CAPABILITIES_DATA: CapabilityItem[] = [
     id: 'prc-01',
     code: 'PRC_01',
     title: 'React / Next.js',
-    description: 'Building responsive, component-driven frontends with React.js, Next.js, Tailwind CSS, and TypeScript.',
+    description: 'Building responsive, component-driven frontends with React, TypeScript, Tailwind CSS, and solid HTML/CSS fundamentals.',
     capacity: 90,
     icon: 'code_blocks',
     accentColor: '#34d399',
@@ -357,8 +366,8 @@ export const SKILL_GROUPS: SkillGroup[] = [
     code: 'AI_ML',
     title: 'AI & Machine Learning',
     description:
-      'LLM-powered applications: Gemini API integration, prompt engineering, embeddings and RAG — applied in CodeForge, an autonomous coding agent, and in Priceloop’s LLM-based market analysis.',
-    items: ['Generative AI', 'LLMs', 'LLM API Integration', 'Gemini API', 'Prompt Engineering', 'Embeddings', 'RAG', 'AI-Powered Apps', 'Autonomous AI Agents', 'LLM Market Analysis'],
+      'LLM-powered applications: Gemini API integration, prompt engineering, embeddings and RAG — applied in CodeForge (autonomous coding agent) and product features such as SkyCall’s optional AI concierge and NutriVibe’s ingredient explanations.',
+    items: ['Generative AI', 'LLMs', 'LLM API Integration', 'Gemini API', 'Prompt Engineering', 'Embeddings', 'RAG', 'AI-Powered Apps', 'Autonomous AI Agents', 'AI-Powered Features'],
   },
   {
     id: 'dsa',

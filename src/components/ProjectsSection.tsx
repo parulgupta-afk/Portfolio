@@ -8,9 +8,9 @@ interface ProjectsSectionProps {
   onSelectProject: (project: ProjectItem) => void;
 }
 
-const FIRST_ROW_IDS = ['priceloop', 'codeforge', 'pulseops', 'skycall'] as const;
+const FIRST_ROW_IDS = ['priceloop', 'codeforge', 'skycall', 'pulseops'] as const;
 const SECOND_ROW_IDS = ['nutrivibe', 'verge', 'quilio'] as const;
-const FLAGSHIP_IDS = new Set(['priceloop', 'codeforge', 'pulseops']);
+const FLAGSHIP_IDS = new Set(['priceloop', 'codeforge', 'skycall']);
 
 const ProjectCard: React.FC<{
   project: ProjectItem;
