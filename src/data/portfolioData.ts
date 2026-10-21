@@ -1,4 +1,4 @@
-import { ProjectItem, CapabilityItem, ExperienceItem, SkillGroup } from '../types';
+import { ProjectItem, CapabilityItem, ExperienceItem, SkillGroup, AchievementItem } from '../types';
 
 export const PROFILE = {
   name: 'Parul Gupta',
@@ -327,20 +327,6 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
     impactScore: 'NGO awareness web page'
   },
   {
-    id: 'exp-hackathons',
-    role: 'Hackathon Winner — ₹5,000 Cash Prize',
-    company: 'College hackathons (multiple departments)',
-    period: '',
-    status: 'COMPLETED',
-    bullets: [
-      'Won the most recent college hackathon I participated in and received a cash prize of ₹5,000.',
-      'Participated in hackathons organized by multiple departments at my college.',
-      'Received further hackathon invitations from judges following recognition of the winning project.'
-    ],
-    techStack: ['Team collaboration', 'Rapid prototyping', 'Problem solving'],
-    impactScore: '₹5,000 prize'
-  },
-  {
     id: 'exp-2',
     role: 'Bachelor of Technology (B.Tech), Computer Science and Engineering',
     company: 'Guru Nanak Dev University, Amritsar',
@@ -354,6 +340,30 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
     techStack: ['DSA', 'OOP', 'DBMS / RDBMS', 'SQL', 'MySQL', 'Computer Networks'],
     impactScore: 'CGPA 8.90/10'
   }
+];
+
+
+/** College hackathons — only verified outcomes; no invented event names or dates. */
+export const ACHIEVEMENTS_DATA: AchievementItem[] = [
+  {
+    id: 'ach-hack-win',
+    category: 'hackathon',
+    title: 'Hackathon Winner — ₹5,000 Cash Prize',
+    summary:
+      'Won the most recent college hackathon I participated in and received a cash prize of ₹5,000.',
+    detail:
+      'Following recognition of the winning project, the judges invited me to participate in other hackathons.',
+    highlight: '₹5,000',
+  },
+  {
+    id: 'ach-hack-multi',
+    category: 'hackathon',
+    title: 'Multi-Department College Hackathons',
+    summary:
+      'Participated in hackathons organized by multiple departments at my college.',
+    detail:
+      'Built and presented projects under timed conditions across different departmental events.',
+  },
 ];
 
 /** Skill groups shown in the 3D skills section (order = top to bottom of the spiral). */

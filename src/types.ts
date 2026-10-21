@@ -57,3 +57,12 @@ export interface SkillGroup {
   items: string[];
 }
 
+export interface AchievementItem {
+  id: string;
+  title: string;
+  summary: string;
+  detail?: string;
+  highlight?: string;
+  category: 'hackathon' | 'recognition' | 'academic';
+}
+

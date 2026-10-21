@@ -1,6 +1,7 @@
 import { Suspense, lazy, useEffect, useLayoutEffect, useRef, useState, type MouseEvent as ReactMouseEvent, type ReactNode } from 'react';
 import { ArrowUpRight, Check, Github, Linkedin, Mail, Menu, X } from 'lucide-react';
 import {
+  ACHIEVEMENTS_DATA,
   EXPERIENCE_DATA,
   OTHER_REPOS,
   PROFILE,
@@ -224,6 +225,55 @@ function ExperienceTimeline() {
   );
 }
 
+function AchievementsHeader() {
+  const [ref, inView] = useInView<HTMLDivElement>(0.15);
+  return (
+    <div className="achievements-copy" ref={ref}>
+      <p className={`section-kicker kicker-fade ${inView ? 'is-in' : ''}`}>Recognition</p>
+      <SplitHeading id="achievements-title" lead="Hackathons &amp;" accent="achievements" inView={inView} />
+      <p className={`achievements-intro ${inView ? 'is-in' : ''}`}>
+        Verified college competition outcomes. Event names and project details are listed only when confirmed.
+      </p>
+      <AchievementsGrid />
+    </div>
+  );
+}
+
+function AchievementsGrid() {
+  const [ref, inView] = useInView<HTMLDivElement>(0.12);
+  return (
+    <div
+      ref={ref}
+      className={`achievements-grid ${inView ? 'is-in' : ''}`}
+      role="list"
+      aria-label="Hackathons and achievements"
+    >
+      {ACHIEVEMENTS_DATA.map((item, i) => (
+        <article
+          key={item.id}
+          className="achievement-card"
+          role="listitem"
+          style={{ ['--i' as string]: i }}
+        >
+          <div className="achievement-card-top">
+            <span className="achievement-category">
+              {item.category === 'hackathon' ? 'Hackathon' : item.category}
+            </span>
+            {item.highlight ? (
+              <span className="achievement-highlight" aria-label={`Prize ${item.highlight}`}>
+                {item.highlight}
+              </span>
+            ) : null}
+          </div>
+          <h3 className="achievement-title">{item.title}</h3>
+          <p className="achievement-summary">{item.summary}</p>
+          {item.detail ? <p className="achievement-detail">{item.detail}</p> : null}
+        </article>
+      ))}
+    </div>
+  );
+}
+
 function ContactPanel() {
   const [ref, inView] = useInView<HTMLDivElement>(0.2);
   const btnRef = useRef<HTMLAnchorElement>(null);
@@ -370,6 +420,7 @@ export function CinematicPortfolio() {
     { id: 'work', label: 'Work' },
     { id: 'skills', label: 'Skills' },
     { id: 'experience', label: 'Experience' },
+    { id: 'achievements', label: 'Achievements' },
     { id: 'contact', label: 'Contact' },
   ];
 
@@ -499,8 +550,13 @@ export function CinematicPortfolio() {
           <ExperienceHeader />
         </SectionShell>
 
+        {/* ---------- Hackathons & Achievements ---------- */}
+        <SectionShell id="achievements" label="05 / Achievements" className="achievements-section">
+          <AchievementsHeader />
+        </SectionShell>
+
         {/* ---------- Contact ---------- */}
-        <SectionShell id="contact" label="05 / Contact" className="contact-section">
+        <SectionShell id="contact" label="06 / Contact" className="contact-section">
           <ContactPanel />
         </SectionShell>
       </main>

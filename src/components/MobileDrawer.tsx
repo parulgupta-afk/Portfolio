@@ -35,6 +35,7 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
     { id: 'projects', label: 'Projects' },
     { id: 'capabilities', label: 'Capabilities' },
     { id: 'experience', label: 'Experience' },
+    { id: 'achievements', label: 'Achievements' },
     { id: 'connect', label: 'Contact' },
   ];
 
