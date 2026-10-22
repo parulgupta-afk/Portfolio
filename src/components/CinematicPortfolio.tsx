@@ -349,7 +349,7 @@ function ContactPanel() {
     <span key={i}>Available for work <b>✦</b> Let&rsquo;s build something <b>✦</b> Say hello <b>✦</b></span>
   ));
   return (
-    <div ref={ref} className={ `contact-copy contact-anim ${inView ? 'is-in' : ''}`}>
+    <div ref={ref} className={`contact-copy contact-anim ${inView ? 'is-in' : ''}`}>
       <p className="section-kicker">{PROFILE.status}</p>
       <SplitHeading id="contact-title" lead="Let&rsquo;s" accent="talk" inView={inView} />
       <div className="contact-ticker" aria-hidden="true">
@@ -736,7 +736,7 @@ export function CinematicPortfolio() {
         </SectionShell>
 
         {/* ---------- Contact ---------- */}
-        <SectionShell id="contact" label="06 / Contact" className="contact-section">
+        <SectionShell id="contact" label="06 / Contact" className="contact-section justify-start">
           <span id="connect" className="section-anchor" aria-hidden="true" />
           <ContactPanel />
         </SectionShell>
