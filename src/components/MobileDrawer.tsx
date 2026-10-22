@@ -30,13 +30,13 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
   if (!isOpen) return null;
 
   const links = [
-    { id: 'hero', label: 'Home' },
+    { id: 'top', label: 'Home' },
     { id: 'about', label: 'About' },
-    { id: 'projects', label: 'Projects' },
-    { id: 'capabilities', label: 'Capabilities' },
+    { id: 'skills', label: 'Skills' },
+    { id: 'work', label: 'Projects' },
     { id: 'experience', label: 'Experience' },
-    { id: 'achievements', label: 'Achievements' },
-    { id: 'connect', label: 'Contact' },
+    { id: 'education', label: 'Education' },
+    { id: 'contact', label: 'Contact' },
   ];
 
   return (

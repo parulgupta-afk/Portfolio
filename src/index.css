@@ -1409,3 +1409,125 @@ main:focus { outline: none; }
     transition: none !important;
   }
 }
+
+/* ---------- Education & Achievements (combined) ---------- */
+.education-section {
+  position: relative;
+}
+.education-section .section-label { color: var(--accent-violet, #a78bfa); }
+.education-section .section-kicker { color: var(--accent-violet, #a78bfa); }
+.education-section .split-accent { color: var(--accent-violet, #a78bfa); }
+
+.education-card {
+  margin-top: 2.5rem;
+  padding: 1.75rem 1.5rem;
+  border-radius: 1rem;
+  border: 1px solid var(--line, rgba(255, 255, 255, 0.1));
+  background: color-mix(in srgb, #fff 2.5%, transparent);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.education-card.is-in {
+  opacity: 1;
+  transform: none;
+}
+.education-degree {
+  margin: 0 0 0.35rem;
+  font-size: clamp(1.1rem, 2.4vw, 1.35rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #dce3ed;
+  line-height: 1.3;
+}
+.education-uni {
+  margin: 0 0 0.85rem;
+  font-size: 0.95rem;
+  color: #a8b3c4;
+}
+.education-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+  font-family: var(--mono, ui-monospace, monospace);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #8793a5;
+}
+.education-cgpa {
+  color: var(--accent-violet, #a78bfa);
+  font-weight: 600;
+}
+.education-subhead {
+  margin: 1.5rem 0 0.65rem;
+  font-family: var(--mono, ui-monospace, monospace);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #6b7380;
+}
+.education-coursework ul,
+.education-highlights ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.education-coursework li {
+  font-size: 0.8rem;
+  padding: 0.35rem 0.65rem;
+  border-radius: 999px;
+  border: 1px solid var(--line, rgba(255, 255, 255, 0.1));
+  color: #c5c6ca;
+  background: color-mix(in srgb, #fff 2%, transparent);
+}
+.education-highlights ul {
+  flex-direction: column;
+  gap: 0.55rem;
+}
+.education-highlights li {
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-start;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #a8b3c4;
+}
+.education-highlights li svg {
+  flex-shrink: 0;
+  margin-top: 0.2rem;
+  color: var(--accent-violet, #a78bfa);
+}
+
+.achievements-inline {
+  margin-top: 2.75rem;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.7s ease 0.12s, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.12s;
+}
+.achievements-inline.is-in {
+  opacity: 1;
+  transform: none;
+}
+.achievements-inline-title {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+/* Achievements grid inside education: show immediately when parent is in view */
+.achievements-inline.is-in .achievement-card {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .education-card,
+  .achievements-inline {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

@@ -2,6 +2,7 @@ import { Suspense, lazy, useEffect, useLayoutEffect, useRef, useState, type Mous
 import { ArrowUpRight, Check, Github, Linkedin, Mail, Menu, X } from 'lucide-react';
 import {
   ACHIEVEMENTS_DATA,
+  EDUCATION_DATA,
   EXPERIENCE_DATA,
   OTHER_REPOS,
   PROFILE,
@@ -170,8 +171,8 @@ function ExperienceHeader() {
   const [ref, inView] = useInView<HTMLDivElement>(0.15);
   return (
     <div className="experience-copy" ref={ref}>
-      <p className={`section-kicker kicker-fade ${inView ? 'is-in' : ''}`}>Experience &amp; education</p>
-      <SplitHeading id="experience-title" lead="Where I&rsquo;ve" accent="worked" inView={inView} />
+      <p className={`section-kicker kicker-fade ${inView ? 'is-in' : ''}`}>Professional experience</p>
+      <SplitHeading id="experience-title" lead="Where I&rsquo;ve" accent="built" inView={inView} />
       <ExperienceTimeline />
     </div>
   );
@@ -225,51 +226,71 @@ function ExperienceTimeline() {
   );
 }
 
-function AchievementsHeader() {
+function EducationHeader() {
   const [ref, inView] = useInView<HTMLDivElement>(0.15);
   return (
-    <div className="achievements-copy" ref={ref}>
-      <p className={`section-kicker kicker-fade ${inView ? 'is-in' : ''}`}>Recognition</p>
-      <SplitHeading id="achievements-title" lead="Hackathons &amp;" accent="achievements" inView={inView} />
-      <p className={`achievements-intro ${inView ? 'is-in' : ''}`}>
-        Verified college competition outcomes. Event names and project details are listed only when confirmed.
-      </p>
-      <AchievementsGrid />
-    </div>
-  );
-}
-
-function AchievementsGrid() {
-  const [ref, inView] = useInView<HTMLDivElement>(0.12);
-  return (
-    <div
-      ref={ref}
-      className={`achievements-grid ${inView ? 'is-in' : ''}`}
-      role="list"
-      aria-label="Hackathons and achievements"
-    >
-      {ACHIEVEMENTS_DATA.map((item, i) => (
-        <article
-          key={item.id}
-          className="achievement-card"
-          role="listitem"
-          style={{ ['--i' as string]: i }}
-        >
-          <div className="achievement-card-top">
-            <span className="achievement-category">
-              {item.category === 'hackathon' ? 'Hackathon' : item.category}
-            </span>
-            {item.highlight ? (
-              <span className="achievement-highlight" aria-label={`Prize ${item.highlight}`}>
-                {item.highlight}
-              </span>
-            ) : null}
+    <div className="education-copy" ref={ref}>
+      <p className={`section-kicker kicker-fade ${inView ? 'is-in' : ''}`}>Academics</p>
+      <SplitHeading id="education-title" lead="Education &amp;" accent="achievements" inView={inView} />
+      <div className={`education-card ${inView ? 'is-in' : ''}`}>
+        <div className="education-card-main">
+          <p className="education-degree">{EDUCATION_DATA.degree}</p>
+          <p className="education-uni">{EDUCATION_DATA.university}</p>
+          <div className="education-meta">
+            <span>{EDUCATION_DATA.period}</span>
+            <span className="education-cgpa">CGPA {EDUCATION_DATA.cgpa}</span>
           </div>
-          <h3 className="achievement-title">{item.title}</h3>
-          <p className="achievement-summary">{item.summary}</p>
-          {item.detail ? <p className="achievement-detail">{item.detail}</p> : null}
-        </article>
-      ))}
+        </div>
+        <div className="education-coursework">
+          <p className="education-subhead">Relevant coursework</p>
+          <ul>
+            {EDUCATION_DATA.coursework.map((c) => (
+              <li key={c}>{c}</li>
+            ))}
+          </ul>
+        </div>
+        {EDUCATION_DATA.highlights.length > 0 && (
+          <div className="education-highlights">
+            <p className="education-subhead">Academic highlights</p>
+            <ul>
+              {EDUCATION_DATA.highlights.map((h) => (
+                <li key={h}><Check size={12} />{h}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+      <div className={`achievements-inline ${inView ? 'is-in' : ''}`}>
+        <p className="education-subhead achievements-inline-title">Achievements &amp; Highlights</p>
+        <div
+          className="achievements-grid"
+          role="list"
+          aria-label="Achievements and highlights"
+        >
+          {ACHIEVEMENTS_DATA.map((item, i) => (
+            <article
+              key={item.id}
+              className="achievement-card"
+              role="listitem"
+              style={{ ['--i' as string]: i }}
+            >
+              <div className="achievement-card-top">
+                <span className="achievement-category">
+                  {item.category === 'hackathon' ? 'Hackathon' : item.category}
+                </span>
+                {item.highlight ? (
+                  <span className="achievement-highlight" aria-label={`Prize ${item.highlight}`}>
+                    {item.highlight}
+                  </span>
+                ) : null}
+              </div>
+              <h3 className="achievement-title">{item.title}</h3>
+              <p className="achievement-summary">{item.summary}</p>
+              {item.detail ? <p className="achievement-detail">{item.detail}</p> : null}
+            </article>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
@@ -417,10 +438,10 @@ export function CinematicPortfolio() {
 
   const links = [
     { id: 'about', label: 'About' },
-    { id: 'work', label: 'Work' },
     { id: 'skills', label: 'Skills' },
+    { id: 'work', label: 'Projects' },
     { id: 'experience', label: 'Experience' },
-    { id: 'achievements', label: 'Achievements' },
+    { id: 'education', label: 'Education' },
     { id: 'contact', label: 'Contact' },
   ];
 
@@ -507,8 +528,13 @@ export function CinematicPortfolio() {
         {/* ---------- About ---------- */}
         <AboutSection />
 
-        {/* ---------- Work ---------- */}
-        <SectionShell id="work" label="02 / Selected Work" className="projects-section">
+        {/* ---------- Skills ---------- */}
+        <Suspense fallback={<section id="skills" className="skills-section" aria-label="Skills" style={{ minHeight: '100vh' }} />}>
+          <SkillsOrbit />
+        </Suspense>
+
+        {/* ---------- Projects ---------- */}
+        <SectionShell id="work" label="03 / Selected Work" className="projects-section">
           <div className="projects-copy">
             <p className="section-kicker">Projects</p>
             <h2 id="work-title">Selected <em>work</em></h2>
@@ -540,19 +566,14 @@ export function CinematicPortfolio() {
           </div>
         </SectionShell>
 
-        {/* ---------- Skills: glass cards orbiting a particle tree ---------- */}
-        <Suspense fallback={<section id="skills" className="skills-section" aria-label="Skills" style={{ minHeight: '100vh' }} />}>
-          <SkillsOrbit />
-        </Suspense>
-
         {/* ---------- Experience ---------- */}
         <SectionShell id="experience" label="04 / Experience" className="experience-section">
           <ExperienceHeader />
         </SectionShell>
 
-        {/* ---------- Hackathons & Achievements ---------- */}
-        <SectionShell id="achievements" label="05 / Achievements" className="achievements-section">
-          <AchievementsHeader />
+        {/* ---------- Education & Achievements ---------- */}
+        <SectionShell id="education" label="05 / Education" className="education-section">
+          <EducationHeader />
         </SectionShell>
 
         {/* ---------- Contact ---------- */}

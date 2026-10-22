@@ -83,7 +83,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onInitSequence, onExpl
             </button>
 
             <a
-              href="#connect"
+              href="#contact"
               onClick={() => playCyberClick(850)}
               className="inline-flex items-center gap-2 text-xs font-code-md uppercase tracking-widest text-[#c5c6ca] hover:text-[#34d399] px-4 py-3 transition-colors border border-white/15 rounded"
             >

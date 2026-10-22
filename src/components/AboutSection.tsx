@@ -341,7 +341,7 @@ export const AboutSection: React.FC = () => {
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
               <span>Focus: Full-Stack + AI Systems</span>
             </div>
-            <span className="text-zinc-500">GNDU · Expected 2028</span>
+            <span className="text-zinc-500">GNDU · 2026</span>
           </div>
         </div>
 

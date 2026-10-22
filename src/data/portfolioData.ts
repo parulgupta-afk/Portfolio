@@ -1,4 +1,4 @@
-import { ProjectItem, CapabilityItem, ExperienceItem, SkillGroup, AchievementItem, EducationItem } from '../types';
+import { ProjectItem, CapabilityItem, ExperienceItem, SkillGroup, AchievementItem } from '../types';
 
 export const PROFILE = {
   name: 'Parul Gupta',
@@ -316,40 +316,38 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
     role: 'AI Web Development Intern',
     company: 'InAmigos Foundation',
     period: '',
-    status: '',
+    status: 'COMPLETED',
     bullets: [
       'Selected for the AI Web Development Internship program at InAmigos Foundation.',
-      'Developed an NGO awareness webpage highlighting the organization’s mission, initiatives, and social impact.',
+      'Developed an NGO awareness webpage highlighting the organization\'s mission, initiatives, and social impact.',
       'Used HTML5 and CSS3 to structure and style the webpage, focusing on clear content presentation and user experience.'
     ],
-    techStack: ['HTML5', 'CSS3', 'Web Development'],
+    techStack: ['HTML5', 'CSS3'],
     impactScore: 'NGO awareness webpage'
-  }
+  },
 ];
 
-export const EDUCATION_DATA: EducationItem[] = [
-  {
-    id: 'edu-1',
-    degree: 'Bachelor of Technology (B.Tech) in Computer Science and Engineering',
-    institution: 'Guru Nanak Dev University, Amritsar',
-    period: 'Expected June 2028',
-    status: 'Undergraduate',
-    cgpa: '8.90 / 10',
-    details: [
-      'Academic focus on foundational computer science, core engineering principles, and systems architecture.',
-      '1,000+ Data Structures & Algorithms problems solved across LeetCode and GeeksforGeeks alongside coursework.',
-      'HackerRank Certified: Software Engineer, Problem Solving (Intermediate), SQL (Intermediate).'
-    ],
-    coursework: ['OOP', 'Operating Systems', 'DBMS / RDBMS', 'Computer Networks', 'Data Structures & Algorithms', 'SQL'],
-    certifications: [
-      'HackerRank: Software Engineer',
-      'HackerRank: Problem Solving (Intermediate)',
-      'HackerRank: SQL (Intermediate)'
-    ]
-  }
-];
 
-/** College hackathons — only verified outcomes; no invented event names, projects, or dates. */
+/** College hackathons — only verified outcomes; no invented event names or dates. */
+
+export const EDUCATION_DATA = {
+  degree: 'Bachelor of Technology (B.Tech), Computer Science and Engineering',
+  university: 'Guru Nanak Dev University, Amritsar',
+  period: 'Expected June 2028',
+  cgpa: '8.90/10',
+  coursework: [
+    'Data Structures and Algorithms',
+    'Object-Oriented Programming',
+    'Operating Systems',
+    'Database Management Systems',
+    'Computer Networks',
+  ],
+  highlights: [
+    'Solved 1,000+ DSA problems across LeetCode and GeeksforGeeks alongside coursework.',
+    'HackerRank Certified: Software Engineer, Problem Solving (Intermediate), SQL (Intermediate).',
+  ],
+};
+
 export const ACHIEVEMENTS_DATA: AchievementItem[] = [
   {
     id: 'ach-hack-win',
@@ -362,7 +360,7 @@ export const ACHIEVEMENTS_DATA: AchievementItem[] = [
   {
     id: 'ach-hack-multi',
     category: 'hackathon',
-    title: 'College Hackathons',
+    title: 'Multi-Department College Hackathons',
     summary:
       'Participated in multiple college hackathons organized by different departments.',
   },

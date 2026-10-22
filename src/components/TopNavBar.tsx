@@ -27,10 +27,11 @@ export const TopNavBar: React.FC<TopNavBarProps> = ({
 
   const navLinks = [
     { id: 'about', label: 'About' },
-    { id: 'projects', label: 'Projects' },
+    { id: 'skills', label: 'Skills' },
+    { id: 'work', label: 'Projects' },
     { id: 'experience', label: 'Experience' },
-    { id: 'achievements', label: 'Achievements' },
-    { id: 'connect', label: 'Contact' },
+    { id: 'education', label: 'Education' },
+    { id: 'contact', label: 'Contact' },
   ];
 
   return (
@@ -98,7 +99,7 @@ export const TopNavBar: React.FC<TopNavBarProps> = ({
             type="button"
             onClick={() => {
               playCyberClick(900);
-              onNavigate('connect');
+              onNavigate('contact');
             }}
             className="hidden sm:inline-flex items-center gap-1.5 border border-[#34d399]/40 text-[#34d399] px-3 md:px-4 py-1.5 text-[11px] uppercase tracking-widest hover:bg-[#34d399]/10 transition-colors rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#34d399]"
           >
