@@ -736,7 +736,7 @@ export function CinematicPortfolio() {
         </SectionShell>
 
         {/* ---------- Contact ---------- */}
-        <SectionShell id="contact" label="06 / Contact" className="contact-section justify-start">
+        <SectionShell id="contact" label="06 / Contact" className="contact-section">
           <span id="connect" className="section-anchor" aria-hidden="true" />
           <ContactPanel />
         </SectionShell>
