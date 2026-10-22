@@ -334,6 +334,13 @@ export const EDUCATION_DATA = {
   university: 'Guru Nanak Dev University, Amritsar',
   period: 'Expected June 2028',
   cgpa: '8.90/10',
+  cgpaValue: 8.9,
+  dsaSolved: 1000,
+  certifications: [
+    { name: 'Software Engineer', issuer: 'HackerRank' },
+    { name: 'Problem Solving (Intermediate)', issuer: 'HackerRank' },
+    { name: 'SQL (Intermediate)', issuer: 'HackerRank' },
+  ],
   coursework: [
     'Data Structures and Algorithms',
     'Object-Oriented Programming',
@@ -355,6 +362,7 @@ export const ACHIEVEMENTS_DATA: AchievementItem[] = [
     summary:
       'Won the most recent college hackathon and received a ₹5,000 cash prize. The judges subsequently invited me to participate in additional hackathons.',
     highlight: '₹5,000',
+    prizeValue: 5000,
   },
   {
     id: 'ach-hack-multi',

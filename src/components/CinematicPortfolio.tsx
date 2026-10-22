@@ -1,8 +1,6 @@
 import { Suspense, lazy, useEffect, useLayoutEffect, useRef, useState, type MouseEvent as ReactMouseEvent, type ReactNode } from 'react';
-import { ArrowUpRight, Award, Check, Github, GraduationCap, Linkedin, Mail, Menu, X } from 'lucide-react';
+import { ArrowUpRight, Check, Github, Linkedin, Mail, Menu, X } from 'lucide-react';
 import {
-  ACHIEVEMENTS_DATA,
-  EDUCATION_DATA,
   EXPERIENCE_DATA,
   OTHER_REPOS,
   PROFILE,
@@ -12,6 +10,8 @@ import type { ProjectItem } from '../types';
 import { PixelPortrait } from './PixelPortrait';
 const SkillsOrbit = lazy(() => import('./SkillsOrbit').then((m) => ({ default: m.SkillsOrbit })));
 import { AboutSection } from './AboutSection';
+import { EducationAchievements } from './EducationAchievements';
+import { SplitHeading, useInView } from './motion';
 
 const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&';
 
@@ -154,52 +154,6 @@ function PillButton({ href, children, filled = false }: { href: string; children
 }
 
 
-/** Adds `is-in` to the element once it scrolls into view (stays on, so animations play once). */
-function useInView<T extends HTMLElement>(threshold = 0.2) {
-  const ref = useRef<T>(null);
-  const [inView, setInView] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    if (typeof IntersectionObserver === 'undefined') {
-      setInView(true);
-      return;
-    }
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true);
-          io.disconnect();
-        }
-      },
-      { threshold },
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, [threshold]);
-  return [ref, inView] as const;
-}
-
-/** Headline whose letters rise out of a mask one after another. */
-function SplitHeading({ id, lead, accent, inView }: { id: string; lead: string; accent: string; inView: boolean }) {
-  let n = 0;
-  const word = (text: string, cls?: string) =>
-    text.split(' ').map((w, wi) => (
-      <span className={`split-word ${cls ?? ''}`} key={`${text}-${wi}`}>
-        {w.split('').map((c, ci) => (
-          <span className="split-mask" key={ci} aria-hidden="true">
-            <span className="split-char" style={{ transitionDelay: `${n++ * 38}ms` }}>{c}</span>
-          </span>
-        ))}
-      </span>
-    ));
-  return (
-    <h2 id={id} className={`split-heading ${inView ? 'is-in' : ''}`} aria-label={`${lead} ${accent}`}>
-      {word(lead)} {word(accent, 'split-accent')}
-    </h2>
-  );
-}
-
 function ExperienceHeader() {
   const [ref, inView] = useInView<HTMLDivElement>(0.15);
   return (
@@ -260,75 +214,6 @@ function ExperienceTimeline() {
           </article>
         );
       })}
-    </div>
-  );
-}
-
-function EducationHeader() {
-  const [ref, inView] = useInView<HTMLDivElement>(0.15);
-  return (
-    <div className="education-copy" ref={ref}>
-      <p className={`section-kicker kicker-fade ${inView ? 'is-in' : ''}`}>Academics</p>
-      <SplitHeading id="education-title" lead="Education &amp;" accent="achievements" inView={inView} />
-      <div className={`education-card ${inView ? 'is-in' : ''}`}>
-        <div className="education-card-main">
-          <p className="education-degree">{EDUCATION_DATA.degree}</p>
-          <p className="education-uni">{EDUCATION_DATA.university}</p>
-          <div className="education-meta">
-            <span>{EDUCATION_DATA.period}</span>
-            <span className="education-cgpa">CGPA {EDUCATION_DATA.cgpa}</span>
-          </div>
-        </div>
-        <div className="education-coursework">
-          <p className="education-subhead">Relevant coursework</p>
-          <ul>
-            {EDUCATION_DATA.coursework.map((c) => (
-              <li key={c}>{c}</li>
-            ))}
-          </ul>
-        </div>
-        {EDUCATION_DATA.highlights.length > 0 && (
-          <div className="education-highlights">
-            <p className="education-subhead">Academic highlights</p>
-            <ul>
-              {EDUCATION_DATA.highlights.map((h) => (
-                <li key={h}><Check size={12} />{h}</li>
-              ))}
-            </ul>
-          </div>
-        )}
-      </div>
-      <div className={`achievements-inline ${inView ? 'is-in' : ''}`}>
-        <p className="education-subhead achievements-inline-title">Achievements &amp; Highlights</p>
-        <div
-          className="achievements-grid"
-          role="list"
-          aria-label="Achievements and highlights"
-        >
-          {ACHIEVEMENTS_DATA.map((item, i) => (
-            <article
-              key={item.id}
-              className="achievement-card"
-              role="listitem"
-              style={{ ['--i' as string]: i }}
-            >
-              <div className="achievement-card-top">
-                <span className="achievement-category">
-                  {item.category === 'hackathon' ? 'Hackathon' : item.category}
-                </span>
-                {item.highlight ? (
-                  <span className="achievement-highlight" aria-label={`Prize ${item.highlight}`}>
-                    {item.highlight}
-                  </span>
-                ) : null}
-              </div>
-              <h3 className="achievement-title">{item.title}</h3>
-              <p className="achievement-summary">{item.summary}</p>
-              {item.detail ? <p className="achievement-detail">{item.detail}</p> : null}
-            </article>
-          ))}
-        </div>
-      </div>
     </div>
   );
 }
@@ -732,11 +617,11 @@ export function CinematicPortfolio() {
 
         {/* ---------- Education & Achievements ---------- */}
         <SectionShell id="education" label="05 / Education" className="education-section">
-          <EducationHeader />
+          <EducationAchievements />
         </SectionShell>
 
         {/* ---------- Contact ---------- */}
-        <SectionShell id="contact" label="06 / Contact" className="contact-section">
+        <SectionShell id="contact" label="06 / Contact" className="contact-section justify-start">
           <span id="connect" className="section-anchor" aria-hidden="true" />
           <ContactPanel />
         </SectionShell>

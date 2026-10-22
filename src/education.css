@@ -1,0 +1,111 @@
+/* Education & Achievements — animated. Accent: violet (academics), amber/gold (recognition). */
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+.education-section { position: relative; }
+.education-section .section-label, .education-section .section-kicker { color: var(--accent-violet); }
+.education-section .split-accent { color: var(--accent-violet); }
+
+.edu-subhead { margin: 1.6rem 0 .7rem; font: 10px var(--mono); letter-spacing: .14em; text-transform: uppercase; color: #8d8f9c; }
+
+/* --- stat tiles --- */
+.edu-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin-top: 3rem; }
+.edu-stat { position: relative; padding: 1.4rem 1.2rem; border: 1px solid rgba(255,255,255,.12); border-radius: 16px; background: linear-gradient(145deg, rgba(224,75,255,.08), rgba(255,255,255,.015)); opacity: 0; transform: translateY(30px) scale(.97); transition: opacity .7s ease, transform .8s cubic-bezier(.16,1,.3,1), border-color .3s; overflow: hidden; }
+.edu-stat:nth-child(2) { transition-delay: .12s; background: linear-gradient(145deg, rgba(91,134,255,.1), rgba(255,255,255,.015)); }
+.edu-stat:nth-child(3) { transition-delay: .24s; background: linear-gradient(145deg, rgba(47,224,200,.09), rgba(255,255,255,.015)); }
+.edu-stats.is-in .edu-stat { opacity: 1; transform: none; }
+.edu-stat:hover { border-color: rgba(224,75,255,.55); }
+.edu-stat strong { display: block; font: 800 clamp(1.8rem, 4vw, 3rem)/1 var(--display); letter-spacing: -.05em; font-variant-numeric: tabular-nums; background: linear-gradient(90deg, #fff, #c9b5ff); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.edu-stat span:last-child { display: block; margin-top: .6rem; font: 10px var(--mono); letter-spacing: .1em; text-transform: uppercase; color: #a9abb8; }
+
+/* --- degree + certs --- */
+.edu-grid { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr); gap: 1rem; margin-top: 1rem; }
+.edu-degree, .edu-certs, .ach-card { opacity: 0; transform: translateY(40px); transition: opacity .8s ease .2s, transform .9s cubic-bezier(.16,1,.3,1) .2s; }
+.edu-grid.is-in .edu-degree, .edu-grid.is-in .edu-certs, .ach-wrap.is-in .ach-card { opacity: 1; transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); }
+.edu-grid.is-in .edu-certs { transition-delay: .4s; }
+
+.edu-degree { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1.5rem; align-items: center; padding: clamp(1.3rem, 3vw, 2.2rem); border: 1px solid rgba(224,75,255,.28); border-radius: 22px; background: radial-gradient(circle at var(--mx, 80%) var(--my, 0%), rgba(224,75,255,.16), transparent 55%), linear-gradient(145deg, rgba(255,255,255,.04), rgba(255,255,255,.01)); overflow: hidden; will-change: transform; }
+.edu-grid.is-in .edu-degree { transition: transform .25s ease-out; }
+.edu-badge { display: inline-flex; align-items: center; gap: 6px; padding: .35rem .7rem; border: 1px solid rgba(224,75,255,.4); border-radius: 999px; font: 10px var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--accent-violet); }
+.edu-degree h3 { margin: 1rem 0 .4rem; font: 700 clamp(1.2rem, 2.6vw, 1.9rem)/1.15 var(--display); letter-spacing: -.03em; color: #f4f4f7; }
+.edu-uni { margin: 0; color: #b4b6c4; font-size: .95rem; }
+.edu-period { display: inline-flex; align-items: center; gap: .6rem; margin: .9rem 0 0; font: 11px var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--accent-amber); }
+.edu-period i { width: 9px; height: 9px; border-radius: 50%; background: var(--accent-amber); box-shadow: 0 0 0 0 rgba(255,179,71,.6); animation: eduPulse 2s ease-out infinite; }
+@keyframes eduPulse { to { box-shadow: 0 0 0 12px rgba(255,179,71,0); } }
+
+.edu-chips { display: flex; flex-wrap: wrap; gap: .5rem; margin: 0; padding: 0; list-style: none; }
+.edu-chips li { padding: .4rem .75rem; border: 1px solid rgba(255,255,255,.14); border-radius: 999px; font-size: .78rem; color: #d4d6e0; background: rgba(255,255,255,.03); opacity: 0; transform: translateY(12px) scale(.9); transition: opacity .5s ease, transform .6s cubic-bezier(.3,1.5,.5,1), border-color .2s, background .2s; transition-delay: calc(.5s + var(--i) * 90ms); }
+.edu-grid.is-in .edu-chips li { opacity: 1; transform: none; }
+.edu-chips li:hover { border-color: var(--accent-violet); background: rgba(224,75,255,.1); transform: translateY(-3px); transition-delay: 0s; }
+
+/* --- CGPA ring --- */
+.edu-ring { position: relative; width: clamp(130px, 17vw, 190px); aspect-ratio: 1; }
+.edu-ring svg { width: 100%; height: 100%; transform: rotate(-90deg); overflow: visible; }
+.edu-ring circle { fill: none; stroke-width: 7; stroke-linecap: round; }
+.edu-ring-track { stroke: rgba(255,255,255,.09); }
+.edu-ring-bar { stroke: url(#edu-ring-grad); stroke-dashoffset: var(--circ); transition: stroke-dashoffset 2s cubic-bezier(.16,1,.3,1) .3s; filter: drop-shadow(0 0 8px rgba(224,75,255,.55)); }
+.edu-ring.is-in .edu-ring-bar { stroke-dashoffset: calc(var(--offset)); }
+.edu-ring-label { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; }
+.edu-ring-label strong { font: 800 clamp(1.5rem, 3vw, 2.3rem)/1 var(--display); letter-spacing: -.05em; color: #fff; font-variant-numeric: tabular-nums; }
+.edu-ring-label span { margin-top: .3rem; font: 9px var(--mono); letter-spacing: .1em; text-transform: uppercase; color: #a9abb8; }
+
+/* --- certifications --- */
+.edu-certs { padding: clamp(1.3rem, 3vw, 2rem); border: 1px solid rgba(91,134,255,.28); border-radius: 22px; background: linear-gradient(160deg, rgba(91,134,255,.1), rgba(255,255,255,.01)); }
+.edu-certs .edu-subhead { margin-top: 0; }
+.edu-certs ul { display: grid; gap: .7rem; margin: 0; padding: 0; list-style: none; }
+.edu-certs li { position: relative; display: flex; gap: .8rem; align-items: center; padding: .9rem 1rem; border: 1px solid rgba(255,255,255,.12); border-radius: 14px; background: rgba(255,255,255,.03); overflow: hidden; opacity: 0; transform: translateX(26px); transition: opacity .6s ease, transform .7s cubic-bezier(.16,1,.3,1), border-color .25s; transition-delay: calc(.7s + var(--i) * 140ms); }
+.edu-grid.is-in .edu-certs li { opacity: 1; transform: none; }
+.edu-certs li::after { content: ""; position: absolute; inset: 0; background: linear-gradient(105deg, transparent 35%, rgba(255,255,255,.14) 50%, transparent 65%); transform: translateX(-120%); }
+.edu-certs li:hover { border-color: var(--accent-blue); }
+.edu-certs li:hover::after { transform: translateX(120%); transition: transform .8s ease; }
+.edu-certs svg { flex: none; color: var(--accent-cyan); }
+.edu-certs strong { display: block; font-size: .88rem; color: #f1f1f6; font-weight: 600; }
+.edu-certs em { display: block; margin-top: .2rem; font: normal 10px var(--mono); letter-spacing: .06em; text-transform: uppercase; color: #8d8f9c; }
+
+/* --- achievements --- */
+.ach-wrap { margin-top: 3.2rem; }
+.ach-heading { margin-top: 0; color: var(--accent-amber); }
+.ach-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.ach-slot--wide { grid-column: 1 / -1; }
+.ach-card { position: relative; height: 100%; padding: clamp(1.3rem, 3vw, 2.2rem); border: 1px solid rgba(255,255,255,.14); border-radius: 22px; background: radial-gradient(circle at var(--mx, 50%) var(--my, 0%), rgba(255,255,255,.08), transparent 55%), rgba(255,255,255,.025); overflow: hidden; isolation: isolate; will-change: transform; }
+.ach-wrap.is-in .ach-slot:nth-child(2) .ach-card { transition-delay: .35s; }
+.ach-wrap.is-in .ach-card { transition: opacity .8s ease, transform .25s ease-out; }
+.ach-top { display: flex; align-items: center; gap: .8rem; flex-wrap: wrap; }
+.ach-icon { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; background: rgba(255,179,71,.14); color: var(--accent-amber); }
+.ach-category { font: 10px var(--mono); letter-spacing: .12em; text-transform: uppercase; color: #a9abb8; }
+.ach-card h3 { margin: 1.1rem 0 .6rem; font: 700 clamp(1.15rem, 2.4vw, 1.7rem)/1.2 var(--display); letter-spacing: -.03em; color: #f6f6f9; }
+.ach-card p { margin: 0; max-width: 62ch; color: #b4b6c4; font-size: .92rem; line-height: 1.7; }
+.ach-detail { margin-top: .6rem !important; color: #9496a4 !important; }
+
+.ach-card--gold { border-color: transparent; background: radial-gradient(circle at var(--mx, 85%) var(--my, 0%), rgba(255,179,71,.2), transparent 55%), #0b0a08; }
+.ach-card--gold::before { content: ""; position: absolute; z-index: -2; inset: -60%; background: conic-gradient(from 0deg, transparent 0 55%, #ffb347 72%, #fff2c8 80%, #ff4d5e 88%, transparent 100%); animation: achSpin 6s linear infinite; }
+.ach-card--gold::after { content: ""; position: absolute; z-index: -1; inset: 1.5px; border-radius: 21px; background: radial-gradient(circle at var(--mx, 85%) var(--my, 0%), rgba(255,179,71,.16), transparent 55%), #0b0a08; }
+@keyframes achSpin { to { transform: rotate(360deg); } }
+.ach-card--gold .ach-icon { background: linear-gradient(135deg, #ffb347, #ff4d5e); color: #1a0d00; box-shadow: 0 0 28px rgba(255,179,71,.5); animation: trophyBob 3s ease-in-out infinite; }
+@keyframes trophyBob { 50% { transform: translateY(-4px) rotate(-6deg); } }
+.ach-prize { margin-left: auto; padding: .45rem 1rem; border-radius: 999px; background: linear-gradient(120deg, #ffb347, #fff2c8, #ffb347); background-size: 200% 100%; color: #2a1700; font: 800 clamp(1rem, 2.2vw, 1.5rem)/1 var(--display); letter-spacing: -.03em; font-variant-numeric: tabular-nums; animation: prizeShine 3s linear infinite; }
+@keyframes prizeShine { to { background-position: -200% 0; } }
+
+.ach-confetti { position: absolute; z-index: 1; right: 4.5rem; top: 2.2rem; width: 0; height: 0; pointer-events: none; }
+.ach-confetti i { position: absolute; left: 0; top: 0; width: 7px; height: 11px; border-radius: 2px; opacity: 0; }
+.ach-wrap.is-in .ach-confetti i { animation: confettiPop 1.8s cubic-bezier(.15,.8,.3,1) forwards; animation-delay: calc(.5s + var(--d)); }
+@keyframes confettiPop { 0% { opacity: 1; transform: translate(0,0) rotate(0) scale(.4); } 70% { opacity: 1; } 100% { opacity: 0; transform: translate(var(--x), calc(var(--y) + 90px)) rotate(calc(var(--r) * 3)) scale(1); } }
+
+@media (max-width: 860px) {
+  .edu-grid { grid-template-columns: 1fr; }
+  .edu-degree { grid-template-columns: 1fr; }
+  .edu-ring { justify-self: center; order: -1; }
+  .ach-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 520px) {
+  .edu-stats { gap: .6rem; }
+  .edu-stat { padding: 1rem .8rem; }
+  .ach-prize { margin-left: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .edu-stat, .edu-degree, .edu-certs, .edu-certs li, .edu-chips li, .ach-card { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .edu-ring-bar { transition: none !important; stroke-dashoffset: var(--offset) !important; }
+  .edu-period i, .ach-card--gold::before, .ach-card--gold .ach-icon, .ach-prize { animation: none !important; }
+  .ach-confetti { display: none; }
+}
+
+/* "ACHIEVEMENTS" is a long unbreakable word — keep this heading within the column on small screens */
+.education-section .split-heading { font-size: clamp(2.1rem, 9.2vw, 6.6rem); }

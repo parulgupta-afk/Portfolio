@@ -63,6 +63,7 @@ export interface AchievementItem {
   summary: string;
   detail?: string;
   highlight?: string;
+  prizeValue?: number;
   category: 'hackathon' | 'recognition' | 'academic';
 }
 
