@@ -31,6 +31,35 @@ function ReferenceIntro({ onReveal, onComplete }: { onReveal: () => void; onComp
   const [name, setName] = useState('');
   const [done, setDone] = useState(false);
   const wordRef = useRef<HTMLDivElement>(null);
+  const skipRef = useRef<HTMLButtonElement>(null);
+
+  const handleSkip = () => {
+    if (done) return;
+    setDone(true);
+    onReveal();
+    onComplete();
+  };
+
+  // Keep Skip button immediately easy to reach for keyboard and screen-reader users
+  useEffect(() => {
+    skipRef.current?.focus();
+  }, []);
+
+  // Keyboard accessibility: Escape skips intro, Tab prevents focus escaping into obscured content
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        handleSkip();
+      } else if (e.key === 'Tab') {
+        e.preventDefault();
+        skipRef.current?.focus();
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [done]);
 
   // when PORTFOLIO appears, match the hero wordmark's size and position exactly so the hand-off is seamless
   useLayoutEffect(() => {
@@ -53,6 +82,10 @@ function ReferenceIntro({ onReveal, onComplete }: { onReveal: () => void; onComp
   }, [phase]);
 
   useEffect(() => {
+    if (typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      handleSkip();
+      return;
+    }
     const target = PROFILE.name.toUpperCase();
     let frame = 0;
     let finishTimer = 0;
@@ -85,18 +118,18 @@ function ReferenceIntro({ onReveal, onComplete }: { onReveal: () => void; onComp
     <div
       className={`reference-intro reference-intro--${phase} ${done ? 'is-done' : ''}`}
       role="dialog"
+      aria-modal="true"
       aria-label="Portfolio introduction"
     >
       <div className="intro-dot" />
       <div className="intro-scramble" ref={wordRef}>{copy}</div>
       <div className="intro-scanline" />
       <button
+        ref={skipRef}
         className="intro-skip"
         type="button"
-        onClick={() => {
-          onReveal();
-          onComplete();
-        }}
+        aria-label="Skip introduction"
+        onClick={handleSkip}
       >
         SKIP <span>+</span>
       </button>
@@ -205,10 +238,12 @@ function ExperienceTimeline() {
                 <span className="exp-role">{e.role}</span>
                 <span className="exp-company">{e.company}</span>
               </span>
-              <span className="exp-meta">
-                {e.period ? <span>{e.period}</span> : null}
-                {e.status ? <span>{e.status}</span> : null}
-              </span>
+              {(e.period || e.status) ? (
+                <span className="exp-meta">
+                  {e.period ? <span>{e.period}</span> : null}
+                  {e.status ? <span>{e.status}</span> : null}
+                </span>
+              ) : null}
               <span className="exp-plus" aria-hidden="true"><i /><i /></span>
             </button>
             <div className="exp-body">
@@ -450,14 +485,21 @@ function ProjectModal({ project, onClose }: { project: ProjectItem; onClose: () 
 }
 
 export function CinematicPortfolio() {
-  const reduced = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const [showIntro, setShowIntro] = useState(!reduced);
-  const [revealed, setRevealed] = useState(reduced);
+  const [showIntro, setShowIntro] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    return !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  });
+  const [revealed, setRevealed] = useState(() => {
+    if (typeof window === 'undefined') return true;
+    return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  });
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openProject, setOpenProject] = useState<ProjectItem | null>(null);
 
   const [activeSection, setActiveSection] = useState('top');
+  const introMountedRef = useRef(showIntro);
 
+  // Lock body scroll while intro overlay is open
   useEffect(() => {
     document.body.style.overflow = showIntro ? 'hidden' : '';
     return () => {
@@ -465,22 +507,85 @@ export function CinematicPortfolio() {
     };
   }, [showIntro]);
 
+  // Restore focus to top landmark when intro overlay closes
   useEffect(() => {
-    const sectionIds = ['top', 'about', 'work', 'skills', 'experience', 'achievements', 'contact'];
-    const onScroll = () => {
-      const scrollPos = window.scrollY + 220;
-      for (let i = sectionIds.length - 1; i >= 0; i--) {
-        const id = sectionIds[i];
-        const el = document.getElementById(id);
-        if (el && el.offsetTop <= scrollPos) {
-          setActiveSection(id);
-          break;
+    if (introMountedRef.current && !showIntro) {
+      const topEl = document.getElementById('top');
+      if (topEl) {
+        topEl.focus({ preventScroll: true });
+      }
+    }
+    introMountedRef.current = showIntro;
+  }, [showIntro]);
+
+  // Robust viewport-based active section tracking in both scroll directions
+  useEffect(() => {
+    let ticking = false;
+
+    const updateActiveSection = () => {
+      const scrollY = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+
+      // Bottom of page: activate contact
+      if (scrollY + windowHeight >= documentHeight - 50) {
+        setActiveSection((prev) => (prev !== 'contact' ? 'contact' : prev));
+        ticking = false;
+        return;
+      }
+
+      // Top of page: activate top
+      if (scrollY < 100) {
+        setActiveSection((prev) => (prev !== 'top' ? 'top' : prev));
+        ticking = false;
+        return;
+      }
+
+      const activationPoint = windowHeight * 0.35;
+
+      // Check education block first (nested inside experience section)
+      const eduEl = document.getElementById('education');
+      if (eduEl) {
+        const eduRect = eduEl.getBoundingClientRect();
+        if (eduRect.top <= activationPoint && eduRect.bottom > activationPoint) {
+          setActiveSection((prev) => (prev !== 'education' ? 'education' : prev));
+          ticking = false;
+          return;
         }
       }
+
+      // Check top-level sections in reverse DOM order
+      const sections = ['contact', 'achievements', 'experience', 'skills', 'work', 'about'];
+      for (const id of sections) {
+        const el = document.getElementById(id);
+        if (!el) continue;
+        const rect = el.getBoundingClientRect();
+        if (rect.top <= activationPoint) {
+          setActiveSection((prev) => (prev !== id ? id : prev));
+          ticking = false;
+          return;
+        }
+      }
+
+      setActiveSection((prev) => (prev !== 'top' ? 'top' : prev));
+      ticking = false;
     };
+
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        window.requestAnimationFrame(updateActiveSection);
+      }
+    };
+
     window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-    return () => window.removeEventListener('scroll', onScroll);
+    window.addEventListener('resize', onScroll, { passive: true });
+    updateActiveSection();
+
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
   }, []);
 
   useEffect(() => {
@@ -501,6 +606,7 @@ export function CinematicPortfolio() {
     { id: 'work', label: 'Work' },
     { id: 'skills', label: 'Skills' },
     { id: 'experience', label: 'Experience' },
+    { id: 'education', label: 'Education' },
     { id: 'achievements', label: 'Achievements' },
     { id: 'contact', label: 'Contact' },
   ];
@@ -549,8 +655,9 @@ export function CinematicPortfolio() {
         <button
           className="mobile-menu-button"
           type="button"
-          aria-label="Open menu"
+          aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
           aria-expanded={mobileOpen}
+          aria-controls="mobile-navigation-menu"
           onClick={() => setMobileOpen((open) => !open)}
         >
           {mobileOpen ? <X size={18} /> : <Menu size={18} />}
@@ -558,7 +665,13 @@ export function CinematicPortfolio() {
       </header>
 
       {mobileOpen && (
-        <div className="reference-mobile-menu">
+        <div
+          id="mobile-navigation-menu"
+          className="reference-mobile-menu"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Navigation menu"
+        >
           {links.map((l) => {
             const isActive = activeSection === l.id;
             return (
@@ -652,7 +765,6 @@ export function CinematicPortfolio() {
 
         {/* ---------- Experience & Education ---------- */}
         <SectionShell id="experience" label="04 / Experience &amp; Education" className="experience-section">
-          <span id="education" className="section-anchor" aria-hidden="true" />
           <ExperienceHeader />
         </SectionShell>
 

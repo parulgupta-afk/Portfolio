@@ -694,8 +694,15 @@ button:focus-visible {
   font-size: 15px;
 }
 
-.intro-skip:hover {
+.intro-skip:hover,
+.intro-skip:focus-visible {
   color: var(--white);
+}
+
+.intro-skip:focus-visible {
+  outline: 2px solid var(--white);
+  outline-offset: 4px;
+  border-radius: 4px;
 }
 
 .intro-corner {
@@ -1436,7 +1443,8 @@ section[id],
 .projects-section,
 .experience-section,
 .achievements-section,
-.contact-section {
+.contact-section,
+.education-section-block {
   scroll-margin-top: 80px;
 }
 

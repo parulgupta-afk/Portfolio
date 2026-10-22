@@ -334,11 +334,10 @@ export const EDUCATION_DATA: EducationItem[] = [
     institution: 'Guru Nanak Dev University, Amritsar',
     period: 'Expected June 2028',
     status: 'Undergraduate',
-    cgpa: '8.90 / 10',
+    cgpa: '8.90/10',
     details: [
       'Academic focus on foundational computer science, core engineering principles, and systems architecture.',
-      '1,000+ Data Structures & Algorithms problems solved across LeetCode and GeeksforGeeks alongside coursework.',
-      'HackerRank Certified: Software Engineer, Problem Solving (Intermediate), SQL (Intermediate).'
+      'Active undergraduate coursework across algorithms, databases, operating systems, and computer networks.'
     ],
     coursework: ['OOP', 'Operating Systems', 'DBMS / RDBMS', 'Computer Networks', 'Data Structures & Algorithms', 'SQL'],
     certifications: [
