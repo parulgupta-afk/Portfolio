@@ -63,15 +63,17 @@ export const ExperienceSection: React.FC = () => {
                       {item.role}
                     </h3>
                     <div className="flex items-center gap-2">
-                      <span
-                        className={`font-code-md text-[10px] border px-3 py-1 rounded w-fit uppercase font-semibold ${
-                          isActive
-                            ? 'bg-[#34d399]/10 text-[#34d399] border-[#34d399]/30'
-                            : 'bg-white/5 text-[#c5c6ca]/70 border-white/10'
-                        }`}
-                      >
-                        [ {item.status} ]
-                      </span>
+                      {item.status ? (
+                        <span
+                          className={`font-code-md text-[10px] border px-3 py-1 rounded w-fit uppercase font-semibold ${
+                            isActive
+                              ? 'bg-[#34d399]/10 text-[#34d399] border-[#34d399]/30'
+                              : 'bg-white/5 text-[#c5c6ca]/70 border-white/10'
+                          }`}
+                        >
+                          [ {item.status} ]
+                        </span>
+                      ) : null}
                       {item.impactScore && (
                         <span className="font-code-md text-[10px] text-[#38bdf8] bg-[#38bdf8]/10 border border-[#38bdf8]/20 px-2 py-1 rounded hidden sm:inline-block">
                           {item.impactScore}
@@ -82,7 +84,7 @@ export const ExperienceSection: React.FC = () => {
 
                   {/* Company & Period */}
                   <p className="font-code-md text-[#34d399]/80 text-xs sm:text-sm mb-6">
-                    {item.company} // {item.period}
+                    {item.company}{item.period ? ` // ${item.period}` : ''}
                   </p>
 
                   {/* Bullet Points */}

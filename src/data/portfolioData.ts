@@ -327,7 +327,6 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
   },
 ];
 
-
 /** College hackathons — only verified outcomes; no invented event names or dates. */
 
 export const EDUCATION_DATA = {

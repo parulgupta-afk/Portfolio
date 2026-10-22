@@ -48,7 +48,7 @@ export const TopNavBar: React.FC<TopNavBarProps> = ({
           type="button"
           onClick={() => {
             playCyberClick(700);
-            onNavigate('hero');
+            onNavigate('top');
           }}
           className="font-semibold text-sm md:text-base text-[#dce3ed] flex items-center gap-2.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#34d399]"
         >
