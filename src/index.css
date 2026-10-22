@@ -293,7 +293,7 @@ button:focus-visible {
 .info-section,
 .projects-section,
 .experience-section,
-.contact-section {
+.education-section {
   display: grid;
   grid-template-columns: minmax(90px, .42fr) minmax(0, 1.8fr);
   gap: clamp(2rem, 7vw, 9rem);

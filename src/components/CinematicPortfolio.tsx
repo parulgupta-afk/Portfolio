@@ -349,7 +349,7 @@ function ContactPanel() {
     <span key={i}>Available for work <b>✦</b> Let&rsquo;s build something <b>✦</b> Say hello <b>✦</b></span>
   ));
   return (
-    <div ref={ref} className={`contact-copy contact-anim ${inView ? 'is-in' : ''}`}>
+    <div ref={ref} className={ `contact-copy contact-anim ${inView ? 'is-in' : ''}`}>
       <p className="section-kicker">{PROFILE.status}</p>
       <SplitHeading id="contact-title" lead="Let&rsquo;s" accent="talk" inView={inView} />
       <div className="contact-ticker" aria-hidden="true">
