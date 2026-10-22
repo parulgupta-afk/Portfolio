@@ -79,8 +79,9 @@ function AchievementCard({ item, index, active }: { item: (typeof ACHIEVEMENTS_D
         <span className="ach-icon"><Icon size={20} /></span>
         <span className="ach-category">{item.category === 'hackathon' ? 'Hackathon' : item.category}</span>
         {featured && (
-          <span className="ach-prize" aria-label={`Prize ${item.highlight}`}>
+          <span className="ach-prize">
             <span aria-hidden="true">₹{prize}</span>
+            <span className="sr-only">Prize {item.highlight}</span>
           </span>
         )}
       </div>

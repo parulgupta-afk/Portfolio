@@ -656,7 +656,7 @@ export function SkillsOrbit() {
                     <button
                       type="button"
                       onClick={() => goTo(i)}
-                      className={`group flex w-full items-center gap-2 py-[3px] text-left transition duration-300 ${
+                      className={`group flex w-full min-h-[24px] items-center gap-2 py-[5px] text-left transition duration-300 ${
                         on ? 'translate-x-2 font-semibold text-cyan-400' : 'text-white/60 hover:text-white'
                       }`}
                     >
