@@ -35,8 +35,10 @@ export interface ExperienceItem {
   id: string;
   role: string;
   company: string;
-  period: string;
-  status: 'ACTIVE' | 'COMPLETED';
+  /** Omit when the dates are not confirmed — never guess. */
+  period?: string;
+  /** Omit when completion/ongoing state is not confirmed. */
+  status?: 'ACTIVE' | 'COMPLETED';
   bullets: string[];
   techStack: string[];
   impactScore?: string;

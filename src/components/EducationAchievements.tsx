@@ -1,4 +1,4 @@
-import { useRef, type CSSProperties, type MouseEvent as ReactMouseEvent } from 'react';
+import { useId, useRef, type CSSProperties, type MouseEvent as ReactMouseEvent } from 'react';
 import { Award, BadgeCheck, GraduationCap, Trophy } from 'lucide-react';
 import { ACHIEVEMENTS_DATA, EDUCATION_DATA } from '../data/portfolioData';
 import { SplitHeading, useCountUp, useInView } from './motion';
@@ -97,6 +97,7 @@ export function EducationAchievements() {
   const [ringRef, ringIn] = useInView<HTMLDivElement>(0.3);
   const [achRef, achIn] = useInView<HTMLDivElement>(0.25);
   const tilt = useTilt<HTMLElement>();
+  const gradId = `edu-ring-grad-${useId().replace(/:/g, '')}`;
   const cgpa = useCountUp(EDUCATION_DATA.cgpaValue, ringIn, 1900, 2);
   const offset = RING_C * (1 - EDUCATION_DATA.cgpaValue / 10);
 
@@ -128,14 +129,14 @@ export function EducationAchievements() {
           <div className={`edu-ring ${ringIn ? 'is-in' : ''}`} ref={ringRef} role="img" aria-label={`CGPA ${EDUCATION_DATA.cgpa}`}>
             <svg viewBox="0 0 128 128" aria-hidden="true">
               <defs>
-                <linearGradient id="edu-ring-grad" x1="0" y1="0" x2="1" y2="1">
+                <linearGradient id={gradId} x1="0" y1="0" x2="1" y2="1">
                   <stop offset="0" stopColor="#e04bff" />
                   <stop offset=".55" stopColor="#5b86ff" />
                   <stop offset="1" stopColor="#2fe0c8" />
                 </linearGradient>
               </defs>
               <circle className="edu-ring-track" cx="64" cy="64" r={RING_R} />
-              <circle className="edu-ring-bar" cx="64" cy="64" r={RING_R} strokeDasharray={RING_C} style={{ ['--offset' as string]: offset, ['--circ' as string]: RING_C } as CSSProperties} />
+              <circle className="edu-ring-bar" cx="64" cy="64" r={RING_R} stroke={`url(#${gradId})`} strokeDasharray={RING_C} style={{ ['--offset' as string]: offset, ['--circ' as string]: RING_C } as CSSProperties} />
             </svg>
             <div className="edu-ring-label" aria-hidden="true">
               <strong>{cgpa}</strong>

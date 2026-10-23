@@ -218,8 +218,6 @@ export const OTHER_REPOS = [
   { name: 'Him-Agni', url: 'https://github.com/parulgupta-afk/Him-Agni' },
   { name: 'AI-Chat-Application', url: 'https://github.com/parulgupta-afk/AI-Chat-Application' },
   { name: 'text-summarizer', url: 'https://github.com/parulgupta-afk/text-summarizer' },
-  { name: 'Razorpay-clone', url: 'https://github.com/parulgupta-afk/Razorpay-clone' },
-  { name: 'Fund-the-Cause', url: 'https://github.com/parulgupta-afk/Fund-the-Cause' },
 ];
 
 export const CAPABILITIES_DATA: CapabilityItem[] = [
@@ -315,8 +313,7 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
     id: 'exp-inamigos',
     role: 'AI Web Development Intern',
     company: 'InAmigos Foundation',
-    period: '',
-    status: 'COMPLETED',
+    // period/status intentionally omitted: dates have not been confirmed
     bullets: [
       'Selected for the AI Web Development Internship program at InAmigos Foundation.',
       'Developed an NGO awareness webpage highlighting the organization\'s mission, initiatives, and social impact.',

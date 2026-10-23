@@ -1,5 +1,4 @@
 /* Education & Achievements — animated. Accent: violet (academics), amber/gold (recognition). */
-.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 .education-section { position: relative; }
 .education-section .section-label, .education-section .section-kicker { color: var(--accent-violet); }
 .education-section .split-accent { color: var(--accent-violet); }
@@ -41,7 +40,7 @@
 .edu-ring svg { width: 100%; height: 100%; transform: rotate(-90deg); overflow: visible; }
 .edu-ring circle { fill: none; stroke-width: 7; stroke-linecap: round; }
 .edu-ring-track { stroke: rgba(255,255,255,.09); }
-.edu-ring-bar { stroke: url(#edu-ring-grad); stroke-dashoffset: var(--circ); transition: stroke-dashoffset 2s cubic-bezier(.16,1,.3,1) .3s; filter: drop-shadow(0 0 8px rgba(224,75,255,.55)); }
+.edu-ring-bar { stroke-dashoffset: var(--circ); transition: stroke-dashoffset 2s cubic-bezier(.16,1,.3,1) .3s; filter: drop-shadow(0 0 8px rgba(224,75,255,.55)); }
 .edu-ring.is-in .edu-ring-bar { stroke-dashoffset: calc(var(--offset)); }
 .edu-ring-label { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; }
 .edu-ring-label strong { font: 800 clamp(1.5rem, 3vw, 2.3rem)/1 var(--display); letter-spacing: -.05em; color: #fff; font-variant-numeric: tabular-nums; }

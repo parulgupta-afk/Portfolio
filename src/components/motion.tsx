@@ -48,7 +48,8 @@ export function SplitHeading({ id, lead, accent, inView }: { id: string; lead: s
 
 /** Counts from 0 to `target` once `active` flips true. Jumps straight to the end for reduced-motion users. */
 export function useCountUp(target: number, active: boolean, duration = 1600, decimals = 0) {
-  const [value, setValue] = useState(0);
+  const prefersReduced = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const [value, setValue] = useState(prefersReduced ? target : 0);
   useEffect(() => {
     if (!active) return;
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

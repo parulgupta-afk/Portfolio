@@ -332,6 +332,51 @@ function ProjectModal({ project, onClose }: { project: ProjectItem; onClose: () 
   );
 }
 
+
+/** Section ids in DOM order. The hero is tracked as 'top'. Keep in sync with the <SectionShell id> values below. */
+const SECTION_IDS = ['about', 'skills', 'work', 'experience', 'education', 'contact'] as const;
+
+function useActiveSection(ids: readonly string[]) {
+  const [active, setActive] = useState('top');
+  useEffect(() => {
+    const targets: Array<{ id: string; el: Element }> = [];
+    const hero = document.querySelector('.reference-hero');
+    if (hero) targets.push({ id: 'top', el: hero });
+    ids.forEach((id) => {
+      // `data-track` wrappers stay mounted when a section swaps its own root (e.g. lazy-loaded skills)
+      const el = document.querySelector(`[data-track="${id}"]`) ?? document.getElementById(id);
+      if (el) targets.push({ id, el });
+    });
+    const visible = new Set<string>();
+    const pick = () => {
+      const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4;
+      if (atBottom) return setActive(ids[ids.length - 1]);
+      // last section in DOM order that currently crosses the band
+      const current = [...targets].reverse().find((t) => visible.has(t.id));
+      if (current) setActive(current.id);
+    };
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          const id = targets.find((t) => t.el === e.target)?.id;
+          if (!id) return;
+          if (e.isIntersecting) visible.add(id);
+          else visible.delete(id);
+        });
+        pick();
+      },
+      { rootMargin: '-35% 0px -60% 0px', threshold: 0 },
+    );
+    targets.forEach((t) => io.observe(t.el));
+    window.addEventListener('scroll', pick, { passive: true });
+    return () => {
+      io.disconnect();
+      window.removeEventListener('scroll', pick);
+    };
+  }, [ids]);
+  return active;
+}
+
 export function CinematicPortfolio() {
   const [showIntro, setShowIntro] = useState(() => {
     if (typeof window === 'undefined') return false;
@@ -343,9 +388,9 @@ export function CinematicPortfolio() {
   });
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openProject, setOpenProject] = useState<ProjectItem | null>(null);
+  const [marqueePaused, setMarqueePaused] = useState(false);
 
-  const [activeSection, setActiveSection] = useState('top');
-  const introMountedRef = useRef(showIntro);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   // Lock body scroll while intro overlay is open
   useEffect(() => {
@@ -355,99 +400,35 @@ export function CinematicPortfolio() {
     };
   }, [showIntro]);
 
-  // Restore focus to top landmark when intro overlay closes
+  // Active section = the section crossing a thin band near the upper-middle of the viewport
+  const activeSection = useActiveSection(SECTION_IDS);
+
+  // Mobile menu: Escape closes and returns focus to the toggle; menu closes if the viewport grows past the mobile breakpoint
   useEffect(() => {
-    if (introMountedRef.current && !showIntro) {
-      const topEl = document.getElementById('top');
-      if (topEl) {
-        topEl.focus({ preventScroll: true });
-      }
-    }
-    introMountedRef.current = showIntro;
-  }, [showIntro]);
-
-  // Robust viewport-based active section tracking in both scroll directions
-  useEffect(() => {
-    let ticking = false;
-
-    const updateActiveSection = () => {
-      const scrollY = window.scrollY;
-      const windowHeight = window.innerHeight;
-      const documentHeight = document.documentElement.scrollHeight;
-
-      // Bottom of page: activate contact
-      if (scrollY + windowHeight >= documentHeight - 50) {
-        setActiveSection((prev) => (prev !== 'contact' ? 'contact' : prev));
-        ticking = false;
-        return;
-      }
-
-      // Top of page: activate top
-      if (scrollY < 100) {
-        setActiveSection((prev) => (prev !== 'top' ? 'top' : prev));
-        ticking = false;
-        return;
-      }
-
-      const activationPoint = windowHeight * 0.35;
-
-      // Check education block first (nested inside experience section)
-      const eduEl = document.getElementById('education');
-      if (eduEl) {
-        const eduRect = eduEl.getBoundingClientRect();
-        if (eduRect.top <= activationPoint && eduRect.bottom > activationPoint) {
-          setActiveSection((prev) => (prev !== 'education' ? 'education' : prev));
-          ticking = false;
-          return;
-        }
-      }
-
-      // Check top-level sections in reverse DOM order
-      const sections = ['contact', 'achievements', 'experience', 'skills', 'work', 'about'];
-      for (const id of sections) {
-        const el = document.getElementById(id);
-        if (!el) continue;
-        const rect = el.getBoundingClientRect();
-        if (rect.top <= activationPoint) {
-          setActiveSection((prev) => (prev !== id ? id : prev));
-          ticking = false;
-          return;
-        }
-      }
-
-      setActiveSection((prev) => (prev !== 'top' ? 'top' : prev));
-      ticking = false;
-    };
-
-    const onScroll = () => {
-      if (!ticking) {
-        ticking = true;
-        window.requestAnimationFrame(updateActiveSection);
-      }
-    };
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll, { passive: true });
-    updateActiveSection();
-
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onScroll);
-    };
-  }, []);
-
-  useEffect(() => {
+    if (!mobileOpen) return;
     const close = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setMobileOpen(false);
+      if (event.key === 'Escape') {
+        setMobileOpen(false);
+        menuButtonRef.current?.focus();
+      }
     };
+    const mq = window.matchMedia('(min-width: 861px)');
+    const onChange = () => mq.matches && setMobileOpen(false);
     window.addEventListener('keydown', close);
-    return () => window.removeEventListener('keydown', close);
-  }, []);
+    mq.addEventListener('change', onChange);
+    return () => {
+      window.removeEventListener('keydown', close);
+      mq.removeEventListener('change', onChange);
+    };
+  }, [mobileOpen]);
 
   const jump = (id: string) => {
     setMobileOpen(false);
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    document.getElementById(id)?.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth' });
   };
+
+  const modalOpen = showIntro || openProject !== null;
 
   const links = [
     { id: 'about', label: 'About' },
@@ -462,8 +443,8 @@ export function CinematicPortfolio() {
     <div className={`reference-shell ${showIntro ? 'is-intro' : 'is-live'}`}>
       {showIntro && <ReferenceIntro onReveal={() => setRevealed(true)} onComplete={() => setShowIntro(false)} />}
 
-      <a className="skip-link" href="#top" onClick={(e) => { e.preventDefault(); document.getElementById('top')?.focus(); document.getElementById('top')?.scrollIntoView(); }}>Skip to content</a>
-      <header className="reference-header">
+      <a className="skip-link" tabIndex={modalOpen ? -1 : undefined} href="#top" onClick={(e) => { e.preventDefault(); document.getElementById('top')?.focus(); document.getElementById('top')?.scrollIntoView(); }}>Skip to content</a>
+      <header className="reference-header" inert={modalOpen}>
         <a
           className="header-identity"
           href="#top"
@@ -500,6 +481,7 @@ export function CinematicPortfolio() {
           <a className="header-contact" href={`mailto:${PROFILE.email}`}>Contact</a>
         </div>
         <button
+          ref={menuButtonRef}
           className="mobile-menu-button"
           type="button"
           aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
@@ -512,13 +494,7 @@ export function CinematicPortfolio() {
       </header>
 
       {mobileOpen && (
-        <div
-          id="mobile-navigation-menu"
-          className="reference-mobile-menu"
-          role="dialog"
-          aria-modal="true"
-          aria-label="Navigation menu"
-        >
+        <nav id="mobile-navigation-menu" className="reference-mobile-menu" aria-label="Mobile navigation">
           {links.map((l) => {
             const isActive = activeSection === l.id;
             return (
@@ -539,25 +515,33 @@ export function CinematicPortfolio() {
           <a href="/resume.pdf" target="_blank" rel="noreferrer">Resume <ArrowUpRight size={15} /></a>
           <a href={PROFILE.github} target="_blank" rel="noreferrer">GitHub <Github size={15} /></a>
           <a href={`mailto:${PROFILE.email}`}>Contact <Mail size={15} /></a>
-        </div>
+        </nav>
       )}
 
-      <main id="top" tabIndex={-1}>
+      <main id="top" tabIndex={-1} inert={modalOpen}>
         {/* ---------- Hero: the pixels assemble into the portrait ---------- */}
         <section className="reference-hero" aria-labelledby="hero-title">
           <div className="portrait-stage">
             <PixelPortrait src="/portrait-cutout.png" play={revealed} label="Pixel portrait of Parul Gupta" className="pixel-portrait" />
           </div>
           <div className="hero-vignette" />
-          <h1 className="reference-wordmark" id="hero-title">PORTFOLIO</h1>
+          <h1 className="reference-wordmark" id="hero-title"><span className="sr-only">{PROFILE.name} — </span>PORTFOLIO</h1>
           <div className="hero-caption">
-            Parul Gupta <em>{PROFILE.role}</em>
-            <span>{PROFILE.email}</span>
+            <strong className="hero-name">{PROFILE.name}</strong>
+            <em>{PROFILE.role}</em>
+            <p className="hero-edu">{PROFILE.education}</p>
+            <p className="hero-intro">{PROFILE.tagline}</p>
           </div>
           <div className="hero-actions">
-            <PillButton href={`mailto:${PROFILE.email}`} filled>Contact</PillButton>
-            <PillButton href="/resume.pdf">Resume</PillButton>
-            <PillButton href={PROFILE.github}>GitHub</PillButton>
+            <button type="button" className="pill-button pill-button--filled" onClick={() => jump('work')}>
+              View Projects <ArrowUpRight size={13} />
+            </button>
+            <PillButton href="/resume.pdf">View Resume</PillButton>
+            <PillButton href={`mailto:${PROFILE.email}`}>Contact Me</PillButton>
+            <span className="hero-social">
+              <a href={PROFILE.github} target="_blank" rel="noreferrer" aria-label="GitHub profile (opens in a new tab)"><Github size={16} /></a>
+              <a href={PROFILE.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn profile (opens in a new tab)"><Linkedin size={16} /></a>
+            </span>
           </div>
           <div className="hero-scroll">Scroll to explore <span /></div>
         </section>
@@ -566,22 +550,36 @@ export function CinematicPortfolio() {
         <AboutSection />
 
         {/* ---------- Skills ---------- */}
-        <Suspense fallback={<section id="skills" className="skills-section" aria-label="Skills" style={{ minHeight: '100vh' }} />}>
-          <SkillsOrbit />
-        </Suspense>
+        <div data-track="skills">
+          <Suspense fallback={<section id="skills" className="skills-section" aria-label="Skills" style={{ minHeight: '100vh' }} />}>
+            <SkillsOrbit />
+          </Suspense>
+        </div>
 
         {/* ---------- Projects ---------- */}
         <SectionShell id="work" label="03 / Selected Work" className="projects-section">
-          <span id="projects" className="section-anchor" aria-hidden="true" />
           <div className="projects-copy">
             <p className="section-kicker">Projects</p>
             <h2 id="work-title">Selected <em>work</em></h2>
-            <div className="project-marquee" aria-label="Selected projects">
+            <div className="project-marquee-controls">
+              <button type="button" className="marquee-toggle" aria-pressed={marqueePaused} onClick={() => setMarqueePaused((v) => !v)}>
+                {marqueePaused ? 'Play motion' : 'Pause motion'}
+              </button>
+            </div>
+            <div className={`project-marquee ${marqueePaused ? 'is-paused' : ''}`} role="group" aria-label="Selected projects">
               {[PROJECTS_DATA.slice(0, Math.ceil(PROJECTS_DATA.length / 2)), PROJECTS_DATA.slice(Math.ceil(PROJECTS_DATA.length / 2))].map((row, rowIndex) => (
                 <div className="project-marquee-window" key={rowIndex}>
                   <div className={`project-marquee-track ${rowIndex === 0 ? 'project-marquee-track--left' : 'project-marquee-track--right'}`}>
-                    {[...row, ...row].map((p, index) => (
-                      <article className="project-marquee-card" key={`${p.id}-${index}`}>
+                    {[...row, ...row].map((p, index) => {
+                      const isCopy = index >= row.length; // second pass only exists to make the loop seamless
+                      return (
+                      <article
+                        className="project-marquee-card"
+                        key={`${p.id}-${index}`}
+                        data-copy={isCopy ? 'true' : undefined}
+                        aria-hidden={isCopy ? true : undefined}
+                        inert={isCopy}
+                      >
                         <div className="project-marquee-card-top"><span>{p.modNumber.replace('MOD_', '')}</span><span>{p.category}</span></div>
                         <h3>{p.title}</h3>
                         <p>{p.description}</p>
@@ -597,7 +595,8 @@ export function CinematicPortfolio() {
                           {p.githubUrl && <a href={p.githubUrl} target="_blank" rel="noreferrer">Source <ArrowUpRight size={12} /></a>}
                         </div>
                       </article>
-                    ))}
+                      );
+                    })}
                   </div>
                 </div>
               ))}
@@ -622,12 +621,11 @@ export function CinematicPortfolio() {
 
         {/* ---------- Contact ---------- */}
         <SectionShell id="contact" label="06 / Contact" className="contact-section justify-start">
-          <span id="connect" className="section-anchor" aria-hidden="true" />
           <ContactPanel />
         </SectionShell>
       </main>
 
-      <footer className="reference-footer">
+      <footer className="reference-footer" inert={modalOpen}>
         <span>© {new Date().getFullYear()} {PROFILE.name}</span>
         <span><span className="live-dot" /> {PROFILE.role}</span>
       </footer>

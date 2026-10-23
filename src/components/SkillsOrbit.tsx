@@ -593,6 +593,37 @@ export function SkillsOrbit() {
   const pal = PALETTES[active % PALETTES.length];
   const counter = `${pad2(active + 1)} / ${pad2(total)}`;
 
+  // WebGL unavailable (or failed to initialise): show every category as a plain, readable grid instead of an empty stage
+  if (glFailed) {
+    return (
+      <section id="skills" className="relative border-t border-white/10 bg-[#04020d] px-4 py-24 text-slate-100 sm:px-8 md:px-12" aria-labelledby="skills-title">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-3 inline-flex items-center gap-2.5 font-mono text-xs tracking-wider text-rose-400">
+            <span className="rounded border border-rose-500/20 bg-rose-500/10 px-2 py-0.5">03 // CAPABILITIES</span>
+          </div>
+          <h2 id="skills-title" className="text-4xl font-light leading-[1.08] tracking-tight text-white md:text-5xl lg:text-6xl">
+            What I{' '}
+            <em className="bg-gradient-to-r from-rose-400 via-fuchsia-300 to-cyan-300 bg-clip-text font-serif font-normal italic text-transparent">build with</em>
+          </h2>
+          <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {skills.map((g) => (
+              <li key={g.id} className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
+                <p className="font-mono text-[10px] uppercase tracking-widest text-white/40">{g.code}</p>
+                <h3 className="mt-2 text-lg font-semibold text-white">{g.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate-300">{g.description}</p>
+                <ul className="mt-4 flex flex-wrap gap-1.5">
+                  {g.items.map((item) => (
+                    <li key={item} className="rounded-full border border-white/15 px-2.5 py-1 font-mono text-[10px] text-slate-200">{item}</li>
+                  ))}
+                </ul>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section
       id="skills"

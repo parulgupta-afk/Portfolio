@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from 'react';
 
 export const AboutSection: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
-  const labelRef = useRef<HTMLSpanElement>(null);
   const flowerTlRef = useRef<HTMLDivElement>(null);
   const flowerMlRef = useRef<HTMLDivElement>(null);
   const flowerBlRef = useRef<HTMLDivElement>(null);
@@ -16,7 +15,6 @@ export const AboutSection: React.FC = () => {
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     const section = sectionRef.current;
-    const label = labelRef.current;
     const flowers = {
       tl: flowerTlRef.current,
       ml: flowerMlRef.current,
@@ -43,7 +41,6 @@ export const AboutSection: React.FC = () => {
           el.style.opacity = '0.95';
         }
       });
-      if (label) label.textContent = 'ACCESSIBILITY MODE';
       return;
     }
 
@@ -120,7 +117,6 @@ export const AboutSection: React.FC = () => {
         flowers.br.style.opacity = String(Math.min(1, p2 * 1.7));
       }
 
-      if (label) label.textContent = `SCROLL REVEAL ${Math.round(p * 100)}%`;
     }
 
     function tick() {
@@ -301,16 +297,8 @@ export const AboutSection: React.FC = () => {
           </span>
         </h2>
 
-        <div className="my-7 flex items-center justify-center gap-3">
-          <div className="h-px w-10 bg-zinc-800" />
-          <span
-            id="scroll-percent"
-            ref={labelRef}
-            className="text-[10px] font-mono tracking-widest text-zinc-500 tabular-nums"
-          >
-            SCROLL REVEAL 0%
-          </span>
-          <div className="h-px w-10 bg-zinc-800" />
+        <div className="my-7 flex items-center justify-center" aria-hidden="true">
+          <div className="h-px w-24 bg-zinc-800" />
         </div>
 
         {/* Bio */}
